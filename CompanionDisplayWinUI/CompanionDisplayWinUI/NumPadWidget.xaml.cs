@@ -2,8 +2,6 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
-using System;
-using System.Runtime.InteropServices;
 using System.Threading;
 using Windows.System;
 using Windows.UI.Core;
@@ -68,7 +66,7 @@ namespace CompanionDisplayWinUI
                     });
                 }
             }
-            if(CleanUp == false)
+            if(!CleanUp)
             {
                 Thread.Sleep(300);
                 Thread thread = new(UpdateUI);

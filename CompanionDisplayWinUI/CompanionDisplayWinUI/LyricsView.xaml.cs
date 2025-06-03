@@ -27,10 +27,6 @@ namespace CompanionDisplayWinUI
         }
 
         // Constants for Window Styles
-        private const int GWL_STYLE = -16;
-        private const int WS_SIZEBOX = 0x00040000;   // Enables resizing
-        private const int WS_MAXIMIZEBOX = 0x00010000; // Enables maximize button
-        private const int WS_MINIMIZEBOX = 0x00020000; // Enables minimize button
         private static readonly IntPtr HWND_TOPMOST = new(-1);
         private static readonly IntPtr HWND_NOTOPMOST = new(-2);
         private const uint SWP_NOMOVE = 0x0002;
@@ -64,7 +60,7 @@ namespace CompanionDisplayWinUI
         }
         private void PlayPauseBtn_Click(object sender, RoutedEventArgs e)
         {
-            PressKey(sender, null);
+            KeyPressAPI.callKeys(int.Parse((string)(sender as HyperlinkButton).Tag), -1);
         }
         public bool CleanUp = false, IsDragging = false;
         private async void SongProgressBar_Tapped(object sender, TappedRoutedEventArgs e)
@@ -118,29 +114,6 @@ namespace CompanionDisplayWinUI
             catch
             {
                 IsDragging = false;
-            }
-        }
-        [LibraryImport("user32.dll", SetLastError = true)]
-        static partial void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
-        public static void PressKey(VirtualKey key, bool up)
-        {
-            const int KEYEVENTF_EXTENDEDKEY = 0x1;
-            const int KEYEVENTF_KEYUP = 0x2;
-            if (up)
-                keybd_event((byte)key, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, (UIntPtr)0);
-            else
-                keybd_event((byte)key, 0x45, KEYEVENTF_EXTENDEDKEY, (UIntPtr)0);
-        }
-        private void PressKey(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                PressKey((VirtualKey)int.Parse(((HyperlinkButton)sender).Tag.ToString()), up: false);
-                PressKey((VirtualKey)int.Parse(((HyperlinkButton)sender).Tag.ToString()), up: true);
-            }
-            catch
-            {
-
             }
         }
         private void ChangeSong()

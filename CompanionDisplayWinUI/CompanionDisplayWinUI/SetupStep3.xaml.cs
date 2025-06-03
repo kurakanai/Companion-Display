@@ -44,13 +44,13 @@ namespace CompanionDisplayWinUI
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TimeDemo.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, (byte)Globals.SleepColorR, (byte)Globals.SleepColorG, (byte)Globals.SleepColorB));
-            DateDemo.Foreground = new SolidColorBrush(Windows.UI.Color.FromArgb(255, (byte)Globals.SleepColorR, (byte)(byte)Globals.SleepColorG, (byte)Globals.SleepColorB));
+            DateDemo.Foreground = TimeDemo.Foreground;
             OvrColorSleepMode.IsChecked = (bool)Globals.OverrideColor;
         }
         private void SleepModeColor_ColorChanged(ColorPicker sender, ColorChangedEventArgs args)
         {
             TimeDemo.Foreground = new SolidColorBrush(sender.Color);
-            DateDemo.Foreground = new SolidColorBrush(sender.Color);
+            DateDemo.Foreground = TimeDemo.Foreground;
         }
 
         private void Opacity_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)

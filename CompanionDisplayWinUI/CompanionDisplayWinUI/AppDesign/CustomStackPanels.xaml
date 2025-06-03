@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="CompanionDisplayDefaultStackPanel" TargetType="StackPanel">
+        <Setter Property="Spacing" Value="2"/>
+    </Style>
+    
+    <Style x:Key="CompanionDisplayStackPanelSettings" TargetType="StackPanel">
+        <Setter Property="Spacing" Value="20"/>
+    </Style>
+    
+    <Style x:Key="CompanionDisplayStackPanelBrowser" TargetType="StackPanel">
+        <Setter Property="Spacing" Value="25"/>
+        <Setter Property="Margin" Value="0,40,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayStackPanelPadding10" TargetType="StackPanel">
+        <Setter Property="Spacing" Value="10"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayStackPanelPadding10Horizontal" TargetType="StackPanel" BasedOn="{StaticResource CompanionDisplayStackPanelPadding10}">
+        <Setter Property="Orientation" Value="Horizontal"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayStackPanelHorizontalBase" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal"/>
+    </Style>
+    <Style x:Key="CompanionDisplayStackPanelHorizontal" TargetType="StackPanel" BasedOn="{StaticResource CompanionDisplayStackPanelHorizontalBase}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+    
+    <Style x:Key="CompanionDisplayStackPanelPadding10Stretch" TargetType="StackPanel" BasedOn="{StaticResource CompanionDisplayStackPanelPadding10}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+    
+    <Style x:Key="CompanionDisplayStackPanelFullPage" TargetType="StackPanel" BasedOn="{StaticResource CompanionDisplayStackPanelPadding10}">
+        <Setter Property="Padding" Value="0,35,0,10"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayAdobeStackPanel" TargetType="StackPanel" BasedOn="{StaticResource CompanionDisplayDefaultStackPanel}">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="Margin" Value="10,0,0,0"/>
+    </Style>
+    <Style x:Key="CompanionDisplayStackPanelMiddle" TargetType="StackPanel" BasedOn="{StaticResource CompanionDisplayDefaultStackPanel}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="CompanionDisplayStackPanelHorizontalSpacing5" TargetType="StackPanel" BasedOn="{StaticResource CompanionDisplayStackPanelHorizontalBase}">
+        <Setter Property="Spacing" Value="5"/>
+    </Style>
+</ResourceDictionary>

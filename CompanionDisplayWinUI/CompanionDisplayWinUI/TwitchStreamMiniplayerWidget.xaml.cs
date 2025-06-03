@@ -25,7 +25,7 @@ namespace CompanionDisplayWinUI
             if (FTU)
             {
                 await BrowserClass.CreateWebviewProperly(Player, new Uri("https://dashboard.twitch.tv/popout/stream-manager/stream-preview"));
-                FTU = false;
+                FTU = !FTU;
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)

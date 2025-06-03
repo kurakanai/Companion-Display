@@ -46,8 +46,7 @@ namespace CompanionDisplayWinUI
             using HttpClient client = new();
             UpdateBtn.IsEnabled = false;
             UpdateBtn.Content = AppStrings.updateUpdating;
-            UpdateSystem.PerformUpdate();
-
+            UpdateSystem.PerformUpdate(true);
         }
     }
 }

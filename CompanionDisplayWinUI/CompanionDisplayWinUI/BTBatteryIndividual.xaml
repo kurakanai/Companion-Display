@@ -9,9 +9,9 @@
     mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
 
     <StackPanel Orientation="Horizontal" Height="25" Spacing="5" FlowDirection="RightToLeft">
-        <TextBlock x:Name="BattIcon" Width="25" Height="25" FontFamily="Segoe Fluent Icons" Text="&#xe83f;" FontSize="20" Margin="3,2,-4,0"/>
-        <TextBlock x:Name="Percentage" Width="35" VerticalAlignment="Center" Text="-%" Margin="0,-3,0,0"/>
-        <TextBlock x:Name="DevName" Width="160" FlowDirection="LeftToRight" VerticalAlignment="Center" Text="-" Margin="0,-3,0,0"/>
+        <TextBlock x:Name="BattIcon" Style="{StaticResource CompanionDisplayBatterySmall}" Margin="3,2,-4,0"/>
+        <TextBlock x:Name="Percentage" Style="{StaticResource CompanionDisplayBatteryPercentage}" />
+        <TextBlock x:Name="DevName" Style="{StaticResource CompanionDisplayDevName}"/>
         <TextBlock x:Name="DevIcon" VerticalAlignment="Center" Margin="0,0,0,-5" FontFamily="Segoe Fluent Icons" Text="&#xe702;" Width="20" Height="20"/>
     </StackPanel>
 </Page>

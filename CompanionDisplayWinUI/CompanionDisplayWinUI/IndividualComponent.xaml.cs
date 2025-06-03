@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using System;
 using Windows.UI;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -48,14 +49,7 @@ namespace CompanionDisplayWinUI
                                 AddSensors(sensor, frame);
                             }
                         }
-                        if (ComponentSensorStack.Children.Count == 1)
-                        {
-                            NoSensorsWarning.Visibility = Visibility.Visible;
-                        }
-                        else
-                        {
-                            NoSensorsWarning.Visibility = Visibility.Collapsed;
-                        }
+                        NoSensorsWarning.Visibility = (Visibility)Convert.ToByte(!(ComponentSensorStack.Children.Count == 1));
                     }
                     catch { }
                     foreach (ISensor sensor in hardware.Sensors)
@@ -67,14 +61,7 @@ namespace CompanionDisplayWinUI
                         };
                         AddSensors(sensor, frame);
                     }
-                    if(ComponentSensorStack.Children.Count == 1)
-                    {
-                        NoSensorsWarning.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        NoSensorsWarning.Visibility = Visibility.Collapsed;
-                    }
+                    NoSensorsWarning.Visibility = (Visibility)Convert.ToByte(!(ComponentSensorStack.Children.Count == 1));
                 }
                 catch { }
                 LoadFinished = true;

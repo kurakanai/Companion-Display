@@ -120,24 +120,19 @@
     </Page.Resources>
 
     <Grid>
-        
         <ScrollViewer>
             <Grid>
-                <Rectangle VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="Transparent" RightTapped="GridView_RightTapped" />
-                <StackPanel Margin="0,40,0,0" VerticalAlignment="Center" Spacing="25">
-                    <TextBox Name="AddressBar" Height="50" x:Uid="SearchInsertURL" MinWidth="300" Padding="15,15,0,0" KeyDown="AddressBar_KeyDown" CornerRadius="8"/>
+                <Rectangle RightTapped="GridView_RightTapped" Style="{StaticResource CompanionDisplayBackgroundRectangle}"/>
+                <StackPanel Style="{StaticResource CompanionDisplayStackPanelBrowser}">
+                    <TextBox Style="{StaticResource CompanionDisplayAddressBarTextBox}" Name="AddressBar" x:Uid="SearchInsertURL" KeyDown="AddressBar_KeyDown"/>
                     <Grid>
-                        <GridView Name="Launchpad" VerticalAlignment="Center" HorizontalAlignment="Center" CanDragItems="True" CanReorderItems="True" AllowDrop="True" DragItemsCompleted="Launchpad_LayoutUpdated" LayoutUpdated="Launchpad_LayoutUpdated_1"/>
-                        <TextBlock Name="NoItem" IsHitTestVisible="False" x:Uid="LaunchpadNoItems" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="48" Opacity="0.7" TextWrapping="Wrap" HorizontalTextAlignment="Center"/>
+                        <GridView Name="Launchpad" Style="{StaticResource CompanionDisplayGridViewLaunchpad}" DragItemsCompleted="Launchpad_LayoutUpdated" LayoutUpdated="Launchpad_LayoutUpdated_1"/>
+                        <TextBlock Name="NoItem" x:Uid="LaunchpadNoItems" Style="{StaticResource CompanionDisplayTextBlockNoItemsLaunchpad}"/>
                     </Grid>
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-        <TabView x:Name="BrowserTabs"
-                 VerticalAlignment="Stretch"
-     AddTabButtonClick="Tabs_AddTabButtonClick"
-     TabCloseRequested="Tabs_TabCloseRequested"
-                 CanReorderTabs="True" >
+        <TabView x:Name="BrowserTabs" AddTabButtonClick="Tabs_AddTabButtonClick" TabCloseRequested="Tabs_TabCloseRequested">
             <TabView.TabStripHeader>
                 <Grid x:Name="ShellTitleBarInset" Background="Transparent"/>
             </TabView.TabStripHeader>

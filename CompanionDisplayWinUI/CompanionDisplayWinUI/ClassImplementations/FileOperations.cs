@@ -8,9 +8,9 @@ namespace CompanionDisplayWinUI.ClassImplementations
     {
         public static void DeleteFile(string filepath)
         {
-            if (System.IO.File.Exists(filepath))
+            if (File.Exists(filepath))
             {
-                System.IO.File.Delete(filepath);
+                File.Delete(filepath);
             }
         }
         public static void SaveGridLayout(GridView gridView, string path)

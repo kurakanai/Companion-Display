@@ -11,23 +11,23 @@
     Width="500" Height="300">
 
     <Grid>
-        <StackPanel Spacing="2" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe7a7;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Width="239" Height="68" Name="UndoButton" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL" Tag="90"/>
-                <Button Content="&#xe74e;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Width="239" Height="68" Name="SaveButton" Tapped="PressKeyCTRL" Tag="83" HorizontalAlignment="Stretch"/>
+        <StackPanel Style="{StaticResource CompanionDisplayStackPanelMiddle}">
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe7a7;" Grid.Column="1" Name="UndoButton" Tapped="PressKeyCTRL" Tag="90" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xe74e;" Grid.Column="1" Name="SaveButton" Tapped="PressKeyCTRL" Tag="83" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe768; &#xe769;" Name="PlayPauseBtn" FontFamily="Segoe Fluent Icons" Grid.Column="1" Tag="32" Width="239" Height="68" HorizontalAlignment="Stretch" Tapped="PressKeyNoModifiers"/>
-                <Button Content="&#xe8c6; &#xe8b2;" FontFamily="Segoe Fluent Icons" x:Name="SplitButton" Grid.Column="3" Height="68" Width="239" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL" Tag="75"/>
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe768; &#xe769;" Name="PlayPauseBtn" Grid.Column="1" Tag="32" Tapped="PressKeyNoModifiers" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xe8c6; &#xe8b2;" x:Name="SplitButton" Grid.Column="3" Tapped="PressKeyCTRL" Tag="75" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe8b0;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Name="SelectionButton" Tag="86" Width="239" Height="68" HorizontalAlignment="Stretch" Tapped="PressKeyNoModifiers"/>
-                <Button Content="&#xe8c6;" FontFamily="Segoe Fluent Icons" x:Name="RazorButton" Grid.Column="3" Height="68" Width="239" HorizontalAlignment="Stretch" Tag="67" Tapped="PressKeyNoModifiers"/>
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe8b0;" Grid.Column="1" Name="SelectionButton" Tag="86" Tapped="PressKeyNoModifiers" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xe8c6;" x:Name="RazorButton" Grid.Column="3" Tag="67" Tapped="PressKeyNoModifiers" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe71f;" Name="ZoomReduceButton" FontFamily="Segoe Fluent Icons" Grid.Column="1" Tag="109" Width="239" Height="68" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL"/>
-                <Button Content="&#xe8a3;" Name="ZoomIncreaseButton" FontFamily="Segoe Fluent Icons" Grid.Column="3" Tag="107" Height="68" Width="239" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL"/>
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe71f;" Name="ZoomReduceButton" Grid.Column="1" Tag="109" Tapped="PressKeyCTRL" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xe8a3;" Name="ZoomIncreaseButton" Grid.Column="3" Tag="187" Tapped="PressKeyCTRL" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -482,7 +482,7 @@ Try running Companion Display as an administrator.</value>
   <data name="SkipBtn.Content" xml:space="preserve">
     <value>Skip</value>
   </data>
-  <data name="StreamerIntegrationsSetup,Text" xml:space="preserve">
+  <data name="StreamerIntegrationsSetup.Text" xml:space="preserve">
     <value>Setup integrations for streamers</value>
   </data>
   <data name="StreamerIntegrationDialogue.Text" xml:space="preserve">
@@ -761,5 +761,17 @@ Right click and press edit to add an image.</value>
   </data>
   <data name="MediaPlayerSettings.Text" xml:space="preserve">
     <value>Media Controls Settings</value>
+  </data>
+  <data name="UseLessIntensiveUI.Text" xml:space="preserve">
+    <value>Use less demanding UI effects</value>
+  </data>
+  <data name="TwelveHourToggle.Text" xml:space="preserve">
+    <value>Use 12-hour clock</value>
+  </data>
+  <data name="UpdateLocalBtn.Content" xml:space="preserve">
+    <value>Local Update</value>
+  </data>
+  <data name="SupportToggle.Text" xml:space="preserve">
+    <value>Show "Download Companion Display" button in Discord activity</value>
   </data>
 </root>

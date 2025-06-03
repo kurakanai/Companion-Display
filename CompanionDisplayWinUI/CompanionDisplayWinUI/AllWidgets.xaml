@@ -11,10 +11,10 @@
 
     <Grid Margin="0,35,0,0">
         
-        <Grid Margin="0,0,0,0">
-            <NavigationView PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectedItem="{x:Bind UtilWidgets, Mode=OneTime}" SelectionChanged="NavigationView_SelectionChanged">
+        <Grid>
+            <NavigationView Style="{StaticResource CompanionDisplayNavigationViewAdd}" SelectedItem="{x:Bind UtilWidgets, Mode=OneTime}" SelectionChanged="NavigationView_SelectionChanged">
                 <NavigationView.MenuItems>
-                    <NavigationViewItem Icon="Add" x:Uid="AddWidgets" SelectsOnInvoked="False" IsHitTestVisible="False" Opacity="1"/>
+                    <NavigationViewItem Icon="Add" x:Uid="AddWidgets" SelectsOnInvoked="False" IsHitTestVisible="False"/>
                     <NavigationViewItem Icon="Clock" x:Uid="Utilities" Name="UtilWidgets"/>
                     <NavigationViewItem Icon="Edit" x:Uid="Customization" Name="CustWidgets"/>
                     <NavigationViewItem Icon="Clock" x:Uid="Sensors" Name="SensorWidgets"/>
@@ -23,15 +23,15 @@
                     <NavigationViewItem Icon="Edit" Content="Adobe" Name="AdobeWidgets"/>
                     <NavigationViewItem Icon="XboxOneConsole" Content="OBS" Name="OBSWidgets"/>
                 </NavigationView.MenuItems>
-                <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <ScrollViewer Style="{StaticResource CompanionDisplayDefaultScrollViewer}">
                     <StackPanel Name="AllCategories" Margin="0,30,0,0">
-                        <GridView x:Name="UtilWidgetsGridView" SelectionMode="None" HorizontalAlignment="Center" CanDragItems="False" CanReorderItems="False" AllowDrop="False" IsItemClickEnabled="True" ItemClick="BasicGridView_ItemClick" Visibility="Visible"/>
-                        <GridView x:Name="CustWidgetsGridView" SelectionMode="None" HorizontalAlignment="Center" CanDragItems="False" CanReorderItems="False" AllowDrop="False" IsItemClickEnabled="True" ItemClick="BasicGridView_ItemClick" Visibility="Collapsed"/>
-                        <GridView x:Name="SensorWidgetsGridView" SelectionMode="None" HorizontalAlignment="Center" CanDragItems="False" CanReorderItems="False" AllowDrop="False" IsItemClickEnabled="True" ItemClick="BasicGridView_ItemClick" Visibility="Collapsed"/>
-                        <GridView x:Name="ControlWidgetsGridView" SelectionMode="None" HorizontalAlignment="Center" CanDragItems="False" CanReorderItems="False" AllowDrop="False" IsItemClickEnabled="True" ItemClick="BasicGridView_ItemClick" Visibility="Collapsed"/>
-                        <GridView x:Name="TwitchWidgetsGridView" SelectionMode="None" HorizontalAlignment="Center" CanDragItems="False" CanReorderItems="False" AllowDrop="False" IsItemClickEnabled="True" ItemClick="BasicGridView_ItemClick" Visibility="Collapsed"/>
-                        <GridView x:Name="OBSWidgetsGridView" SelectionMode="None" HorizontalAlignment="Center" CanDragItems="False" CanReorderItems="False" AllowDrop="False" IsItemClickEnabled="True" ItemClick="BasicGridView_ItemClick" Visibility="Collapsed"/>
-                        <GridView x:Name="AdobeWidgetsGridView" SelectionMode="None" HorizontalAlignment="Center" CanDragItems="False" CanReorderItems="False" AllowDrop="False" IsItemClickEnabled="True" ItemClick="BasicGridView_ItemClick" Visibility="Collapsed"/>
+                        <GridView x:Name="UtilWidgetsGridView"  ItemClick="BasicGridView_ItemClick" Style="{StaticResource CompanionDisplayGridViewAdd}"/>
+                        <GridView x:Name="CustWidgetsGridView" ItemClick="BasicGridView_ItemClick" Style="{StaticResource CompanionDisplayGridViewAdd}"/>
+                        <GridView x:Name="SensorWidgetsGridView" ItemClick="BasicGridView_ItemClick" Style="{StaticResource CompanionDisplayGridViewAdd}"/>
+                        <GridView x:Name="ControlWidgetsGridView" ItemClick="BasicGridView_ItemClick" Style="{StaticResource CompanionDisplayGridViewAdd}"/>
+                        <GridView x:Name="TwitchWidgetsGridView" ItemClick="BasicGridView_ItemClick" Style="{StaticResource CompanionDisplayGridViewAdd}"/>
+                        <GridView x:Name="OBSWidgetsGridView" ItemClick="BasicGridView_ItemClick" Style="{StaticResource CompanionDisplayGridViewAdd}"/>
+                        <GridView x:Name="AdobeWidgetsGridView" ItemClick="BasicGridView_ItemClick" Style="{StaticResource CompanionDisplayGridViewAdd}"/>
                     </StackPanel>
                 </ScrollViewer>
             </NavigationView>

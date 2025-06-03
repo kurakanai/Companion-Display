@@ -24,7 +24,7 @@ namespace CompanionDisplayWinUI
             if (FTU)
             {
                 await BrowserClass.CreateWebviewProperly(Player, new Uri("https://dashboard.twitch.tv/popout/stream-manager/guest-star-stream-together"));
-                FTU = false;
+                FTU = !FTU;
             }
         }
         private void Button_Click(object sender, RoutedEventArgs e)

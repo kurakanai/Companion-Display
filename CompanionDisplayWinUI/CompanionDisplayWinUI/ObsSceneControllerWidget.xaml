@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Tag="OBSWidgets" Width="500" Height="300" CanDrag="False" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
 
-    <Grid >
-        <GridView Margin="10,0,10,0" Name="TotalScenes" SelectionChanged="TotalScenes_SelectionChanged" MinWidth="200" Padding="5,10,0,0" Background="Transparent"/>
+    <Grid>
+        <GridView Name="TotalScenes" SelectionChanged="TotalScenes_SelectionChanged" Padding="5,10,0,0" Background="Transparent"/>
         <Grid Visibility="Collapsed" HorizontalAlignment="Stretch" x:Name="OBSError" VerticalAlignment="Stretch">
             <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosity}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">

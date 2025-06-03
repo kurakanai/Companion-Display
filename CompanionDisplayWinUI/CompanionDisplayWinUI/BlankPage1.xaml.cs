@@ -138,7 +138,7 @@ namespace CompanionDisplayWinUI
         private void OpenPiP(object sender, RoutedEventArgs e)
         {
             Frame darkframe = (sender as MenuFlyoutItem).Tag as Frame;
-            gridViewPiPTemp = darkframe.Parent as Microsoft.UI.Xaml.Controls.GridView;
+            gridViewPiPTemp = darkframe.Parent as GridView;
             if (gridViewPiPTemp != null)
             {
                 indexTemp = gridViewPiPTemp.Items.IndexOf(darkframe);
@@ -169,10 +169,7 @@ namespace CompanionDisplayWinUI
             m_window.Closed += (s, e) =>
             {
                 Globals.PiPAmount--;
-                if(Globals.PiPAmount == 0)
-                {
-                    addBtn.IsEnabled = true;
-                }
+                addBtn.IsEnabled = Globals.PiPAmount == 0;
             };
             m_window.Activate();
             Globals.PiPAmount++;

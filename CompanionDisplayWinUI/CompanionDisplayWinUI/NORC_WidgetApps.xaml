@@ -10,11 +10,10 @@
     Width="500" Height="300" Loaded="Page_Loaded" Tag="UtilWidgets">
 
     <Grid>
-        <Rectangle Fill="Transparent" Opacity="0" RightTapped="MainGrid_RightTapped"/>
-        <TextBlock Name="EmptyApps" x:Uid="EmptyApps" FontSize="40" TextWrapping="Wrap" HorizontalTextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="50,0,50,0" Opacity="0.5" IsHitTestVisible="False"/>
-        <Grid Name="MainGrid" MaxWidth="500" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0">
-            <GridView Name="BasicGridView" CanDragItems="True" CanReorderItems="True" SelectionMode="None" AllowDrop="True" DragItemsCompleted="BasicGridView_DragItemsCompleted">
-            </GridView>
+        <Rectangle Style="{StaticResource CompanionDisplayFillerRectangle}" RightTapped="MainGrid_RightTapped"/>
+        <TextBlock Style="{StaticResource CompanionDisplayTextBlockNoItemsLaunchpad}" Name="EmptyApps" x:Uid="EmptyApps"/>
+        <Grid Name="MainGrid">
+            <GridView Name="BasicGridView" Style="{StaticResource CompanionDisplayGridViewDraggableLaunchpad}"  DragItemsCompleted="BasicGridView_DragItemsCompleted"/>
         </Grid>
     </Grid>
 </Page>

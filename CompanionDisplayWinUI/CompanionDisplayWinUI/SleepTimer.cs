@@ -69,7 +69,7 @@ namespace CompanionDisplayWinUI
         }
         public void OnUpdate()
         {
-            CallUpdate?.Invoke(); // Pass EventArgs.Empty for no data
+            CallUpdate?.Invoke();
         }
     }
 }

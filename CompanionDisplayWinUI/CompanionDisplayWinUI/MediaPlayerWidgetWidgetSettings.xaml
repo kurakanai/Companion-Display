@@ -9,20 +9,18 @@
     mc:Ignorable="d" Width="500" Height="300">
 
     <Grid>
-        
         <Grid>
-            <TextBlock x:Uid="MediaPlayerSettings" Width="480" Height="30" FontSize="20" Margin="10" VerticalAlignment="Top"/>
-            <GridView SelectionMode="None" CanDrag="False" Margin="10,45,10,105">
-                <TextBox Name="CID" Height="45" Width="480" VerticalAlignment="Top" x:Uid="SpotifyClientID" Padding="12"/>
-                <TextBox Name="CS" Height="45" Width="480" VerticalAlignment="Top" x:Uid="ClientSecret" Padding="12"/>
-                <TextBox Name="CID2" Height="45" Width="480" VerticalAlignment="Top" x:Uid="SpotifyClientID2" Padding="12"/>
-                <TextBox Name="CS2" Height="45" Width="480" VerticalAlignment="Top" x:Uid="ClientSecret2" Padding="12"/>
-            </GridView>
-            <StackPanel Padding="10" VerticalAlignment="Bottom" Spacing="2">
-                <Button Height="45" Width="480" VerticalAlignment="Top" x:Uid="CancelBtn" FontSize="16" Style="{StaticResource AccentButtonStyle}" Click="Button_Click"/>
-                <Button Height="45" Width="480" VerticalAlignment="Top" x:Uid="SaveBtn" FontSize="16" Style="{StaticResource AccentButtonStyle}" Click="Button_Click_1"/>
+            <TextBlock x:Uid="MediaPlayerSettings" Style="{StaticResource CompanionDisplayTitleTextBlock}" Margin="10" />
+            <StackPanel Margin="10,45,10,105" Style="{StaticResource CompanionDisplayDefaultStackPanel}">
+                <TextBox Name="CID" x:Uid="SpotifyClientID" Style="{StaticResource CompanionDisplayDefaultTextBox}"/>
+                <TextBox Name="CS" x:Uid="ClientSecret" Style="{StaticResource CompanionDisplayDefaultTextBox}"/>
+                <TextBox Name="CID2" VerticalAlignment="Top" x:Uid="SpotifyClientID2" Style="{StaticResource CompanionDisplayDefaultTextBox}"/>
+                <TextBox Name="CS2" x:Uid="ClientSecret2" Style="{StaticResource CompanionDisplayDefaultTextBox}"/>
             </StackPanel>
-            
+            <StackPanel Style="{StaticResource CompanionDisplayDefaultStackPanel}" Padding="10" VerticalAlignment="Bottom" >
+                <Button Height="45" x:Uid="CancelBtn" Style="{StaticResource CompanionDisplayAccentButtonStretch}" Click="Button_Click"/>
+                <Button Height="45" x:Uid="SaveBtn" Style="{StaticResource CompanionDisplayAccentButtonStretch}" Click="Button_Click_1"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

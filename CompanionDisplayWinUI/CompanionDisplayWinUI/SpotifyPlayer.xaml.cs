@@ -25,7 +25,7 @@ namespace CompanionDisplayWinUI
             if (FTU)
             {
                 await BrowserClass.CreateWebviewProperly(SpotifyBuiltin, new Uri("https://open.spotify.com/"));
-                FTU = false;
+                FTU = !FTU;
             }
         }
     }

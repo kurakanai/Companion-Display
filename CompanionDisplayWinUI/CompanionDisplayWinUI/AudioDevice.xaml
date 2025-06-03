@@ -9,6 +9,6 @@
     mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
 
     <Grid>
-        <StackPanel Name="SessionController" Spacing="2"/>
+        <StackPanel Name="SessionController" Style="{StaticResource CompanionDisplayDefaultStackPanel}"/>
     </Grid>
 </Page>

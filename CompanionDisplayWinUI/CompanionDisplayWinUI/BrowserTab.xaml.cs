@@ -21,12 +21,9 @@ namespace CompanionDisplayWinUI
         public BrowserTab()
         {
             this.InitializeComponent();
-            if (Globals.IsAdmin)
-            {
-                BrowserTabs.CanDrag = false;
-                BrowserTabs.CanDragTabs = false;
-                BrowserTabs.CanReorderTabs = false;
-            }
+            BrowserTabs.CanDrag = !Globals.IsAdmin;
+            BrowserTabs.CanDragTabs = !Globals.IsAdmin;
+            BrowserTabs.CanReorderTabs = !Globals.IsAdmin;
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
         private void MenuFlyoutItem5_Click(object sender, RoutedEventArgs e)
@@ -51,14 +48,6 @@ namespace CompanionDisplayWinUI
         private void MenuFlyoutItem5a_Click(object sender, RoutedEventArgs e)
         {
             Launchpad.Items.Remove((sender as MenuFlyoutItem).Tag as Grid);
-            if(Launchpad.Items.Count == 0)
-            {
-                NoItem.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                NoItem.Visibility = Visibility.Collapsed;
-            }
             Launchpad_LayoutUpdated(Launchpad, null);
         }
         private async void Button_Click_1a(object sender, RoutedEventArgs e)
@@ -169,14 +158,7 @@ namespace CompanionDisplayWinUI
                     catch { }
                 }
             }
-            if (Launchpad.Items.Count == 0)
-            {
-                NoItem.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                NoItem.Visibility = Visibility.Collapsed;
-            }
+            NoItem.Visibility = (Visibility)Convert.ToByte(!(Launchpad.Items.Count == 0));
         }
         private static TabViewItem CreateNewTVI(string header, string dataContext, System.Uri uri, NavigationView navigationView, bool createContent)
         {
@@ -324,16 +306,9 @@ namespace CompanionDisplayWinUI
                     {
 
                     }
-                    if (Launchpad.Items.Count == 0)
-                    {
-                        NoItem.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        NoItem.Visibility = Visibility.Collapsed;
-                    }
+                    Launchpad.Visibility = (Visibility)Convert.ToByte(!(Launchpad.Items.Count == 0));
                 });
-                FTU = false;
+                FTU = !FTU;
                 bool isAdmin = Globals.IsAdmin || Globals.LockLayout;
                 DispatcherQueue.TryEnqueue(() =>
                 {

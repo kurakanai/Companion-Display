@@ -6,8 +6,8 @@
     xmlns:local="using:CompanionDisplayWinUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Height="300" Width="500" Unloaded="Page_Unloaded" Loaded="Page_Loaded" Tag="UtilWidgets">
-
+    mc:Ignorable="d" Height="300" Width="500" Unloaded="Page_Unloaded" Loaded="Page_Loaded" Tag="UtilWidgets"
+    >
     <Grid>
         <FlipView Background="Transparent" SelectedIndex="1">
             <StackPanel Spacing="14">
@@ -16,48 +16,48 @@
                         <StackPanel Width="250" Height="120" x:Name="BTStackBattery" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,10,0"/>
                     </ScrollView>
                     <StackPanel Orientation="Vertical" Height="120" Margin="10,10,0,0">
-                        <TextBlock x:Name="FullDate" Text="Thursday, 8th August 2024" FontSize="16" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Light"/>
-                        <Grid Height="90">
-                            <TextBlock x:Name="TimeLeft" Text="--:--" FontSize="80" FontWeight="Thin" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="FullDate" Text="{Binding CurrentDate}" FontSize="19" VerticalAlignment="Top" HorizontalAlignment="Left" FontWeight="Light"/>
+                        <Grid Height="70">
+                            <TextBlock x:Name="TimeLeft" Text="{Binding CurrentTimeSecs}" FontSize="50" FontWeight="Thin" VerticalAlignment="Center"/>
                         </Grid>
                     </StackPanel>
-                    <ToggleButton Background="Transparent" BorderBrush="Transparent" Content="&#xe70f;" FontFamily="Segoe Fluent Icons" Name="Edit" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,10" Checked="Edit_Checked" Unchecked="Edit_Unchecked"/>
+                    <ToggleButton Background="Transparent" BorderBrush="Transparent" Content="&#xe70f;" FontFamily="Segoe Fluent Icons" Name="Edit" Height="30" Width="50" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,30" Checked="Edit_Checked" Unchecked="Edit_Unchecked" CornerRadius="8"/>
                 </Grid>
                 <Grid>
-                    <GridView Name="TogglesView" Margin="3,-19,0,0" HorizontalAlignment="Center" CanDragItems="True" ReorderMode="Enabled" CanReorderItems="True" CanDrag="True" SelectionMode="None" AllowDrop="True">
+                    <GridView Name="TogglesView" Margin="3,-35,0,0" HorizontalAlignment="Center" CanDragItems="True" ReorderMode="Enabled" CanReorderItems="True" CanDrag="True" SelectionMode="None" AllowDrop="True">
                         <Grid Name="WiFiToggleGrid" Tag="0">
-                            <ToggleButton Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe701;" x:Name="WiFiToggle" Tapped="WiFiToggle_Tapped" IsEnabled="False" IsHitTestVisible="False"/>
+                            <ToggleButton CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe701;" x:Name="WiFiToggle" Tapped="WiFiToggle_Tapped" IsEnabled="False" IsHitTestVisible="False"/>
                         </Grid>
                         <Grid Name="BTToggleGrid" Tag="1">
-                            <ToggleButton Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe702;" x:Name="BTToggle" Tapped="BTToggle_Tapped"  IsEnabled="False" IsHitTestVisible="False"/>
+                            <ToggleButton CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe702;" x:Name="BTToggle" Tapped="BTToggle_Tapped"  IsEnabled="False" IsHitTestVisible="False"/>
                         </Grid>
                         <Grid Name="DarkModeToggleGrid" Tag="2">
-                            <ToggleButton Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe790;" x:Name="DarkModeToggle" Tapped="DarkModeToggle_Tapped"/>
+                            <ToggleButton CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe790;" x:Name="DarkModeToggle" Tapped="DarkModeToggle_Tapped"/>
                         </Grid>
                         <Grid Name="MuteToggleGrid" Tag="3">
-                            <ToggleButton Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe74f;" x:Name="MuteToggle" Tapped="MuteToggle_Tapped"/>
+                            <ToggleButton CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe74f;" x:Name="MuteToggle" Tapped="MuteToggle_Tapped"/>
                         </Grid>
                         <Grid Name="AirPlaneToggleGrid" Tag="4">
-                            <ToggleButton Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe709;" x:Name="AirPlaneToggle" IsHitTestVisible="False"/>
+                            <ToggleButton CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe709;" x:Name="AirPlaneToggle" IsHitTestVisible="False"/>
                         </Grid>
                         <Grid Name="ShutdownGrid" Tag="5">
-                            <Button Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe7e8;" x:Name="Shutdown" Tag="shutdown -s -t 0" Tapped="Shutdown_Tapped"/>
+                            <Button CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe7e8;" x:Name="Shutdown" Tag="shutdown -s -t 0" Tapped="Shutdown_Tapped"/>
                         </Grid>
                         <Grid Name="RestartGrid" Tag="6">
-                            <Button Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe777;" x:Name="Restart" Tag="shutdown -r -t 0" Tapped="Shutdown_Tapped"/>
+                            <Button CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe777;" x:Name="Restart" Tag="shutdown -r -t 0" Tapped="Shutdown_Tapped"/>
                         </Grid>
                         <Grid Name="SuspendGrid" Tag="7">
-                            <Button Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe708;" x:Name="Suspend" Tag="%windir%\System32\rundll32.exe powrprof.dll,SetSuspendState 0,1,0" Tapped="Shutdown_Tapped"/>
+                            <Button CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe708;" x:Name="Suspend" Tag="%windir%\System32\rundll32.exe powrprof.dll,SetSuspendState 0,1,0" Tapped="Shutdown_Tapped"/>
                         </Grid>
                         <Grid Name="LockGrid" Tag="8">
-                            <Button Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe785;" x:Name="Lock" Tag="Rundll32.exe user32.dll,LockWorkStation" Tapped="Shutdown_Tapped"/>
+                            <Button CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xe785;" x:Name="Lock" Tag="Rundll32.exe user32.dll,LockWorkStation" Tapped="Shutdown_Tapped"/>
                         </Grid>
                         <Grid Name="LogoffGrid" Tag="9">
-                            <Button Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xf3b1;" x:Name="Logoff" Tag="%windir%\System32\shutdown.exe -l" Tapped="Shutdown_Tapped"/>
+                            <Button CornerRadius="8" Width="94" Height="50" FontFamily="Segoe Fluent Icons" Content="&#xf3b1;" x:Name="Logoff" Tag="%windir%\System32\shutdown.exe -l" Tapped="Shutdown_Tapped"/>
                         </Grid>
                     </GridView>
                 </Grid>
-                <Grid Margin="7,-14,7,0" CornerRadius="8">
+                <Grid Margin="7,0,7,0" CornerRadius="8">
                     <Rectangle HorizontalAlignment="Left" Width="487" Fill="{ThemeResource SystemBaseLowColor}" Opacity="0.3" Height="50" />
                     <Image x:Name="Album" Height="50" Stretch="Fill" VerticalAlignment="Top" HorizontalAlignment="Left" Opacity="0.2" Width="500" />
                     <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosity}" Grid.RowSpan="2"/>
@@ -72,8 +72,8 @@
 
             </StackPanel>
             <StackPanel VerticalAlignment="Center" Margin="0,25,0,0">
-                <TextBlock Name="Date" Text="-, - - -" FontSize="20" FontWeight="Light" HorizontalAlignment="Center" />
-                <TextBlock Name="Time" Text="--:--" FontSize="100" FontWeight="Thin" HorizontalAlignment="Center"/>
+                <TextBlock Name="Date" Text="{Binding CurrentDate}" FontSize="20" FontWeight="Light" HorizontalAlignment="Center" />
+                <TextBlock Name="Time" Text="{Binding CurrentTime}" FontSize="90" FontWeight="Thin" HorizontalAlignment="Center"/>
             </StackPanel>
             <CalendarView Height="300" Width="500" Background="Transparent" SelectionMode="None"/>
         </FlipView>

@@ -12,8 +12,8 @@
     <Grid>
         <HyperlinkButton Name="Oppenheimer" Width="50" Height="50" FontFamily="Segoe Fluent Icons" HorizontalAlignment="Left" VerticalAlignment="Top" Content="&#xe700;" Click="HyperlinkButton_Click"/>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Name="StackUnderflow">
-            <TextBlock Name="Date" Text="01/01/1970" FontSize="32" FontWeight="Thin" Opacity="0.5" HorizontalAlignment="Center" FontFamily="{ThemeResource ContentControlThemeFontFamily}" Foreground="White"/>
-            <TextBlock Name="Time" Text="00:00" FontSize="144" HorizontalAlignment="Center" FontWeight="Thin" Opacity="1" FontFamily="{ThemeResource ContentControlThemeFontFamily}" Foreground="White"/>
+            <TextBlock Name="Date" Text="{Binding CurrentDateAbbr}" FontSize="32" FontWeight="Thin" Opacity="0.5" HorizontalAlignment="Center" FontFamily="{ThemeResource ContentControlThemeFontFamily}" Foreground="White"/>
+            <TextBlock Name="Time" Text="{Binding CurrentTime}" FontSize="144" HorizontalAlignment="Center" FontWeight="Thin" Opacity="1" FontFamily="{ThemeResource ContentControlThemeFontFamily}" Foreground="White"/>
             <TextBlock Name="SongTitle" Text="Song · Artist · Year" FontSize="32" FontWeight="Thin" Opacity="0.5" HorizontalAlignment="Center" FontFamily="{ThemeResource ContentControlThemeFontFamily}" Foreground="White"/>
             <TextBlock Name="Lyrics" Text="-" FontSize="24" FontWeight="Thin" Opacity="0.5" HorizontalAlignment="Center" FontFamily="{ThemeResource ContentControlThemeFontFamily}" Foreground="White"/>
         </StackPanel>

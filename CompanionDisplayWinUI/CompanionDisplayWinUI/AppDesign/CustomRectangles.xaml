@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="CompanionDisplayBackgroundRectangle" TargetType="Rectangle">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+    
+    <Style x:Key="CompanionDisplayImageOptionalBlurRectangle" TargetType="Rectangle">
+        <Setter Property="Fill" Value="{ThemeResource CustomAcrylicInAppLuminosity}"/>
+    </Style>
+    
+    <Style x:Key="CompanionDisplayImageOptionalBlurRectangleFullScreen" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayBackgroundRectangle}">
+        <Setter Property="Fill" Value="{ThemeResource CustomAcrylicInAppLuminosity3}"/>
+    </Style>
+    
+    <Style x:Key="CompanionDisplayImageOptionalBlurRectanglePin" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayImageOptionalBlurRectangle}">
+        <Setter Property="RadiusX" Value="8"/>
+        <Setter Property="RadiusY" Value="8"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayImageOptionalBlurRectangleButtonMaskBase" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayImageOptionalBlurRectanglePin}">
+        <Setter Property="Margin" Value="0,-5,-5,-20"/>
+        <Setter Property="Height" Value="37"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayImageOptionalBlurRectangleButtonMask" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayImageOptionalBlurRectangleButtonMaskBase}">
+        <Setter Property="Width" Value="185"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayImageOptionalBlurRectangleButtonMaskNoPin" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayImageOptionalBlurRectangleButtonMaskBase}">
+        <Setter Property="Width" Value="143"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayFillerRectangle" TargetType="Rectangle">
+        <Setter Property="Fill" Value="Transparent"/>
+    </Style>
+
+    <!--Very sorry for the redundancy here, but it's what saves the most while keeping my sanity, at least for now. Maybe in 25.7 tho.-->
+    <Style x:Key="CompanionDisplayImageOptionalBlurRectangleLyricsView" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayImageOptionalBlurRectanglePin}">
+        <Setter Property="Fill" Value="{ThemeResource CustomAcrylicInAppLuminosity3}"/>
+    </Style>
+</ResourceDictionary>

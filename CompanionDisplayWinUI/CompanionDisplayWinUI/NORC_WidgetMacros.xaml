@@ -11,94 +11,94 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="4"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="4"/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="4"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
             <RowDefinition/>
-            <RowDefinition Height="2"/>
+            <RowDefinition Height="4"/>
             <RowDefinition/>
-            <RowDefinition Height="2"/>
+            <RowDefinition Height="4"/>
             <RowDefinition/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="Transparent" Grid.ColumnSpan="9" Grid.RowSpan="7" RightTapped="MainGrid_RightTapped"/>
-        <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F13Btn" RightTapped="Button_RightTapped" Tag="124" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F13"/>
-                <Image x:Name="F13Btn_Image" Stretch="Fill"/>
+        <Rectangle Style="{StaticResource CompanionDisplayBackgroundRectangle}" Grid.ColumnSpan="9" Grid.RowSpan="7" RightTapped="MainGrid_RightTapped"/>
+        <Button Grid.Row="1" Grid.Column="1" x:Name="F13Btn" Style="{StaticResource CompanionDisplayShortcutButton}" RightTapped="Button_RightTapped" Tag="124" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F13"/>
+                <Image x:Name="F13Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F14Btn" RightTapped="Button_RightTapped" Tag="125" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F14"/>
-                <Image x:Name="F14Btn_Image" Stretch="Fill" Width="80" Height="80"/>
+        <Button Grid.Row="1" Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Column="3" x:Name="F14Btn" Tag="125" RightTapped="Button_RightTapped" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F14"/>
+                <Image x:Name="F14Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="1" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F15Btn" RightTapped="Button_RightTapped" Tag="126" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F15"/>
-                <Image x:Name="F15Btn_Image" Stretch="Fill"/>
+        <Button Grid.Row="1" Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Column="5" x:Name="F15Btn" RightTapped="Button_RightTapped" Tag="126" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F15"/>
+                <Image x:Name="F15Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="1" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F16Btn" RightTapped="Button_RightTapped" Tag="127" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F16"/>
-                <Image x:Name="F16Btn_Image" Stretch="Fill"/>
+        <Button Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Row="1" Grid.Column="7" x:Name="F16Btn" RightTapped="Button_RightTapped" Tag="127" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F16"/>
+                <Image x:Name="F16Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F17Btn" RightTapped="Button_RightTapped" Tag="128" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F17"/>
-                <Image x:Name="F17Btn_Image" Stretch="Fill"/>
+        <Button Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Row="3" Grid.Column="1" x:Name="F17Btn" RightTapped="Button_RightTapped" Tag="128" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F17"/>
+                <Image x:Name="F17Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="3" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F18Btn" RightTapped="Button_RightTapped" Tag="129" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F18"/>
-                <Image x:Name="F18Btn_Image" Stretch="Fill"/>
+        <Button Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Row="3" Grid.Column="3" x:Name="F18Btn" RightTapped="Button_RightTapped" Tag="129" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F18"/>
+                <Image x:Name="F18Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="3" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F19Btn" RightTapped="Button_RightTapped" Tag="130" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F19"/>
-                <Image x:Name="F19Btn_Image" Stretch="Fill"/>
+        <Button Grid.Row="3" Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Column="5" x:Name="F19Btn" RightTapped="Button_RightTapped" Tag="130" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F19"/>
+                <Image x:Name="F19Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="3" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F20Btn" RightTapped="Button_RightTapped" Tag="131" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F20"/>
-                <Image x:Name="F20Btn_Image" Stretch="Fill"/>
+        <Button Grid.Row="3" Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Column="7" x:Name="F20Btn" RightTapped="Button_RightTapped" Tag="131" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F20"/>
+                <Image x:Name="F20Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F21Btn" RightTapped="Button_RightTapped" Tag="132" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F21"/>
-                <Image x:Name="F21Btn_Image" Stretch="Fill"/>
+        <Button Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Row="5" Grid.Column="1" x:Name="F21Btn" RightTapped="Button_RightTapped" Tag="132" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F21"/>
+                <Image x:Name="F21Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="5" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F22Btn" RightTapped="Button_RightTapped" Tag="133" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F22"/>
-                <Image x:Name="F22Btn_Image" Stretch="Fill"/>
+        <Button Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Row="5" Grid.Column="3" x:Name="F22Btn" RightTapped="Button_RightTapped" Tag="133" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F22"/>
+                <Image x:Name="F22Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="5" Grid.Column="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F23Btn" RightTapped="Button_RightTapped" Tag="134" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F23"/>
-                <Image x:Name="F23Btn_Image" Stretch="Fill"/>
+        <Button Grid.Row="5" Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Column="5" x:Name="F23Btn" RightTapped="Button_RightTapped" Tag="134" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F23"/>
+                <Image x:Name="F23Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
-        <Button Grid.Row="5" Grid.Column="7" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="F24Btn" RightTapped="Button_RightTapped" Tag="135" Tapped="F13Btn_Tapped">
-            <Grid CornerRadius="10" Height="80" Width="80">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="F24"/>
-                <Image x:Name="F24Btn_Image" Stretch="Fill"/>
+        <Button Style="{StaticResource CompanionDisplayShortcutButton}" Grid.Row="5" Grid.Column="7" x:Name="F24Btn" RightTapped="Button_RightTapped" Tag="135" Tapped="F13Btn_Tapped">
+            <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
+                <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F24"/>
+                <Image x:Name="F24Btn_Image" Style="{StaticResource CompanionDisplayMacroImage}"/>
             </Grid>
         </Button>
     </Grid>

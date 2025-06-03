@@ -19,13 +19,12 @@ namespace CompanionDisplayWinUI
         {
             this.InitializeComponent();
         }
-        private List<PHYSICAL_MONITOR> physicalMonitors = [];
         private bool FTU = true;
         private void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             if (FTU)
             {
-                FTU = false;
+                FTU = !FTU;
                 Frame parentFrame = GetParentFrame();
                 if (parentFrame != null)
                 {
@@ -49,7 +48,7 @@ namespace CompanionDisplayWinUI
                 }
                 else
                 {
-                    // Handle the case where the parent is not a Frame
+
                 }
             }
         }

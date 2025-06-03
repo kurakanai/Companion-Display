@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Base styles-->
+    <Style x:Key="CompanionDisplayStandardButton" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="CornerRadius" Value="8"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayRepeatButton" TargetType="RepeatButton" BasedOn="{StaticResource RepeatButtonRevealStyle}">
+        <Setter Property="CornerRadius" Value="8"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayAccentButton" TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
+        <Setter Property="CornerRadius" Value="8"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButton" TargetType="HyperlinkButton" BasedOn="{StaticResource DefaultHyperlinkButtonStyle}">
+        <Setter Property="CornerRadius" Value="8"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButtonIcons" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButton}">
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButtonLyricsView" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButtonIcons}">
+        <Setter Property="Foreground" Value="{ThemeResource SystemBaseHighColor}"/>
+        <Setter Property="Height" Value="50"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButtonLyricsViewPlay" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButtonLyricsView}">
+        <Setter Property="FontSize" Value="25"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButtonMediaWidgetBase" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButtonLyricsView}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButtonMediaBase" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButtonMediaWidgetBase}">
+        <Setter Property="Height" Value="60"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButtonMediaSmol" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButtonMediaWidgetBase}">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButtonPlay" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButtonMediaBase}">
+        <Setter Property="FontSize" Value="36"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButtonMedia" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButtonMediaBase}">
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayHyperlinkButtonLyricsViewGeneric" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButtonLyricsView}">
+        <Setter Property="FontSize" Value="15"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayAccentButtonStretch" TargetType="Button" BasedOn="{StaticResource CompanionDisplayAccentButton}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+    
+    <Style x:Key="CompanionDisplayAccentButtonRight" TargetType="Button" BasedOn="{StaticResource CompanionDisplayAccentButton}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayStretchButton" TargetType="Button" BasedOn="{StaticResource CompanionDisplayStandardButton}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayShortcutButton" TargetType="Button" BasedOn="{StaticResource CompanionDisplayStretchButton}">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayIconButton" TargetType="Button" BasedOn="{StaticResource CompanionDisplayStandardButton}">
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayToggleButton" TargetType="ToggleButton" BasedOn="{StaticResource ToggleButtonRevealStyle}">
+        <Setter Property="CornerRadius" Value="8"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayToggleButtonTransparent" TargetType="ToggleButton" BasedOn="{StaticResource CompanionDisplayToggleButton}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayToggleButtonIcon" TargetType="ToggleButton" BasedOn="{StaticResource CompanionDisplayToggleButtonTransparent}">
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayToggleButtonIconRight" TargetType="ToggleButton" BasedOn="{StaticResource CompanionDisplayToggleButtonIcon}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayToggleButtonIconLyricsView" TargetType="ToggleButton" BasedOn="{StaticResource CompanionDisplayToggleButtonIconRight}">
+        <Setter Property="Height" Value="50"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayToggleButtonIconPin" TargetType="ToggleButton" BasedOn="{StaticResource CompanionDisplayToggleButtonIconRight}">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Content" Value="&#xe718;"/>
+        <Setter Property="Margin" Value="0,0,140,0"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Padding" Value="0,0,-5,0"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayToggleButtonNumPad" TargetType="ToggleButton" BasedOn="{StaticResource CompanionDisplayToggleButton}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+
+    <!--Adobe Specific-->
+    <Style x:Key="CompanionDisplayAdobeShortcutButton" TargetType="Button" BasedOn="{StaticResource CompanionDisplayIconButton}">
+        <Setter Property="Width" Value="239"/>
+        <Setter Property="Height" Value="68"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    </Style>
+
+    <!--Browser Specific-->
+    <Style x:Key="CompanionDisplayBrowserButton" TargetType="Button" BasedOn="{StaticResource CompanionDisplayIconButton}">
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+    
+    <Style x:Key="CompanionDisplayBrowserButtonRight" TargetType="Button" BasedOn="{StaticResource CompanionDisplayBrowserButton}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+    </Style>
+    
+    <!--Settings Specific-->
+    
+    <Style x:Key="CompanionDisplayHyperlinkButtonSettings" TargetType="HyperlinkButton" BasedOn="{StaticResource CompanionDisplayHyperlinkButton}">
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    
+    
+    <!--Media Specific-->
+    <Style x:Key="CompanionDisplayRepeatButtonTransparent" TargetType="RepeatButton" BasedOn="{StaticResource CompanionDisplayRepeatButton}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayRepeatButtonIcon" TargetType="RepeatButton" BasedOn="{StaticResource CompanionDisplayRepeatButtonTransparent}">
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayVolumeButtons" TargetType="RepeatButton" BasedOn="{StaticResource CompanionDisplayRepeatButtonIcon}">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="34"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayVolumeButtonsBottom" TargetType="RepeatButton" BasedOn="{StaticResource CompanionDisplayVolumeButtons}">
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayRepeatButtonNumPad" TargetType="RepeatButton" BasedOn="{StaticResource CompanionDisplayRepeatButton}">
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style x:Key="CompanionDisplayRepeatButtonNumPadIcon" TargetType="RepeatButton" BasedOn="{StaticResource CompanionDisplayRepeatButtonNumPad}">
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+    </Style>
+</ResourceDictionary>

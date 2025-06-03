@@ -19,8 +19,8 @@ namespace CompanionDisplayWinUI
         public SleepPage()
         {
             this.InitializeComponent();
+            this.DataContext = Globals.publicTimeViewModel;
         }
-        private string DateStr, TimeStr;
         private bool CleanUp = false;
 
         private void Page_Unloaded(object sender, RoutedEventArgs e)
@@ -59,7 +59,7 @@ namespace CompanionDisplayWinUI
             }
             if (!Globals.StartedPlayer)
             {
-                Globals.StartedPlayer = true;
+                Globals.StartedPlayer = !Globals.StartedPlayer;
                 PlayerSpotify mediaPlayerWidget = new();
                 mediaPlayerWidget.Page_Loaded();
             }
@@ -73,48 +73,18 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                if (DateStr != DateOnly.FromDateTime(DateTime.Now).ToString("dd/MM/yyyy"))
-                {
-                    DispatcherQueue.TryEnqueue(() =>
-                    {
-                        Date.Text = DateOnly.FromDateTime(DateTime.Now).ToString("dd/MM/yyyy");
-                    });
-                    DateStr = DateOnly.FromDateTime(DateTime.Now).ToString("dd/MM/yyyy");
-                }
-                if (TimeStr != TimeOnly.FromDateTime(DateTime.Now).ToString("HH:mm"))
-                {
-                    DispatcherQueue.TryEnqueue(() =>
-                    {
-                        Time.Text = TimeOnly.FromDateTime(DateTime.Now).ToString("HH:mm");
-                        Random rnd = new();
-                        StackUnderflow.Padding = new Thickness(0 + (rnd.Next(-30, 30)), 0 + (rnd.Next(-30, 30)), 0, 0);
-                        Oppenheimer.Padding = new Thickness(0 + (rnd.Next(-5, 5)), 0 + (rnd.Next(-5, 5)), 0, 0);
-                    });
-                    TimeStr = TimeOnly.FromDateTime(DateTime.Now).ToString("HH:mm");
-                }
                 DispatcherQueue.TryEnqueue(() =>
                 {
                     try
                     {
-                        if(Globals.playbackInfo != null && Globals.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing || Globals.IsSpotify)
+                        bool showMedia = Globals.playbackInfo != null && Globals.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing || Globals.IsSpotify;
+                        if (showMedia)
                         {
                             SongTitle.Text = Media.SongName + " · " + Media.SongDetails;
-                            SongTitle.Visibility = Visibility.Visible;
-                            if (Media.SongLyrics == "")
-                            {
-                                Lyrics.Visibility = Visibility.Collapsed;
-                            }
-                            else
-                            {
-                                Lyrics.Text = Media.SongLyrics;
-                                Lyrics.Visibility = Visibility.Visible;
-                            }
+                            Lyrics.Text = Media.SongLyrics;
                         }
-                        else
-                        {
-                            SongTitle.Visibility = Visibility.Collapsed;
-                            Lyrics.Visibility = Visibility.Collapsed;
-                        }
+                        SongTitle.Visibility = (Visibility)Convert.ToSByte(!showMedia);
+                        Lyrics.Visibility = (Visibility)Convert.ToSByte(Media.SongLyrics == "" || !showMedia || !(SongTitle.Visibility == Visibility.Visible));
                     }
                     catch
                     {
@@ -124,20 +94,11 @@ namespace CompanionDisplayWinUI
                 });
                 try
                 {
-                    if (Globals.sessionManager.GetCurrentSession().GetPlaybackInfo().PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused && Globals.IsSpotify == false && Media.SongName != "")
+                    bool isPlaying = Globals.sessionManager.GetCurrentSession().GetPlaybackInfo().PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused && !Globals.IsSpotify ;
+                    DispatcherQueue.TryEnqueue(() =>
                     {
-                        DispatcherQueue.TryEnqueue(() =>
-                        {
-                            SongTitle.Visibility = Visibility.Collapsed;
-                        });
-                    }
-                    else
-                    {
-                        DispatcherQueue.TryEnqueue(() =>
-                        {
-                            SongTitle.Visibility = Visibility.Visible;
-                        });
-                    }
+                        SongTitle.Visibility = (Visibility)Convert.ToSByte(isPlaying);
+                    });
                 }
                 catch
                 {
@@ -147,7 +108,7 @@ namespace CompanionDisplayWinUI
             {
 
             }
-            if (CleanUp == false)
+            if (!CleanUp)
             {
                 Thread.Sleep(1000);
                 Thread thread = new(UpdateUI);

@@ -16,7 +16,7 @@ namespace CompanionDisplayWinUI
     {
         double Brightness1;
         string ID;
-        int SliderInt = 0;
+        bool SliderInt = false;
         public WidgetPhoneIndividual()
         {
             this.InitializeComponent();
@@ -60,7 +60,7 @@ namespace CompanionDisplayWinUI
                 });
                 LastName = DevName;
             }
-            if (CleanUp == false)
+            if (!CleanUp)
             {
                 Thread.Sleep(1000);
                 Thread thread0 = new(UpdateUI);
@@ -81,11 +81,11 @@ namespace CompanionDisplayWinUI
         private void ChangeBrightness1()
         {
         start:
-            if (SliderInt == 0)
+            if (!SliderInt)
             {
-                SliderInt = 1;
+                SliderInt = !SliderInt;
                 CMDOperations.PerformCMDCommand("runtimes\\adb.exe -s " + ID + " shell settings put system screen_brightness " + Brightness1);
-                SliderInt = 0;
+                SliderInt = !SliderInt;
             }
             else
             {

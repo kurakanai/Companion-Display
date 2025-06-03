@@ -8,7 +8,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
     {
         public static void BugcheckAcrylic(object sender, RoutedEventArgs e)
         {
-            if (Globals.Backdrop == 0 || Globals.Backdrop == 1)
+            if (Globals.Backdrop <= 1 || Globals.useLessDemandingEffects)
             {
                 var uiSettings = new Windows.UI.ViewManagement.UISettings();
                 (sender as Frame).Background = null;

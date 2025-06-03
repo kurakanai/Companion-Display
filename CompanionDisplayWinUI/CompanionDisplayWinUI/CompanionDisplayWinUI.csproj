@@ -23,12 +23,32 @@
     <Compile Remove="AudioManager.cs" />
     <Compile Remove="BTLEIndividual.xaml.cs" />
     <Compile Remove="MonitorBrightness.xaml.cs" />
+    <Compile Remove="ThemeRefresh.cs" />
     <Compile Remove="WidgetAppsWidgetSettings.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AccentOverride.xaml" />
     <None Remove="AcrobatProShortcutsWidget.xaml" />
     <None Remove="AllWidgets.xaml" />
+    <None Remove="AppDesign\CustomButtons.xaml" />
+    <None Remove="AppDesign\CustomComboBox.xaml" />
+    <None Remove="AppDesign\CustomDropDowns.xaml" />
+    <None Remove="AppDesign\CustomExpanders.xaml" />
+    <None Remove="AppDesign\CustomGrids.xaml" />
+    <None Remove="AppDesign\CustomGridViews.xaml" />
+    <None Remove="AppDesign\CustomImageStyles.xaml" />
+    <None Remove="AppDesign\CustomNavigationViews.xaml" />
+    <None Remove="AppDesign\CustomProgressBars.xaml" />
+    <None Remove="AppDesign\CustomProgressRings.xaml" />
+    <None Remove="AppDesign\CustomRectangles.xaml" />
+    <None Remove="AppDesign\CustomScrollViewers.xaml" />
+    <None Remove="AppDesign\CustomSliders.xaml" />
+    <None Remove="AppDesign\CustomStackPanels.xaml" />
+    <None Remove="AppDesign\CustomTabViews.xaml" />
+    <None Remove="AppDesign\CustomTextBlocks.xaml" />
+    <None Remove="AppDesign\CustomTextBoxes.xaml" />
+    <None Remove="AppDesign\CustomToggleSwitch.xaml" />
+    <None Remove="AppDesign\CustomWebView.xaml" />
     <None Remove="AudioDevice.xaml" />
     <None Remove="BlankPage1.xaml" />
     <None Remove="BlankPage2.xaml" />
@@ -97,6 +117,7 @@
     <None Remove="WidgetStack.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Remove="AppDesign\CustomProgressBars.xaml" />
     <Page Remove="BTLEIndividual.xaml" />
     <Page Remove="MonitorBrightness.xaml" />
     <Page Remove="Strings\pt-BR\Resources.xaml" />
@@ -494,6 +515,96 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ClassImplementations\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomProgressRings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomTabViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomDropDowns.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomWebView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomSliders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomToggleSwitch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomComboBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomExpanders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomTextBoxes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomScrollViewers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomNavigationViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomGridViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomStackPanels.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomRectangles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomImageStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomTextBlocks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomGrids.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="AppDesign\CustomButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="LightroomShortcutsWidget.xaml">

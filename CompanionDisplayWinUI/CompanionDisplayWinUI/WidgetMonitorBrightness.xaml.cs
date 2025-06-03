@@ -110,7 +110,7 @@ namespace CompanionDisplayWinUI
             if (FTU)
             {
                 LoadMonitorNames();
-                FTU = false;
+                FTU = !FTU;
             }
         }
     }

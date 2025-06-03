@@ -89,7 +89,7 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                if(Media.SongName != "")
+                if (Media.SongName != "")
                 {
                     using HttpClient client2 = new(new SocketsHttpHandler() { ConnectTimeout = TimeSpan.FromSeconds(2.0), KeepAlivePingTimeout = TimeSpan.FromSeconds(5.0), EnableMultipleHttp2Connections = false });
                     Media.nonTimedLyrics = null;
@@ -199,7 +199,7 @@ namespace CompanionDisplayWinUI
                 await server.Stop();
                 RefreshToken2();
             }
-            
+
         }
         private async void RefreshToken2()
         {
@@ -332,9 +332,12 @@ namespace CompanionDisplayWinUI
         // End Spotify DB
         public void LoadDiscordRPC()
         {
-            try
+            if(client != null)
             {
                 client?.Dispose();
+            }
+            try
+            {
                 client = new DiscordRpcClient(Globals.DiscordID);
                 client.OnReady += delegate (object sender, ReadyMessage e)
                 {
@@ -361,7 +364,6 @@ namespace CompanionDisplayWinUI
                     Globals._secretId = readerconfig.ReadLine();
                     Globals._clientId2 = readerconfig.ReadLine();
                     Globals._secretId2 = readerconfig.ReadLine();
-                    Globals.DiscordID = readerconfig.ReadLine();
                 }
             }
             if (File.Exists(Globals.RefreshTokenPath))
@@ -400,7 +402,7 @@ namespace CompanionDisplayWinUI
                     SmallImageKey = "mini_logo"
                 },
             };
-            if(Media.SongLyrics != null)
+            if (Media.SongLyrics != null)
             {
                 if (details.Length >= 128)
                 {
@@ -428,7 +430,7 @@ namespace CompanionDisplayWinUI
                 }
                 catch
                 {
-                    if(details != null && details.Length >= 50)
+                    if (details != null && details.Length >= 50)
                     {
                         presence.State = Media.SongLyrics.Remove(50, details.Length - 50) + "...";
                     }
@@ -438,17 +440,26 @@ namespace CompanionDisplayWinUI
                     }
                 }
             }
+            var buttons = new List<Button>();
+
+            if (Globals.showPromo)
+            {
+                buttons.Add(new Button
+                {
+                    Label = "Get Companion Display",
+                    Url = "https://github.com/yagdev/Companion-Display/releases"
+                });
+            }
+
             if (isSpotify)
             {
-                
-                presence.Buttons =
-                [
-                    new() {
-                        Label = "View on Spotify",
-                        Url = "https://open.spotify.com/track/" + SongID
-                    }
-                ];
+                buttons.Add(new Button
+                {
+                    Label = "View on Spotify",
+                    Url = "https://open.spotify.com/track/" + SongID
+                });
             }
+            presence.Buttons = buttons.ToArray();
             return presence;
         }
         private RichPresence comparisonPresence = new();
@@ -512,7 +523,7 @@ namespace CompanionDisplayWinUI
         }
         private async void UpdateInfo(GlobalSystemMediaTransportControlsSession sender, MediaPropertiesChangedEventArgs args)
         {
-            if(sender != null && !Globals.IsSpotify)
+            if (sender != null && !Globals.IsSpotify)
             {
                 try
                 {
@@ -523,7 +534,7 @@ namespace CompanionDisplayWinUI
                         TitleSongOffline = Globals.songInfo.Title;
                     }
                     Media.SongName = Globals.songInfo.Title;
-                    if(Globals.songInfo.Artist != "")
+                    if (Globals.songInfo.Artist != "")
                     {
                         Media.SongDetails = Globals.songInfo.Artist;
                         Media.ArtistName = Globals.songInfo.Artist;

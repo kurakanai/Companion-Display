@@ -9,14 +9,11 @@
     mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded" Height="35">
 
     <Grid>
-        
-        <StackPanel Orientation="Horizontal">
-            <TextBlock x:Uid="Load" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <TextBlock Name="SensorName"  Text="-" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{ThemeResource SystemBaseMediumColor}"/>
+        <StackPanel Orientation="Horizontal" Style="{StaticResource CompanionDisplayStackPanelHorizontalSpacing5}">
+            <TextBlock x:Uid="Load" Style="{StaticResource CompanionDisplaySensorLeftBase}"/>
+            <TextBlock Name="SensorName"  Style="{StaticResource CompanionDisplaySensorLeftName}"/>
         </StackPanel>
-        <TextBlock Name="LoadPercent" Text="-%" FontSize="20" VerticalAlignment="Center" Margin="0,0,40,0" HorizontalAlignment="Right"/>
-        <ProgressRing Name="TempProgress" Width="25" Height="25" Value="0" HorizontalAlignment="Right" Margin="0,0,5,0" 
-IsIndeterminate="False"
-Background="LightGray"/>
+        <TextBlock Name="LoadPercent" Text="-%" Style="{StaticResource CompanionDisplaySensorRightProgressBar}"/>
+        <ProgressRing Name="TempProgress" Style="{StaticResource CompanionDisplaySensorProgressRing}"/>
     </Grid>
 </Page>

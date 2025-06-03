@@ -9,23 +9,23 @@
     Tag="AdobeWidgets" Width="500" Height="300" CanDrag="False">
 
     <Grid>
-        <StackPanel Spacing="2" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe7a7;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Width="239" Height="68" Name="UndoButton" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL" Tag="90"/>
-                <Button Content="&#xee47;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Width="239" Height="68" Name="FreeTransformButton" Tapped="PressKeyCTRL" Tag="84" HorizontalAlignment="Stretch"/>
+        <StackPanel Style="{StaticResource CompanionDisplayStackPanelMiddle}">
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe7a7;" Grid.Column="1" Name="UndoButton" Tapped="PressKeyCTRL" Tag="90" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xee47;" Grid.Column="1" Name="FreeTransformButton" Tapped="PressKeyCTRL" Tag="84" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe8e6;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Name="DeselectButton" Tag="68" Width="239" Height="68" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL"/>
-                <Button Content="&#xe70f;" FontFamily="Segoe Fluent Icons" x:Name="BrushButton" Grid.Column="3" Height="68" Width="239" HorizontalAlignment="Stretch" Tapped="PressKeyNoModifiers" Tag="66"/>
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe8e6;" Grid.Column="1" Name="DeselectButton" Tag="68" Tapped="PressKeyCTRL" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xe70f;" x:Name="BrushButton" Grid.Column="3" Tapped="PressKeyNoModifiers" Tag="66" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe7c2;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Name="MoveButton" Tag="86" Width="239" Height="68" HorizontalAlignment="Stretch" Tapped="PressKeyNoModifiers"/>
-                <Button Content="&#xf571;" FontFamily="Segoe Fluent Icons" x:Name="DuplicateLayerButton" Grid.Column="3" Height="68" Width="239" HorizontalAlignment="Stretch" Tag="74" Tapped="PressKeyCTRL"/>
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe7c2;" Grid.Column="1" Name="MoveButton" Tag="86" Tapped="PressKeyNoModifiers" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xf571;" x:Name="DuplicateLayerButton" Grid.Column="3" Tag="74" Tapped="PressKeyCTRL" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe71f;" Name="ZoomReduceButton" FontFamily="Segoe Fluent Icons" Grid.Column="1" Tag="109" Width="239" Height="68" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL"/>
-                <Button Content="&#xe8a3;" Name="ZoomIncreaseButton" FontFamily="Segoe Fluent Icons" Grid.Column="3" Tag="107" Height="68" Width="239" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL"/>
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe71f;" Name="ZoomReduceButton" Grid.Column="1" Tag="109" Tapped="PressKeyCTRL" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xe8a3;" Name="ZoomIncreaseButton" Grid.Column="3" Tag="107" Tapped="PressKeyCTRL" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.System;
+using Microsoft.UI.Xaml.Input;
+using System.Windows.Controls;
 
 namespace CompanionDisplayWinUI.ClassImplementations
 {

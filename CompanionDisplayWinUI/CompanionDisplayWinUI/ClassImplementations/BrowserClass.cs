@@ -19,15 +19,15 @@ namespace CompanionDisplayWinUI.ClassImplementations
             {
                 return(new Uri(input));
             }
-            else if (input.Length > 3 && input[1..].Contains('.') && input[..^2].Contains('.') && input.Contains(' ') == false)
+            else if (input.Length > 3 && input[1..].Contains('.') && input[..^2].Contains('.') && !input.Contains(' '))
             {
                 try
                 {
-                    return(new System.Uri("https://" + input));
+                    return(new Uri("https://" + input));
                 }
                 catch
                 {
-                    return(new System.Uri(Globals.SearchEngine + "/search?q=" + HttpUtility.UrlEncode(input)));
+                    return(new Uri(Globals.SearchEngine + "/search?q=" + HttpUtility.UrlEncode(input)));
                 }
             }
             else

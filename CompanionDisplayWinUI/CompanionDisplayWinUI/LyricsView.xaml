@@ -14,46 +14,46 @@
             <RowDefinition/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <Image Name="BackgroundImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" Visibility="Visible" ImageOpened="BackgroundImage_ImageOpened" Grid.RowSpan="3" Opacity="0.8"/>
-        <Rectangle Name="ImageOptionalBlur" Fill="{ThemeResource CustomAcrylicInAppLuminosity2}" Grid.RowSpan="3" Visibility="Visible"/>
-        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,0,20,-8" Grid.Row="0" Grid.RowSpan="1">
+        <Image Name="BackgroundImage" ImageOpened="BackgroundImage_ImageOpened" Grid.RowSpan="3" Style="{StaticResource CompanionDisplayBackgroundImage}"/>
+        <Rectangle Name="ImageOptionalBlur" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangle}" Grid.RowSpan="3"/>
+        <ScrollViewer Style="{StaticResource CompanionDisplayDefaultScrollViewerBase}" Margin="20,0,20,-8" Grid.Row="0" Grid.RowSpan="1">
             <StackPanel x:Name="LyricsList" Margin="0,30,0,0">
             </StackPanel>
         </ScrollViewer>
 
-        <Rectangle Margin="20,-35,20,20" Fill="{ThemeResource CustomAcrylicInAppLuminosity3}" Grid.RowSpan="3" Grid.Row="1" Visibility="Visible" RadiusX="8" RadiusY="8"/>
-        <Grid Margin="85,40,85,0" Grid.Row="2" PointerCaptureLost="Grid_PointerCaptureLost" PointerReleased="Grid_PointerCaptureLost" VerticalAlignment="Top">
-            <Slider Name="SongProgressBar" TabIndex="6" IsEnabled="True" VerticalAlignment="Center"  ManipulationMode="All" ManipulationStarted="SongProgressBar_ManipulationStarted" IsThumbToolTipEnabled="False" ManipulationCompleted="Grid_ManipulationCompleted" Tapped="SongProgressBar_Tapped"/>
+        <Rectangle Margin="20,-35,20,20" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleLyricsView}" Grid.RowSpan="3" Grid.Row="1" />
+        <Grid Margin="85,40,85,0" Grid.Row="2" PointerCaptureLost="Grid_PointerCaptureLost" PointerReleased="Grid_PointerCaptureLost" Style="{StaticResource CompanionDisplayGridTop}">
+            <Slider Name="SongProgressBar" ManipulationStarted="SongProgressBar_ManipulationStarted" ManipulationCompleted="Grid_ManipulationCompleted" Tapped="SongProgressBar_Tapped" Style="{StaticResource CompanionDisplaySliderMedia}"/>
         </Grid>
-        <Grid Margin="40,36,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="2" Height="36">
-            <TextBlock x:Name="CurrentTime" Text="--:--" FontSize="16"  VerticalAlignment="Center" />
+        <Grid Margin="40,8,0,0" Grid.Row="2" Height="36">
+            <TextBlock x:Name="CurrentTime" Style="{StaticResource CompanionDisplayTimeStampCenter}"/>
         </Grid>
-        <Grid Margin="0,36,40,0" VerticalAlignment="Top" Height="36" HorizontalAlignment="Right" Grid.Row="2">
-            <TextBlock x:Name="EndTime" Text="--:--" FontSize="16"  VerticalAlignment="Center"/>
+        <Grid Margin="0,8,40,0" Height="36" Style="{StaticResource CompanionDisplayGridRight}" Grid.Row="2">
+            <TextBlock x:Name="EndTime" Style="{StaticResource CompanionDisplayTimeStampCenter}"/>
         </Grid>
-        <StackPanel Margin="0,-90,30,0" FlowDirection="RightToLeft" Orientation="Horizontal" Grid.Row="1">
-            <HyperlinkButton TabIndex="5" Content="&#xf8ad;" FontFamily="Segoe Fluent Icons" Tag="176" FontSize="15" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="PlayPauseBtn_Click" Foreground="{ThemeResource SystemBaseHighColor}" Height="50"/>
-            <HyperlinkButton TabIndex="4" x:Name="PlayPauseBtn" Tag="179" Content="&#xf8ae;" FontFamily="Segoe Fluent Icons" FontSize="25" Grid.Column="2" Margin="1,0,1,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="50" Click="PlayPauseBtn_Click" Foreground="{ThemeResource SystemBaseHighColor}"/>
-            <HyperlinkButton TabIndex="3" Content="&#xf8ac;" FontFamily="Segoe Fluent Icons" Tag="177" FontSize="15" Margin="1,0,1,0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="50" Click="PlayPauseBtn_Click" Foreground="{ThemeResource SystemBaseHighColor}"/>
-            <HyperlinkButton TabIndex="2" Content="&#xe708;" FontFamily="Segoe Fluent Icons" Tag="177" FontSize="15" Margin="1,0,1,0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="50" Click="SleepTimer_Click" Foreground="{ThemeResource SystemBaseHighColor}" Name="SleepTimer"/>
-            <ToggleButton TabIndex="1" Height="50" Grid.Row="2" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0" FontFamily="Segoe Fluent Icons" Content="&#xece7;" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked"/>
+        <StackPanel Margin="0,-90,30,0" Style="{StaticResource CompanionDisplayStackPanelHorizontal}" Grid.Row="1">
+            <HyperlinkButton Content="&#xf8ac;" Tag="177" Grid.Column="1" Click="PlayPauseBtn_Click" Style="{StaticResource CompanionDisplayHyperlinkButtonLyricsViewGeneric}"/>
+            <HyperlinkButton x:Name="PlayPauseBtn" Tag="179" Content="&#xf8ae;" Grid.Column="2" Click="PlayPauseBtn_Click" Style="{StaticResource CompanionDisplayHyperlinkButtonLyricsViewPlay}"/>
+            <HyperlinkButton Content="&#xf8ad;" Style="{StaticResource CompanionDisplayHyperlinkButtonLyricsViewGeneric}" Tag="176" Grid.Column="3" Click="PlayPauseBtn_Click"/>
+            <HyperlinkButton Content="&#xe708;" Style="{StaticResource CompanionDisplayHyperlinkButtonLyricsViewGeneric}" Grid.Column="1" Click="SleepTimer_Click" Name="SleepTimer"/>
+            <ToggleButton Grid.Row="2" Content="&#xece7;" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked" Style="{StaticResource CompanionDisplayToggleButtonIconLyricsView}"/>
 
         </StackPanel>
-        <Grid VerticalAlignment="Top" Grid.Row="2" Margin="35,-20,210,0">
-            <StackPanel Orientation="Horizontal" Spacing="10" >
-                <Grid HorizontalAlignment="Left" VerticalAlignment="Top" CornerRadius="5">
-                    <Image x:Name="AlbumCoverImg" Width="50" Height="50" Margin="0"/>
+        <Grid Style="{StaticResource CompanionDisplayGridTop}" Grid.Row="2" Margin="35,-20,210,0">
+            <StackPanel Style="{StaticResource CompanionDisplayStackPanelPadding10Horizontal}">
+                <Grid Style="{StaticResource CompanionDisplayGridRadius8}">
+                    <Image x:Name="AlbumCoverImg" Style="{StaticResource CompanionDisplayImageLyricsView}"/>
                 </Grid>
-                <StackPanel VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="1">
-                    <TextBlock x:Name="titleSong" Text="-" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <TextBlock x:Name="detailsSong" Text="-" VerticalAlignment="Center" Opacity="0.8"/>
+                <StackPanel Style="{StaticResource CompanionDisplayStackPanelMiddle}">
+                    <TextBlock x:Name="titleSong" Text="-" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}" Margin="0,0,10,0"/>
+                    <TextBlock x:Name="detailsSong" Text="-" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}" Opacity="0.8"/>
                 </StackPanel>
             </StackPanel>
 
         </Grid>
 
-        <Rectangle Name="CornerMask" Fill="{ThemeResource CustomAcrylicInAppLuminosity}" Grid.RowSpan="1" Margin="0,-5,-5,-20" Visibility="Visible" Grid.Row="0" Height="37" Width="185" HorizontalAlignment="Right" VerticalAlignment="Top" RadiusX="8" RadiusY="8"/>
-        <ToggleButton Content="&#xe718;" Margin="0,0,140,0" Height="32" FontSize="12" Width="40" VerticalAlignment="Top" Padding="0,0,-5,0" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent" FontFamily="Segoe Fluent Icons" Checked="ToggleButton1_Checked" Unchecked="ToggleButton1_Unchecked" Grid.RowSpan="2"/>
+        <Rectangle Name="CornerMask" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleButtonMask}"/>
+        <ToggleButton Style="{StaticResource CompanionDisplayToggleButtonIconPin}" Checked="ToggleButton1_Checked" Unchecked="ToggleButton1_Unchecked" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>

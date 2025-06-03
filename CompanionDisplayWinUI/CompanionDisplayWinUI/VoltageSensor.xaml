@@ -9,11 +9,11 @@
     mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded" Height="35">
 
     <Grid>
-        
-        <StackPanel Orientation="Horizontal">
-            <TextBlock x:Uid="Voltage" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <TextBlock Name="SensorName" Text="-" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="{ThemeResource SystemBaseMediumColor}"/>
+        <StackPanel Orientation="Horizontal" Style="{StaticResource CompanionDisplayStackPanelHorizontalSpacing5}">
+            <TextBlock x:Uid="Voltage" Style="{StaticResource CompanionDisplaySensorLeftBase}"/>
+            <TextBlock Name="SensorName"  Style="{StaticResource CompanionDisplaySensorLeftName}"/>
         </StackPanel>
-        <TextBlock Name="LoadPercent" Text="-V" FontSize="20" VerticalAlignment="Center" Margin="0,0,10,0" HorizontalAlignment="Right"/>
+        <TextBlock Name="LoadPercent" Text="-V" Style="{StaticResource CompanionDisplaySensorRight}"/>
+
     </Grid>
 </Page>

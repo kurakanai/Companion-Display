@@ -1,4 +1,5 @@
-﻿using LibreHardwareMonitor.Hardware;
+﻿using CompanionDisplayWinUI.ClassImplementations;
+using LibreHardwareMonitor.Hardware;
 using Microsoft.Web.WebView2.Core;
 using System;
 using Windows.Media.Control;
@@ -9,7 +10,7 @@ namespace CompanionDisplayWinUI
     {
         // Runtime variables
         public static bool IsAdmin = false;
-        public static string Version = "25.5";
+        public static string Version = "25.6";
         public static bool isConfidential = false; // this is nothing too special, just disables update warnings for developer builds for sanity purposes :p
         public static ObsControls obsControls = new();
         public static SleepTimer sleepTimer = new();
@@ -44,7 +45,9 @@ namespace CompanionDisplayWinUI
         public static GlobalSystemMediaTransportControlsSessionMediaProperties songInfo;
         public static GlobalSystemMediaTransportControlsSessionTimelineProperties timelineInfo;
         public static GlobalSystemMediaTransportControlsSessionPlaybackInfo playbackInfo;
+        public static TimeViewModel publicTimeViewModel = new TimeViewModel();
         public static int PiPAmount = 0;
+
         // App config files
         public static string RefreshTokenPath = "Config/RefreshToken.crlh";
         public static string RefreshToken2Path = "Config/RefreshToken2.crlh";
@@ -86,5 +89,8 @@ namespace CompanionDisplayWinUI
         public static bool enableUISounds = false;
         public static Uri SearchEngine = new("https://www.google.com");
         public static bool triggerSetup = true;
+        public static bool useLessDemandingEffects = false;
+        public static bool use12HourClock = false;
+        public static bool showPromo = true;
     }
 }

@@ -30,8 +30,8 @@ namespace CompanionDisplayWinUI
         public TimeWidget()
         {
             this.InitializeComponent();
+            this.DataContext = Globals.publicTimeViewModel;
         }
-        private string DateStr = "", TimeStr = "";
         private bool isVisible = false;
         public bool configChanged = true;
         private int loadCountPerUnload = 0;
@@ -151,12 +151,12 @@ namespace CompanionDisplayWinUI
             loadCountPerUnload++;
             if (!isVisible)
             {
-                isVisible = true;
+                isVisible = !isVisible;
                 if (configChanged)
                 {
                     LoadLayout();
                     LoadToggles();
-                    configChanged = false;
+                    configChanged = !configChanged;
                 }
                 try
                 {
@@ -175,11 +175,11 @@ namespace CompanionDisplayWinUI
                 SongUpdated();
                 PlayPauseUpdated(null, null);
             }
-            if (timeThread == null || !(timeThread.ThreadState == ThreadState.Running))
-            {
-                timeThread = new Thread(ManageTimeEvents);
-                timeThread.Start();
-            }
+            //if (timeThread == null || !(timeThread.ThreadState == ThreadState.Running))
+            //{
+            //    timeThread = new Thread(ManageTimeEvents);
+            //    timeThread.Start();
+            //}
         }
 
         private void PlayPauseUpdated(GlobalSystemMediaTransportControlsSession sender, PlaybackInfoChangedEventArgs args)
@@ -204,34 +204,6 @@ namespace CompanionDisplayWinUI
             catch { }
         }
 
-        private void ManageTimeEvents()
-        {
-            while (isVisible)
-            {
-                string currentTime = DateTime.Now.ToString("HH:mm");
-                string currentDate = DateOnly.FromDateTime(DateTime.Now).ToString("dddd, dd MMMM yyyy", CultureInfo.CurrentCulture);
-                if (currentDate != DateStr)
-                {
-                    DispatcherQueue.TryEnqueue(() =>
-                    {
-                        DateStr = currentDate;
-                        Date.Text = currentDate;
-                        FullDate.Text = currentDate;
-                    });
-                }
-                if (currentTime != TimeStr)
-                {
-                    DispatcherQueue.TryEnqueue(() =>
-                    {
-                        TimeStr = currentTime;
-                        Time.Text = currentTime;
-                        TimeLeft.Text = currentTime;
-                    });
-                }
-                Thread.Sleep(1000);
-            }
-        }
-
         private async void UpdateBL()
         {
             try
@@ -242,46 +214,54 @@ namespace CompanionDisplayWinUI
                 {
                     BTStackBattery.Children.Clear();
                 });
-                var selector = BluetoothDevice.GetDeviceSelector();
-                var devices = await DeviceInformation.FindAllAsync(selector);
-                foreach (var device in devices)
-                {
-                    BluetoothDevice bleDevice0 = await BluetoothDevice.FromIdAsync(device.Id);
-                    bluetoothDevices.Add(bleDevice0);
-                    bleDevice0.ConnectionStatusChanged += BLRefresh;
-                    if (bleDevice0.ConnectionStatus == BluetoothConnectionStatus.Connected)
-                    {
-                        DispatcherQueue.TryEnqueue(() =>
-                        {
-                            Frame frame = new()
-                            {
-                                Name = device.Name,
-                            };
-                            frame.Navigate(typeof(BTBatteryIndividual));
-                            BTStackBattery.Children.Add(frame);
-                        });
-                    }
-                }
                 var selector0 = BluetoothLEDevice.GetDeviceSelector();
                 var devices0 = await DeviceInformation.FindAllAsync(selector0);
                 foreach (var device in devices0)
                 {
-                    BluetoothLEDevice bleDevice = await BluetoothLEDevice.FromIdAsync(device.Id);
-                    bleDevice.ConnectionStatusChanged += BLERefresh;
-                    bluetoothDevicesLE.Add(bleDevice);
-                    if (bleDevice.ConnectionStatus == BluetoothConnectionStatus.Connected)
+                    try
                     {
-                        DispatcherQueue.TryEnqueue(() =>
+                        BluetoothLEDevice bleDevice = await BluetoothLEDevice.FromIdAsync(device.Id);
+                        bleDevice.ConnectionStatusChanged += BLERefresh;
+                        bluetoothDevicesLE.Add(bleDevice);
+                        if (bleDevice.ConnectionStatus == BluetoothConnectionStatus.Connected)
                         {
-                            Frame frame = new()
+                            DispatcherQueue.TryEnqueue(() =>
                             {
-                                Name = device.Name,
-                                Tag = bleDevice
-                            };
-                            frame.Navigate(typeof(BTBatteryIndividual));
-                            BTStackBattery.Children.Add(frame);
-                        });
+                                Frame frame = new()
+                                {
+                                    Name = device.Name,
+                                    Tag = bleDevice
+                                };
+                                frame.Navigate(typeof(BTBatteryIndividual));
+                                BTStackBattery.Children.Add(frame);
+                            });
+                        }
                     }
+                    catch { }
+                }
+                var selector = BluetoothDevice.GetDeviceSelector();
+                var devices = await DeviceInformation.FindAllAsync(selector);
+                foreach (var device in devices)
+                {
+                    try
+                    {
+                        BluetoothDevice bleDevice0 = await BluetoothDevice.FromIdAsync(device.Id);
+                        bluetoothDevices.Add(bleDevice0);
+                        bleDevice0.ConnectionStatusChanged += BLRefresh;
+                        if (bleDevice0.ConnectionStatus == BluetoothConnectionStatus.Connected)
+                        {
+                            DispatcherQueue.TryEnqueue(() =>
+                            {
+                                Frame frame = new()
+                                {
+                                    Name = device.Name,
+                                };
+                                frame.Navigate(typeof(BTBatteryIndividual));
+                                BTStackBattery.Children.Add(frame);
+                            });
+                        }
+                    }
+                    catch { }
                 }
             }
             catch
@@ -317,7 +297,7 @@ namespace CompanionDisplayWinUI
                     if (radio.Kind == RadioKind.Bluetooth)
                     {
                         BTToggle.IsEnabled = true;
-                        BTToggle.IsHitTestVisible = true;
+                        BTToggle.IsHitTestVisible = BTToggle.IsEnabled;
                         radio2 = radio;
                         radio2.StateChanged -= UpdateBT;
                         radio2.StateChanged += UpdateBT;

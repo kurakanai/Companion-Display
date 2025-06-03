@@ -14,13 +14,13 @@
             <RowDefinition Height="40" x:Name="ControlsRow"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Width="50" Height="32" VerticalAlignment="Top" Margin="5,4,0,0" FontFamily="Segoe Fluent Icons" Content="&#xe76b;" Click="Button_Click" CornerRadius="8"/>
-        <Button Width="50" Height="32" VerticalAlignment="Top" Margin="58,4,0,0" FontFamily="Segoe Fluent Icons" Content="&#xe76c;" Click="Button_Click_1" CornerRadius="8"/>
-        <Button Width="50" Height="32" VerticalAlignment="Top" Margin="111,4,0,0" FontFamily="Segoe Fluent Icons" Content="&#xe72c;" Click="Button_Click_5" CornerRadius="8"/>
-        <Button Width="50" Height="32" VerticalAlignment="Top" Margin="164,4,0,0" FontFamily="Segoe Fluent Icons" Content="&#xe80f;" Click="Button_Click_2" CornerRadius="8"/>
-        <Button Width="50" Height="32" VerticalAlignment="Top" Margin="0,4,58,0" FontFamily="Segoe Fluent Icons" Content="&#xe896;" HorizontalAlignment="Right" Click="Button_Click_3" CornerRadius="8"/>
-        <Button Width="50" Height="32" VerticalAlignment="Top" Margin="0,4,5,0" FontFamily="Segoe Fluent Icons" Content="&#xf738;" HorizontalAlignment="Right" Click="Button_Click_4" CornerRadius="8"/>
-        <TextBox Name="AddressBar" VerticalAlignment="Top" Height="30" Margin="217,4,111,0" FontFamily="Segoe UI Variable Display" HorizontalAlignment="Stretch" KeyDown="AddressBar_KeyDown" Padding="10,5,10,0" PlaceholderText="Search or insert URL" CornerRadius="8" GotFocus="AddressBar_GotFocus"/>
+        <Button Margin="5,4,0,0" Content="&#xe76b;" Click="Button_Click" Style="{StaticResource CompanionDisplayBrowserButton}"/>
+        <Button Margin="58,4,0,0" Content="&#xe76c;" Click="Button_Click_1" Style="{StaticResource CompanionDisplayBrowserButton}"/>
+        <Button Margin="111,4,0,0" Content="&#xe72c;" Click="Button_Click_5" Style="{StaticResource CompanionDisplayBrowserButton}"/>
+        <Button Margin="164,4,0,0" Content="&#xe80f;" Click="Button_Click_2" Style="{StaticResource CompanionDisplayBrowserButton}"/>
+        <Button Margin="0,4,58,0" Content="&#xe896;" Click="Button_Click_3" Style="{StaticResource CompanionDisplayBrowserButtonRight}"/>
+        <Button Margin="0,4,5,0" Content="&#xf738;" Click="Button_Click_4" Style="{StaticResource CompanionDisplayBrowserButtonRight}"/>
+        <TextBox Name="AddressBar" Style="{StaticResource CompanionDisplaySearchTextBox}" Margin="217,4,111,0" KeyDown="AddressBar_KeyDown" GotFocus="AddressBar_GotFocus"/>
         <WebView2 x:Name="WebView" Grid.Row="2" NavigationCompleted="WebView_NavigationCompleted" Loaded="WebView_Loaded" CoreWebView2Initialized="WebView_CoreWebView2Initialized"/>
     </Grid>
 </Page>

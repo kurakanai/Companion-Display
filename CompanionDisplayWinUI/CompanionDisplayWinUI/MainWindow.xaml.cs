@@ -107,7 +107,7 @@ namespace CompanionDisplayWinUI
             if (!sender.IsPaneToggleButtonVisible)
             {
                 sender.PaneDisplayMode = NavigationViewPaneDisplayMode.Auto;
-                sender.IsPaneToggleButtonVisible = true;
+                sender.IsPaneToggleButtonVisible = !sender.IsPaneToggleButtonVisible;
                 sender.PaneClosed -= ProcessShit;
             }
         }
@@ -149,14 +149,7 @@ namespace CompanionDisplayWinUI
                     case (2):
                         DispatcherQueue.TryEnqueue(() =>
                         {
-                            if (Globals.Blur)
-                            {
-                                ImageOptionalBlur.Visibility = Visibility.Visible;
-                            }
-                            else
-                            {
-                                ImageOptionalBlur.Visibility = Visibility.Collapsed;
-                            }
+                            ImageOptionalBlur.Visibility = (Visibility)Convert.ToByte(!Globals.Blur);
                         });
                         DispatcherQueue.TryEnqueue(() =>
                         {
@@ -171,7 +164,6 @@ namespace CompanionDisplayWinUI
                                         bitmapImage.SetSource(stream.AsRandomAccessStream());
                                     }
                                     BackgroundImage.Source = bitmapImage;
-                                    BackgroundImage.Visibility = Visibility.Visible;
                                 }
                                 else
                                 {
@@ -232,7 +224,10 @@ namespace CompanionDisplayWinUI
             }
             try
             {
-                (contentFrame.Content as BlankPage1).ForceBugcheck();
+                if (!Globals.useLessDemandingEffects)
+                {
+                    (contentFrame.Content as BlankPage1).ForceBugcheck();
+                }
             }
             catch { }
         }
@@ -263,7 +258,7 @@ namespace CompanionDisplayWinUI
         {
             if (Globals.triggerSetup)
             {
-                (sender as NavigationView).IsPaneVisible = false;
+                (sender as NavigationView).IsPaneVisible = !Globals.triggerSetup;
                 contentFrame.Navigate(typeof(SetupStep0));
             }
         }

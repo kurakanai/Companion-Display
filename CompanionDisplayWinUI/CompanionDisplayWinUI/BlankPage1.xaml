@@ -13,13 +13,12 @@
             <RowDefinition Height="360" x:Name="PinnedRow"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ScrollViewer Margin="5,0,0,0" HorizontalAlignment="Stretch" Grid.Row="0" Grid.RowSpan="2" VerticalScrollBarVisibility="Hidden">
-            <GridView x:Name="BasicGridView" Margin="0,45,0,0" SelectionMode="None" Tag="HomePageGridView" HorizontalAlignment="Center" CanDragItems="True" CanReorderItems="True" AllowDrop="True" DragItemsStarting="GridView_DragItemsStarting" DragOver="GridView_DragOver" Drop="GridView_Drop" DragItemsCompleted="BasicGridView_DragItemsCompleted" VerticalAlignment="Stretch"/>
+        <ScrollViewer Style="{StaticResource DefaultScrollViewerStyle}" Margin="5,0,0,0" Grid.RowSpan="2">
+            <GridView x:Name="BasicGridView" Tag="HomePageGridView" Style="{StaticResource CompanionDisplayGridViewMain}" DragItemsStarting="GridView_DragItemsStarting" DragOver="GridView_DragOver" Drop="GridView_Drop" DragItemsCompleted="BasicGridView_DragItemsCompleted"/>
         </ScrollViewer>
-        <Rectangle Name="ImageOptionalBlur" Fill="{ThemeResource CustomAcrylicInAppLuminosity}" Grid.RowSpan="1" Margin="0,-8,0,-20" Visibility="Visible" Grid.Row="0" RadiusX="8" RadiusY="8"/>
-        <ScrollViewer x:Name="PinScrollView" Margin="0,0,0,-20" HorizontalAlignment="Stretch" Height="380" Grid.Row="0" Background="Transparent" VerticalScrollBarVisibility="Hidden">
-            <GridView x:Name="PinnedView" Margin="0,45,0,0" SelectionMode="None" Tag="HomePageGridView" HorizontalAlignment="Center" CanDragItems="True" CanReorderItems="True" AllowDrop="True" DragItemsStarting="GridView_DragItemsStarting" DragOver="GridView_DragOver" Drop="GridView_Drop" DragItemsCompleted="BasicGridView_DragItemsCompleted" VerticalAlignment="Stretch" SizeChanged="CompleteGrid_SizeChanged"/>
+        <Rectangle Name="ImageOptionalBlur" Grid.RowSpan="1" Margin="0,-8,0,-20" Style="{StaticResource CompanionDisplayImageOptionalBlurRectanglePin}"/>
+        <ScrollViewer x:Name="PinScrollView" Style="{StaticResource CompanionDisplayDefaultScrollViewer}" Margin="0,0,0,-20" Height="380">
+            <GridView x:Name="PinnedView" Style="{StaticResource CompanionDisplayGridViewMain}" Tag="HomePageGridView" DragItemsStarting="GridView_DragItemsStarting" DragOver="GridView_DragOver" Drop="GridView_Drop" DragItemsCompleted="BasicGridView_DragItemsCompleted" SizeChanged="CompleteGrid_SizeChanged"/>
         </ScrollViewer>
-        
     </Grid>
 </Page>

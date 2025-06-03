@@ -8,6 +8,12 @@ namespace CompanionDisplayWinUI.ClassImplementations
     static class BackupOperations
     {
         public static event CommonlyAccessedInstances.HandleEventsWithNoArgs BackupFinished;
+        private static string enableGeneralString = " del /f /q ..\\GlobalSettings.crlh & copy GlobalSettings.crlh .. &";
+        private static string enableWidgetLayoutString = " del /f /q ..\\PinnedOrder.crlh & copy PinnedOrder.crlh .. & del /f /q ..\\WidgetOrder.crlh & copy WidgetOrder.crlh .. & rmdir /S /Q ..\\Stacks & robocopy Stacks ../Stacks /mir & rmdir /S /Q ..\\WidgetNotes & robocopy WidgetNotes ../WidgetNotes /mir &";
+        private static string enableWidgetSettingsString = " del /f /q ..\\MacroThumbs.crlh & copy MacroThumbs.crlh .. & del /f /q ..\\MediaConfig.crlh & copy MediaConfig.crlh .. & del /f /q ..\\OBSSettings.crlh & copy OBSSettings.crlh .. & del /f /q ..\\PhotoConfig.crlh & copy PhotoConfig.crlh .. & del /f /q ..\\RefreshToken.crlh & copy RefreshToken.crlh .. & del /f /q ..\\RefreshToken2.crlh & copy RefreshToken2.crlh .. & del /f /q ..\\TimeConfigQS.crlh & copy TimeConfigQS.crlh .. &";
+        private static string enableGeneralStringBackup = " copy GlobalSettings.crlh Backup &";
+        private static string enableWidgetLayoutStringBackup = " copy PinnedOrder.crlh Backup & copy WidgetOrder.crlh Backup & robocopy Stacks Backup/Stacks /mir & robocopy WidgetNotes Backup/WidgetNotes /mir &";
+        private static string enableWidgetSettingsStringBackup = " copy MacroThumbs.crlh Backup & copy MediaConfig.crlh Backup & copy OBSSettings.crlh Backup & copy PhotoConfig.crlh Backup & copy RefreshToken.crlh Backup & copy RefreshToken2.crlh Backup & copy TimeConfigQS.crlh Backup &";
         static void BackupFinishedMethod()
         {
             BackupFinished?.Invoke();
@@ -18,15 +24,15 @@ namespace CompanionDisplayWinUI.ClassImplementations
             string options = "&";
             if (enableGeneral)
             {
-                options += " del /f /q ..\\GlobalSettings.crlh & copy GlobalSettings.crlh .. &";
+                options += enableGeneralString;
             }
             if (enableWidgetLayout)
             {
-                options += " del /f /q ..\\PinnedOrder.crlh & copy PinnedOrder.crlh .. & del /f /q ..\\WidgetOrder.crlh & copy WidgetOrder.crlh .. & rmdir /S /Q ..\\Stacks & robocopy Stacks ../Stacks /mir & rmdir /S /Q ..\\WidgetNotes & robocopy WidgetNotes ../WidgetNotes /mir &";
+                options += enableWidgetLayoutString;
             }
             if (enableWidgetSettings)
             {
-                options += " del /f /q ..\\MacroThumbs.crlh & copy MacroThumbs.crlh .. & del /f /q ..\\MediaConfig.crlh & copy MediaConfig.crlh .. & del /f /q ..\\OBSSettings.crlh & copy OBSSettings.crlh .. & del /f /q ..\\PhotoConfig.crlh & copy PhotoConfig.crlh .. & del /f /q ..\\RefreshToken.crlh & copy RefreshToken.crlh .. & del /f /q ..\\RefreshToken2.crlh & copy RefreshToken2.crlh .. & del /f /q ..\\TimeConfigQS.crlh & copy TimeConfigQS.crlh .. &";
+                options += enableWidgetSettingsString;
             }
             if (!Directory.Exists("Config"))
             {
@@ -40,15 +46,15 @@ namespace CompanionDisplayWinUI.ClassImplementations
             string options = "&";
             if (enableGeneral)
             {
-                options += " copy GlobalSettings.crlh Backup &";
+                options += enableGeneralStringBackup;
             }
             if (enableWidgetLayout)
             {
-                options += " copy PinnedOrder.crlh Backup & copy WidgetOrder.crlh Backup & robocopy Stacks Backup/Stacks /mir & robocopy WidgetNotes Backup/WidgetNotes /mir &";
+                options += enableWidgetLayoutStringBackup;
             }
             if (enableWidgetSettings)
             {
-                options += " copy MacroThumbs.crlh Backup & copy MediaConfig.crlh Backup & copy OBSSettings.crlh Backup & copy PhotoConfig.crlh Backup & copy RefreshToken.crlh Backup & copy RefreshToken2.crlh Backup & copy TimeConfigQS.crlh Backup &";
+                options += enableWidgetSettingsStringBackup;
             }
             if (!Directory.Exists("Config"))
             {

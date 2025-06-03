@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using System.Threading;
 using CompanionDisplayWinUI.ClassImplementations;
+using System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -106,19 +107,12 @@ namespace CompanionDisplayWinUI
                         }
                         catch { }
                     }
-                    if (BasicGridView.Items.Count == 0)
+                    if (BasicGridView.Items.Count == 1)
                     {
-                        NoDevices.Visibility = Visibility.Visible;
+                        var childControl = (Microsoft.UI.Xaml.Controls.Frame)BasicGridView.FindName(LastID);
+                        childControl.Width = 486;
                     }
-                    else
-                    {
-                        if (BasicGridView.Items.Count == 1)
-                        {
-                            var childControl = (Microsoft.UI.Xaml.Controls.Frame)BasicGridView.FindName(LastID);
-                            childControl.Width = 486;
-                        }
-                        NoDevices.Visibility = Visibility.Collapsed;
-                    }
+                    NoDevices.Visibility = (Visibility)Convert.ToByte(!(BasicGridView.Items.Count == 0));
                 }
                 catch { }
             });

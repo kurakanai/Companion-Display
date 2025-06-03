@@ -24,6 +24,60 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="AppDesign\CustomProgressRings.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomTabViews.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomDropDowns.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomWebView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomSliders.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomToggleSwitch.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomComboBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomExpanders.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomTextBoxes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomScrollViewers.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomNavigationViews.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomGridViews.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomStackPanels.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomRectangles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomImageStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomTextBlocks.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomGrids.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\CustomButtons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="LightroomShortcutsWidget.xaml">
       <SubType>Designer</SubType>
     </Page>

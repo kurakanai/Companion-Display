@@ -34,7 +34,7 @@ namespace CompanionDisplayWinUI
             if (FTU)
             {
                 await BrowserClass.CreateWebviewProperly(Player, new Uri("https://dashboard.twitch.tv/popout/stream-manager/activity-feed"));
-                FTU = false;
+                FTU = !FTU;
             }
         }
     }

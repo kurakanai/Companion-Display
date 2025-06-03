@@ -11,23 +11,23 @@
     Width="500" Height="300">
 
     <Grid>
-        <StackPanel Spacing="2" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe7a7;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Width="239" Height="68" Name="UndoButton" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL" Tag="90"/>
-                <Button Content="&#xE70F;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Width="239" Height="68" Name="PenToolButton" Tapped="PressKeyNoModifiers" Tag="80" HorizontalAlignment="Stretch"/>
+        <StackPanel Style="{StaticResource CompanionDisplayStackPanelMiddle}">
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe7a7;" Grid.Column="1" Name="UndoButton" Tapped="PressKeyCTRL" Tag="90" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xE70F;" Grid.Column="1" Name="PenToolButton" Tapped="PressKeyNoModifiers" Tag="80" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xE8B7;" Name="GroupObjectsButton" FontFamily="Segoe Fluent Icons" Grid.Column="1" Tag="71" Width="239" Height="68" HorizontalAlignment="Stretch" Tapped="PressKeyCTRL"/>
-                <Button Content="&#xe8b3;" FontFamily="Segoe Fluent Icons" x:Name="DirectSelectionToolButton" Grid.Column="3" Height="68" Width="239" HorizontalAlignment="Stretch" Tapped="PressKeyNoModifiers" Tag="65"/>
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xE8B7;" Name="GroupObjectsButton" Grid.Column="1" Tag="71" Tapped="PressKeyCTRL" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xe8b3;" x:Name="DirectSelectionToolButton" Grid.Column="3" Tapped="PressKeyNoModifiers" Tag="65" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe8b0;" FontFamily="Segoe Fluent Icons" Grid.Column="1" Name="SelectionToolButton" Tag="86" Width="239" Height="68" HorizontalAlignment="Stretch" Tapped="PressKeyNoModifiers"/>
-                <Button Content="&#xE890;" FontFamily="Segoe Fluent Icons" x:Name="ToggleOutlineButton" Grid.Column="3" Height="68" Width="239" HorizontalAlignment="Stretch" Tag="89" Tapped="PressKeyCTRL"/>
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe8b0;" Grid.Column="1" Name="SelectionToolButton" Tag="86" Tapped="PressKeyNoModifiers" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xE890;" x:Name="ToggleOutlineButton" Grid.Column="3" Tag="89" Tapped="PressKeyCTRL" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Spacing="2" Margin="10,0,0,0">
-                <Button Content="&#xe81e; &#xe70e;" Name="BringForwardButton" FontFamily="Segoe Fluent Icons" Grid.Column="3" Tag="221" Height="68" Width="239" HorizontalAlignment="Stretch" Tapped="PressKeyNoModifiers"/>
-                <Button Content="&#xe81e; &#xe70d;" Name="BringBackwardsButton" FontFamily="Segoe Fluent Icons" Grid.Column="1" Tag="219" Width="239" Height="68" HorizontalAlignment="Stretch" Tapped="PressKeyNoModifiers"/>
+            <StackPanel Style="{StaticResource CompanionDisplayAdobeStackPanel}">
+                <Button Content="&#xe81e; &#xe70e;" Name="BringForwardButton" Grid.Column="3" Tag="221" Tapped="PressKeyNoModifiers" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
+                <Button Content="&#xe81e; &#xe70d;" Name="BringBackwardsButton" Grid.Column="1" Tag="219" Tapped="PressKeyNoModifiers" Style="{StaticResource CompanionDisplayAdobeShortcutButton}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

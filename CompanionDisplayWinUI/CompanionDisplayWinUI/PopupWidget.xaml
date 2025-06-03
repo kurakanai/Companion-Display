@@ -12,7 +12,7 @@
     <Window.SystemBackdrop>
         <DesktopAcrylicBackdrop />
     </Window.SystemBackdrop>
-    <Grid RightTapped="Grid_RightTapped" Background="Transparent" Loaded="Grid_Loaded">
+    <Grid Background="Transparent" Loaded="Grid_Loaded">
         <Grid x:Name="WidgetGrid" Unloaded="WidgetGrid_Unloaded" Padding="-10"/>
         <ToggleButton Content="&#xe718;" Margin="0,0,50,0" Height="32" FontSize="12" Width="30" VerticalAlignment="Top" Padding="0" HorizontalAlignment="Right" Background="Transparent" BorderBrush="Transparent" FontFamily="Segoe Fluent Icons" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked"/>
     </Grid>

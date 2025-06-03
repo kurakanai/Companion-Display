@@ -19,15 +19,7 @@ namespace CompanionDisplayWinUI
             try
             {
                 string SF = File.ReadAllText(Globals.PhotoConfigFile);
-                switch (SF)
-                {
-                    case "false":
-                        SmartFlipToggle.IsOn = false;
-                        break;
-                    case "true":
-                        SmartFlipToggle.IsOn = true;
-                        break;
-                }
+                SmartFlipToggle.IsOn = bool.Parse(SF);
             }
             catch
             {
@@ -43,14 +35,7 @@ namespace CompanionDisplayWinUI
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (SmartFlipToggle.IsOn)
-            {
-                Globals.SmartFlipToggle = true;
-            }
-            else
-            {
-                Globals.SmartFlipToggle = false;
-            }
+            Globals.SmartFlipToggle = Globals.SmartFlipToggle;
             var parent = this.Parent as Frame;
             parent.Tag = DirectoryTextBox.Text;
             var frame = this.Parent as Frame;

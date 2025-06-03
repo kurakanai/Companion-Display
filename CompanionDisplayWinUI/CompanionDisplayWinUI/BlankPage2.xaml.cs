@@ -67,17 +67,16 @@ namespace CompanionDisplayWinUI
                 fullScreen = value;
                 if (fullScreen)
                 {
-                    nv.IsPaneVisible = false;
                     MainGrid.Margin = new Thickness(-1);
                     WebView.Margin = new Thickness(0, -80, 0, 0);
                 }
                 else
                 {
-                    nv.IsPaneVisible = true;
-                    nv.IsPaneOpen = false;
                     MainGrid.Margin = new Thickness(0);
                     WebView.Margin = MainGrid.Margin;
                 }
+                nv.IsPaneVisible = fullScreen;
+                nv.IsPaneOpen = fullScreen;
             }
         }
         private void WebView_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)

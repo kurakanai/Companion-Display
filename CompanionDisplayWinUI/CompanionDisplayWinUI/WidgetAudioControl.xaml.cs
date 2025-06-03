@@ -36,7 +36,7 @@ namespace CompanionDisplayWinUI
                 CurrentDevice.Content = device.FriendlyName;
                 DeviceView.Tag = device;
                 DeviceView.Navigate(typeof(AudioDevice));
-                FTU = false;
+                FTU = !FTU;
             }
         }
 

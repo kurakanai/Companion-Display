@@ -115,7 +115,7 @@ $Message
                         Thread thread = new(UpdateUI);
                         thread.Start();
                     }
-                    FTU = false;
+                    FTU = !FTU;
                 }
                 else
                 {

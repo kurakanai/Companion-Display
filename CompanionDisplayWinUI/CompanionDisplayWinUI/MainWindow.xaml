@@ -12,14 +12,13 @@
     <Window.SystemBackdrop>
         <DesktopAcrylicBackdrop />
     </Window.SystemBackdrop>
-
     <Grid Name="GridMain" Background="#00FFFFFF">
         <Image Name="BackgroundImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" Visibility="Collapsed" ImageOpened="BackgroundImage_ImageOpened"/>
-        <Rectangle Name="ImageOptionalBlur" Fill="{ThemeResource CustomAcrylicInAppLuminosity3}" Grid.RowSpan="2" Visibility="Collapsed"/>
+        <Rectangle Name="ImageOptionalBlur" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleLyricsView}" Grid.RowSpan="2" Visibility="Collapsed"/>
         <Rectangle Name="SleepReptangle" Fill="Black" Grid.RowSpan="2" Visibility="Collapsed"/>
         <NavigationView x:Name="nvSample" Grid.Row="1" SelectedItem="{x:Bind HomeItem, Mode=OneTime}"
-                                    PaneDisplayMode="Auto" SelectionFollowsFocus="Enabled"  SelectionChanged="NavigationView_SelectionChanged"
-                                    IsTabStop="False" IsBackButtonVisible="Collapsed" Loaded="NvSample_Loaded">
+                        PaneDisplayMode="Auto" SelectionFollowsFocus="Enabled"  SelectionChanged="NavigationView_SelectionChanged"
+                        IsTabStop="False" IsBackButtonVisible="Collapsed" Loaded="NvSample_Loaded">
             <NavigationView.Resources>
                 <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAltHighColor}" Opacity="0.2"/>
             </NavigationView.Resources>
@@ -33,9 +32,9 @@
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem Icon="Clock" x:Uid="SleepMode" Tag="SleepMode" x:Name="SleepPage"/>
             </NavigationView.FooterMenuItems>
-            <Frame x:Name="contentFrame" Margin="0,0,0,0"/>
+            <Frame x:Name="contentFrame"/>
         </NavigationView>
-        <Rectangle Name="CornerMask" Fill="{ThemeResource CustomAcrylicInAppLuminosity}" Grid.RowSpan="1" Margin="0,-5,-5,-20" Visibility="Visible" Grid.Row="0" Height="37" Width="143" HorizontalAlignment="Right" VerticalAlignment="Top" RadiusX="8" RadiusY="8"/>
+        <Rectangle Name="CornerMask" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleButtonMaskNoPin}"/>
         <Grid x:Name="AppTitleBar" Background="Transparent" Height="20" VerticalAlignment="Top" Margin="43,0,0,0"/>
     </Grid>
 </Window>

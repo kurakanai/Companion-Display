@@ -53,44 +53,10 @@ namespace CompanionDisplayWinUI
                 return image;
             }
         }
-        private void PlayPauseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            PressKey(sender, null);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            PressKey(sender, null);
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            PressKey(sender, null);
-        }
-        [LibraryImport("user32.dll", SetLastError = true)]
-        static partial void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
-        public static void PressKey(VirtualKey key, bool up)
-        {
-            const int KEYEVENTF_EXTENDEDKEY = 0x1;
-            const int KEYEVENTF_KEYUP = 0x2;
-            if (up)
-                keybd_event((byte)key, 0x45, KEYEVENTF_EXTENDEDKEY | KEYEVENTF_KEYUP, (UIntPtr)0);
-            else
-                keybd_event((byte)key, 0x45, KEYEVENTF_EXTENDEDKEY, (UIntPtr)0);
-        }
         private void PressKey(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                PressKey((VirtualKey)int.Parse(((HyperlinkButton)sender).Tag.ToString()), up: false);
-                PressKey((VirtualKey)int.Parse(((HyperlinkButton)sender).Tag.ToString()), up: true);
-            }
-            catch
-            {
-
-            }
+            KeyPressAPI.callKeys(int.Parse((string)(sender as HyperlinkButton).Tag), -1);
         }
-
         private void VolumeBar_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             if (IsManipulative)
@@ -112,7 +78,10 @@ namespace CompanionDisplayWinUI
         {
             if (Globals.sleepTimer.isEnabled)
             {
-                SleepTimer.Content = "\uf0ce";
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    SleepTimer.Content = "\uf0ce";
+                });
             }
             else
             {
@@ -207,18 +176,7 @@ namespace CompanionDisplayWinUI
 
         private async void Grid_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
-            try
-            {
-                long maxpos = long.Parse(Globals.sessionManager.GetCurrentSession().GetTimelineProperties().EndTime.Ticks.ToString());
-                long newpos = (long)(Math.Round((SongProgressBar.Value / 100) * maxpos));
-                await (Globals.sessionManager.GetCurrentSession().TryChangePlaybackPositionAsync(newpos));
-                IsDragging = false;
-                SongProgressBar.IsFocusEngaged = false;
-            }
-            catch
-            {
-                IsDragging = false;
-            }
+            SongProgressBar_Tapped(sender, null);
         }
         private void SleepTimer_Click(object sender, RoutedEventArgs e)
         {

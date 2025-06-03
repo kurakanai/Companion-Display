@@ -9,118 +9,117 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
     <Grid>
         <ScrollViewer Name="MainScroll" Padding="10,0,10,0">
-            <StackPanel Spacing="10" Padding="0,35,0,10">
-                <TextBlock x:Uid="Settings" FontSize="24" Padding="2,0,0,0" FontWeight="Normal"/>
-                <Expander CornerRadius="8" HorizontalAlignment="Stretch"
- IsExpanded="False"
- ExpandDirection="Down"
- VerticalAlignment="Top"
- HorizontalContentAlignment="Stretch"
- x:Uid="ThemeHeader">
-                    <Expander.Content>
-                        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Spacing="20">
-                            <Grid>
-                                <TextBlock x:Uid="ColorScheme" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
-                                <ComboBox Name="ColorSchemeSelect" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Right"  VerticalAlignment="Top">
-                                    <TextBlock x:Uid="SystemAuto"/>
-                                    <TextBlock x:Uid="Dark"/>
-                                    <TextBlock x:Uid="Light"/>
-                                </ComboBox>
-                            </Grid>
-                            <Grid>
-                                <TextBlock x:Uid="AccentColor" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
-                                <ComboBox Name="AccentSelect" SelectionChanged="ComboBox_SelectionChanged_1" SelectedIndex="0" HorizontalAlignment="Right"  VerticalAlignment="Top">
-                                    <TextBlock x:Uid="SystemAuto"/>
-                                    <TextBlock x:Uid="Custom"/>
-                                </ComboBox>
-                            </Grid>
-                            <Grid>
-                                <StackPanel>
-                                    <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="CustomColorHeader">
-                                        <StackPanel>
-                                            <ColorPicker Name="AccentColorPicker"/>
-                                            <Button x:Uid="SaveBtn" HorizontalAlignment="Stretch" Style="{StaticResource AccentButtonStyle}" Click="Button_Click"/>
-                                        </StackPanel>
-                                    </Expander>
-                                </StackPanel>
-                            </Grid>
-                            <Grid>
-                                <TextBlock x:Uid="Background" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
-                                <ComboBox Name="BackdropSelect" SelectionChanged="ComboBox_SelectionChanged_2"  HorizontalAlignment="Right"  VerticalAlignment="Top" SelectedIndex="1">
-                                    <TextBlock x:Uid="Acrylic"/>
-                                    <TextBlock x:Uid="Mica"/>
-                                    <TextBlock x:Uid="Image"/>
-                                    <TextBlock x:Uid="AlbumCover"/>
-                                    <TextBlock x:Uid="SolidColor"/>
-                                </ComboBox>
-                            </Grid>
-                            <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="CustomBgHeader" HorizontalContentAlignment="Stretch">
-                                <StackPanel HorizontalAlignment="Stretch" Spacing="10">
-                                    <Grid>
-                                        <TextBlock HorizontalAlignment="Left" x:Uid="BackgroundImage" VerticalAlignment="Center"/>
-                                        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Spacing="10">
-                                            <Button HorizontalAlignment="Right" x:Uid="SelectImage" Style="{StaticResource AccentButtonStyle}" Click="Button_Click_1"/>
-                                            <TextBox Name="BackgroundLink" Width="300" HorizontalAlignment="Right" x:Uid="BackgroundLink" VerticalAlignment="Center" LostFocus="BackgroundLink_LostFocus"/>
-                                        </StackPanel>
-                                        
-                                    </Grid>
-                                    <Grid>
-                                        <TextBlock x:Uid="Blur" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,5,0,0"/>
-                                        <ToggleSwitch Name="ImageBlurToggle" HorizontalAlignment="Right" VerticalAlignment="Center" OffContent="" OnContent="" IsOn="True" Toggled="ImageBlurToggle_Toggled" Margin="0,0,-110,0"/>
-                                    </Grid>
-                                    <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="CustomColorHeader">
-                                        <StackPanel>
-                                            <ColorPicker Name="BackgroundColorPicker"/>
-                                            <Button x:Uid="SaveBtn" HorizontalAlignment="Stretch" Style="{StaticResource AccentButtonStyle}" Click="Button_Click_4"/>
-                                        </StackPanel>
-                                    </Expander>
-                                </StackPanel>
-                            </Expander>
-                            <Grid>
-                                <TextBlock x:Uid="Globalfont" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
-                                <DropDownButton Name="FontSelector" HorizontalAlignment="Right"  VerticalAlignment="Top">
-                                    <DropDownButton.Flyout>
-                                        <MenuFlyout x:Name="FontSelectorActually" Placement="Bottom">
-                                        </MenuFlyout>
-                                    </DropDownButton.Flyout>
-                                </DropDownButton>
-                            </Grid>
-                        </StackPanel>
-                    </Expander.Content>
-                </Expander>
-                <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="BehaviorHeader" HorizontalContentAlignment="Stretch">
-                    <StackPanel Spacing="20">
+            <StackPanel Style="{StaticResource CompanionDisplayStackPanelFullPage}">
+                <TextBlock x:Uid="Settings" Style="{StaticResource CompanionDisplayTitleTextBlock}"/>
+                <Expander Style="{StaticResource CompanionDisplayDefaultExpander}" x:Uid="ThemeHeader">
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
                         <Grid>
-                            <TextBlock x:Uid="EnableUISounds" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <ToggleSwitch Name="SoundsToggle" HorizontalAlignment="Right" VerticalAlignment="Center" OffContent="" OnContent="" Toggled="SoundsToggle_Toggled" Margin="0,0,-110,0"/>
+                            <TextBlock x:Uid="ColorScheme" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ComboBox Name="ColorSchemeSelect" SelectionChanged="ComboBox_SelectionChanged" Style="{StaticResource CompanionDisplayComboBoxSettingsItem}">
+                                <TextBlock x:Uid="SystemAuto"/>
+                                <TextBlock x:Uid="Dark"/>
+                                <TextBlock x:Uid="Light"/>
+                            </ComboBox>
                         </Grid>
                         <Grid>
-                            <TextBlock x:Uid="StopFocus" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <ToggleSwitch Name="FocusToggle" HorizontalAlignment="Right" VerticalAlignment="Center" OffContent="" OnContent="" IsOn="True" Toggled="ToggleSwitch_Toggled" Margin="0,0,-110,0"/>
+                            <TextBlock x:Uid="AccentColor" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ComboBox Name="AccentSelect" SelectionChanged="ComboBox_SelectionChanged_1" Style="{StaticResource CompanionDisplayComboBoxSettingsItem}">
+                                <TextBlock x:Uid="SystemAuto"/>
+                                <TextBlock x:Uid="Custom"/>
+                            </ComboBox>
                         </Grid>
                         <Grid>
-                            <TextBlock x:Uid="HideAdd" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <ToggleSwitch Name="AddButtonToggle" HorizontalAlignment="Right" VerticalAlignment="Center" OffContent="" OnContent="" IsOn="False" Toggled="AddButtonToggle_Toggled" Margin="0,0,-110,0"/>
+                            <StackPanel>
+                                <Expander x:Uid="CustomColorHeader" Style="{StaticResource CompanionDisplayExpanderColorPicker}">
+                                    <StackPanel>
+                                        <ColorPicker Name="AccentColorPicker"/>
+                                        <Button x:Uid="SaveBtn" Style="{StaticResource CompanionDisplayAccentButtonStretch}" Click="Button_Click"/>
+                                    </StackPanel>
+                                </Expander>
+                            </StackPanel>
                         </Grid>
                         <Grid>
-                            <TextBlock x:Uid="LockLayout" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <ToggleSwitch Name="LockToggle" HorizontalAlignment="Right" VerticalAlignment="Center" OffContent="" OnContent="" IsOn="False" Toggled="LockToggle_Toggled" Margin="0,0,-110,0"/>
+                            <TextBlock x:Uid="Background" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ComboBox Name="BackdropSelect" SelectionChanged="ComboBox_SelectionChanged_2" Style="{StaticResource CompanionDisplayComboBoxSettingsItem}">
+                                <TextBlock x:Uid="Acrylic"/>
+                                <TextBlock x:Uid="Mica"/>
+                                <TextBlock x:Uid="Image"/>
+                                <TextBlock x:Uid="AlbumCover"/>
+                                <TextBlock x:Uid="SolidColor"/>
+                            </ComboBox>
                         </Grid>
                         <Grid>
-                            <TextBlock x:Uid="LaunchStartup" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <ToggleSwitch Name="StartupToggle" HorizontalAlignment="Right" VerticalAlignment="Center" OffContent="" OnContent="" IsOn="False" Toggled="StartupToggle_Toggled" Margin="0,0,-110,0"/>
+                            <TextBlock x:Uid="UseLessIntensiveUI" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="UseLessIntensiveUI" Toggled="UseLessIntensiveUI_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
+                        </Grid>
+                        <Expander x:Uid="CustomBgHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
+                            <StackPanel Style="{StaticResource CompanionDisplayStackPanelPadding10Stretch}">
+                                <Grid>
+                                    <TextBlock x:Uid="BackgroundImage" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelHorizontal}">
+                                        <TextBox Style="{StaticResource CompanionDisplayTextBoxSettings}" Name="BackgroundLink" Width="300" x:Uid="BackgroundLink" LostFocus="BackgroundLink_LostFocus"/>
+                                        <Button x:Uid="SelectImage" Style="{StaticResource CompanionDisplayAccentButtonRight}" Click="Button_Click_1"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid>
+                                    <TextBlock x:Uid="Blur" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                                    <ToggleSwitch Name="ImageBlurToggle" Toggled="ImageBlurToggle_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
+                                </Grid>
+                                <Expander x:Uid="CustomColorHeader" Style="{StaticResource CompanionDisplayExpanderColorPicker}">
+                                    <StackPanel>
+                                        <ColorPicker Name="BackgroundColorPicker"/>
+                                        <Button x:Uid="SaveBtn" Style="{StaticResource CompanionDisplayAccentButtonStretch}" Click="Button_Click_4"/>
+                                    </StackPanel>
+                                </Expander>
+                            </StackPanel>
+                        </Expander>
+                        <Grid>
+                            <TextBlock x:Uid="Globalfont" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <DropDownButton Name="FontSelector" Style="{StaticResource CompanionDisplayDropDownButtonSettings}">
+                                <DropDownButton.Flyout>
+                                    <MenuFlyout x:Name="FontSelectorActually" Placement="Bottom"/>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
                         </Grid>
                     </StackPanel>
                 </Expander>
-                <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="BrowserHeader" HorizontalContentAlignment="Stretch">
-                    <StackPanel Spacing="20">
+                <Expander x:Uid="BehaviorHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
                         <Grid>
-                            <TextBlock x:Uid="SearchEngine" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBox Name="SearchEngineCust" Width="300" HorizontalAlignment="Right" VerticalAlignment="Center" TextChanged="SearchEngineCust_TextChanged" PlaceholderText="https://www.google.com/"/>
+                            <TextBlock x:Uid="EnableUISounds" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="SoundsToggle" Toggled="SoundsToggle_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
                         </Grid>
                         <Grid>
-                            <TextBlock x:Uid="NewTabBehavior" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
-                            <ComboBox Name="NewTabBehavior" SelectedIndex="0" PlaceholderText="Launchpad" HorizontalAlignment="Right"  VerticalAlignment="Top" SelectionChanged="NewTabBehavior_SelectionChanged">
+                            <TextBlock x:Uid="TwelveHourToggle" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="TwelveHourToggle" Toggled="TwelveHourToggle_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="StopFocus" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="FocusToggle" Toggled="ToggleSwitch_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="HideAdd" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="AddButtonToggle" Toggled="AddButtonToggle_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="LockLayout" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="LockToggle" Toggled="LockToggle_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="LaunchStartup" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="StartupToggle" Toggled="StartupToggle_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
+                        </Grid>
+                    </StackPanel>
+                </Expander>
+                <Expander x:Uid="BrowserHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
+                        <Grid>
+                            <TextBlock x:Uid="SearchEngine" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <TextBox Name="SearchEngineCust" Width="300" Style="{StaticResource CompanionDisplayTextBoxSettings}" TextChanged="SearchEngineCust_TextChanged" PlaceholderText="https://www.google.com/"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="NewTabBehavior" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ComboBox Name="NewTabBehavior" SelectionChanged="NewTabBehavior_SelectionChanged" Style="{StaticResource CompanionDisplayComboBoxSettingsItem}">
                                 <TextBlock x:Uid="Launchpad"/>
                                 <TextBlock x:Uid="BlankPage"/>
                                 <TextBlock x:Uid="SearchEngineHomepage"/>
@@ -128,84 +127,89 @@
                         </Grid>
                     </StackPanel>
                 </Expander>
-                <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="IntegrationsHeader" HorizontalContentAlignment="Stretch">
-                    <StackPanel Spacing="20">
+                <Expander x:Uid="IntegrationsHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
                         <Grid>
-                            <TextBlock x:Uid="ResetTwitchlogin" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <Button x:Uid="ResetBtn" Name="ResetTwitch" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource AccentButtonStyle}" Click="ResetTwitch_Click"/>
-                            <WebView2 Name="resetTwitch" Height="0" Width="0"/>
+                            <TextBlock x:Uid="ResetTwitchlogin" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <Button x:Uid="ResetBtn" Name="ResetTwitch" Style="{StaticResource CompanionDisplayAccentButtonRight}" Click="ResetTwitch_Click"/>
+                            <WebView2 Name="resetTwitch" Style="{StaticResource CompanionDisplayWebViewZero}"/>
                         </Grid>
                         <Grid>
-                            <TextBlock x:Uid="ReconnectOBS" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <Button Name="ReconnectOBS" x:Uid="ReconnectBtn" Content="Reconnect" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource AccentButtonStyle}" Click="ReconnectOBS_Click"/>
+                            <TextBlock x:Uid="ReconnectOBS" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <Button Name="ReconnectOBS" x:Uid="ReconnectBtn" Style="{StaticResource CompanionDisplayAccentButtonRight}" Click="ReconnectOBS_Click"/>
                         </Grid>
-                        <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="ConnectionDetailsHeader" HorizontalContentAlignment="Stretch">
-                            <StackPanel Spacing="20">
-                                <TextBlock x:Name="OBSStatus" x:Uid="OBSStatus" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                                <TextBox x:Name="OBSIP" PlaceholderText="ws://127.0.0.1:4455" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextChanged="OBSIP_TextChanged"/>
-                                <PasswordBox x:Name="OBSPass" x:Uid="OBSPass" HorizontalAlignment="Stretch" VerticalAlignment="Center" PasswordChanged="OBSPass_PasswordChanged"/>
+                        <Expander x:Uid="ConnectionDetailsHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
+                            <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
+                                <TextBlock x:Name="OBSStatus" x:Uid="OBSStatus" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                                <TextBox x:Name="OBSIP" PlaceholderText="ws://127.0.0.1:4455" TextChanged="OBSIP_TextChanged" Style="{StaticResource CompanionDisplayTextBoxSettings}" HorizontalAlignment="Stretch"/>
+                                <PasswordBox x:Name="OBSPass" x:Uid="OBSPass" PasswordChanged="OBSPass_PasswordChanged" Style="{StaticResource CompanionDisplayPasswordBoxSettings}"/>
                             </StackPanel>
                         </Expander>
                     </StackPanel>
                 </Expander>
-                <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="SleepModeHeader" HorizontalContentAlignment="Stretch">
-                    <StackPanel Spacing="20">
+                <Expander x:Uid="SleepModeHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
                         <Grid>
-                            <TextBlock x:Uid="TextOpacity" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <Slider Name="Opacity" Width="300" HorizontalAlignment="Right" VerticalAlignment="Center" Value="10" ManipulationCompleted="Opacity_ManipulationCompleted" ManipulationMode="All" Tapped="Opacity_Tapped"/>
+                            <TextBlock x:Uid="TextOpacity" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <Slider Name="Opacity" Value="10" ManipulationCompleted="Opacity_ManipulationCompleted" Tapped="Opacity_Tapped" Style="{StaticResource CompanionDisplaySliderSettings}"/>
                         </Grid>
                         <Grid>
-                            <TextBlock x:Uid="OverrideTextColor" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <ToggleSwitch Name="OvrColorSleepMode" HorizontalAlignment="Right" VerticalAlignment="Center" OffContent="" OnContent=""  Toggled="OvrColorSleepMode_Toggled" Margin="0,0,-110,0"/>
+                            <TextBlock x:Uid="OverrideTextColor" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="OvrColorSleepMode" Toggled="OvrColorSleepMode_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
                         </Grid>
-                        <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="CustomColorHeader">
+                        <Expander x:Uid="CustomColorHeader" Style="{StaticResource CompanionDisplayExpanderColorPicker}">
                             <StackPanel>
                                 <ColorPicker Name="SleepModeColor"/>
-                                <Button x:Uid="SaveBtn" HorizontalAlignment="Stretch" Style="{StaticResource AccentButtonStyle}" Click="Button_Click_5"/>
+                                <Button x:Uid="SaveBtn" Style="{StaticResource CompanionDisplayAccentButtonStretch}" Click="Button_Click_5"/>
                             </StackPanel>
                         </Expander>
                     </StackPanel>
                 </Expander>
-                <Expander CornerRadius="8" HorizontalAlignment="Stretch" x:Uid="AboutUpdatesHeader" HorizontalContentAlignment="Stretch">
-                    <StackPanel Spacing="20">
+                <Expander x:Uid="AboutUpdatesHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
                         <Image Name="AppIconImg" Source="https://i.imgur.com/EXoHTmI.png" Height="100" Margin="0,-10,0,0"/>
-                        <TextBlock Text="Companion Display" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Variable Display" FontWeight="Normal" Margin="0,-20,0,0"/>
+                        <TextBlock Style="{StaticResource CompanionDisplayLogoTextBlock}" Margin="0,-20,0,0"/>
                         <Grid>
-                            <TextBlock x:Uid="Version" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Name="VersionString" Text="-" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                            <TextBlock x:Uid="Version" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <TextBlock Name="VersionString" Text="-" Style="{StaticResource CompanionDisplayVerticalCenterTextBlockRight}"/>
                         </Grid>
                         <Grid>
-                            <TextBlock x:Uid="EnableBetaUpdates" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <ToggleSwitch Name="UpdateToggle" HorizontalAlignment="Right" VerticalAlignment="Center" OffContent="" OnContent="" IsOn="False" Toggled="UpdateToggle_Toggled" Margin="0,0,-110,0"/>
+                            <TextBlock x:Uid="EnableBetaUpdates" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="UpdateToggle" Style="{StaticResource CompanionDisplayToggleSettings}" Toggled="UpdateToggle_Toggled"/>
                         </Grid>
                         <Grid>
-                            <TextBlock x:Uid="Update" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <Button Name="UpdateBtn" IsEnabled="False" x:Uid="CheckingUpdates" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource AccentButtonStyle}" Click="Button_Click_3"/>
-                        </Grid>
-                        <Grid>
-                            <TextBlock x:Uid="Setup" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <Button Name="SetupBtn" x:Uid="SetupBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource AccentButtonStyle}" Click="SetupBtn_Click"/>
-                        </Grid>
-                        <Grid>
-                            <TextBlock x:Uid="BackupRestore" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <Button Name="BackupBtn" x:Uid="TransferTool" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource AccentButtonStyle}" Click="BackupBtn_Click"/>
-                        </Grid>
-                        <Grid>
-                            <TextBlock x:Uid="YAGdev" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="10">
-                                <HyperlinkButton x:Uid="Donate" HorizontalAlignment="Right" VerticalAlignment="Center" Click="HyperlinkButton_Click"/>
-                                <HyperlinkButton Content="GitHub" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Button_Click_2"/>
+                            <TextBlock x:Uid="Update" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <StackPanel Style="{StaticResource CompanionDisplayStackPanelHorizontal}">
+                                <HyperlinkButton Name="UpdateLocalBtn" x:Uid="UpdateLocalBtn" Click="Button_Click_6" Style="{StaticResource CompanionDisplayHyperlinkButtonSettings}"/>
+                                <Button Name="UpdateBtn" IsEnabled="False" x:Uid="CheckingUpdates" Style="{StaticResource CompanionDisplayAccentButtonRight}" Click="Button_Click_3"/>
                             </StackPanel>
-
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="Setup" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <Button Name="SetupBtn" x:Uid="SetupBtn" Style="{StaticResource CompanionDisplayAccentButtonRight}" Click="SetupBtn_Click"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="BackupRestore" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <Button Name="BackupBtn" x:Uid="TransferTool" Style="{StaticResource CompanionDisplayAccentButtonRight}" Click="BackupBtn_Click"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="SupportToggle" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="PromoToggle" Toggled="PromoToggle_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="YAGdev" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <StackPanel Style="{StaticResource CompanionDisplayStackPanelHorizontal}">
+                                <HyperlinkButton x:Uid="Donate" Click="HyperlinkButton_Click" Style="{StaticResource CompanionDisplayHyperlinkButtonSettings}"/>
+                                <HyperlinkButton Content="GitHub" Click="Button_Click_2" Style="{StaticResource CompanionDisplayHyperlinkButtonSettings}"/>
+                            </StackPanel>
                         </Grid>
                     </StackPanel>
                 </Expander>
             </StackPanel>
         </ScrollViewer>
-        <Grid Name="BackupGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Visibility="Collapsed"> 
-            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{ThemeResource CustomAcrylicInAppLuminosity}"/>
-            <TextBlock x:Uid="BackupTransferBanner" Opacity="0.8" FontSize="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Grid Name="BackupGrid" Style="{StaticResource CompanionDisplayBackupGrid}">
+            <Rectangle Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleFullScreen}"/>
+            <TextBlock x:Uid="BackupTransferBanner" Style="{StaticResource CompanionDisplayBackupTextBlock}"/>
         </Grid>
     </Grid>
-    
 </Page>

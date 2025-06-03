@@ -28,7 +28,7 @@ namespace CompanionDisplayWinUI
         {
             if (FTU)
             {
-                FTU = false;
+                FTU = !FTU;
                 try
                 {
                     Notes.Text = File.ReadAllText("Config/WidgetNotes/" + (this.Parent as Frame).Tag.ToString() + ".crlh");
@@ -40,7 +40,7 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                System.IO.Directory.CreateDirectory("Config/WidgetNotes");
+                Directory.CreateDirectory("Config/WidgetNotes");
                 File.WriteAllText("Config/WidgetNotes/" + (this.Parent as Frame).Tag.ToString() + ".crlh", Notes.Text);
             }
             catch { }

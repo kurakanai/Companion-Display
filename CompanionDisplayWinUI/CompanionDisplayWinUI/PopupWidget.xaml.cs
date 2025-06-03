@@ -105,11 +105,6 @@ namespace CompanionDisplayWinUI
             WidgetGrid.Children.Clear();
         }
 
-        private void Grid_RightTapped(object sender, RightTappedRoutedEventArgs e)
-        {
-
-        }
-
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             GetRenderScale();

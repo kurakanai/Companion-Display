@@ -34,23 +34,23 @@
             <RowDefinition />
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <ToggleButton x:Name="NumLock" Click="PressKey" FontFamily="Segoe UI Variable Display" FontSize="25" Content="Num" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Tag="144" DataContext="144" Grid.Column="1" Grid.Row="1"/>
-        <RepeatButton x:Name="Numpad7" Click="PressKey" FontFamily="Segoe UI Variable Display" FontSize="25" Content="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Tag="103" DataContext="36"/>
-        <RepeatButton x:Name="Numpad8" Click="PressKey" FontFamily="Segoe UI Variable Display" FontSize="25" Content="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Grid.Column="3" Tag="104" DataContext="38"/>
-        <RepeatButton x:Name="Numpad9" Click="PressKey" FontFamily="Segoe UI Variable Display" FontSize="25" Content="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="4,0,0,0" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Tag="105" DataContext="33"/>
-        <RepeatButton x:Name="Slash" Click="PressKey" FontFamily="Segoe UI Variable Display" FontSize="25" Content="/" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="5,0,0,0" Tag="111" DataContext="111"/>
-        <RepeatButton x:Name="Numpad4" Click="PressKey" FontFamily="Segoe UI Variable Display" FontSize="25" Content="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,1,0,0" Grid.Row="5" Grid.Column="1" Tag="100" DataContext="37"/>
-        <RepeatButton x:Name="Numpad5" Click="PressKey" FontFamily="Segoe UI Variable Display" FontSize="25" Content="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,1,0,0" Grid.Row="5" Grid.Column="3" Tag="101" DataContext="101"/>
-        <RepeatButton x:Name="Numpad6" Click="PressKey" FontFamily="Segoe UI Variable Display" FontSize="25" Content="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,1,0,0" Grid.Row="5" Grid.Column="5" Tag="102" DataContext="39"/>
-        <RepeatButton FontFamily="Segoe UI Variable Display" Click="PressKey" FontSize="25" Content="*" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Grid.Column="5" Grid.Row="1" Margin="1,0,1,0" Tag="106" DataContext="106"/>
-        <RepeatButton x:Name="Numpad1" Click="PressKey" FontFamily="Segoe UI Variable Display" Content="1" FontSize="25" Grid.Row="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Tag="97" DataContext="35"/>
-        <RepeatButton x:Name="Numpad2" Click="PressKey" FontFamily="Segoe UI Variable Display" Content="2" FontSize="25" Grid.Row="7" Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Tag="98" DataContext="40"/>
-        <RepeatButton x:Name="Numpad3" Click="PressKey" FontFamily="Segoe UI Variable Display" Content="3" FontSize="25" Grid.Row="7" Grid.Column="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Tag="99" DataContext="34"/>
-        <RepeatButton FontFamily="Segoe Fluent Icons" Click="PressKey" Content="&#xe750;" FontSize="25" Grid.Column="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Tag="8" DataContext="8"/>
-        <RepeatButton FontFamily="Segoe UI Variable Display" Click="PressKey" Content="-" FontSize="25" Grid.Column="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="3" Tag="109" DataContext="109"/>
-        <RepeatButton x:Name="NumpadDot" FontFamily="Segoe UI Variable Display" Click="PressKey" Content="." FontSize="25" Grid.Row="9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="5" Margin="1,0,1,0" Tag="110" DataContext="110"/>
-        <RepeatButton x:Name="Numpad0" FontFamily="Segoe UI Variable Display" Click="PressKey" Content="0" FontSize="25" Grid.Row="9" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="3" Tag="96" DataContext="45"/>
-        <RepeatButton FontFamily="Segoe Fluent Icons" Content="&#xe751;" Click="PressKey" FontSize="25" Grid.Row="7" Grid.Column="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.RowSpan="3" Tag="13" DataContext="13"/>
-        <RepeatButton FontFamily="Segoe UI Variable Display" Click="PressKey" FontSize="25" Content="+" Grid.Row="5" Grid.Column="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.RowSpan="1" Tag="107" DataContext="107"/>
+        <ToggleButton x:Name="NumLock" Style="{StaticResource CompanionDisplayToggleButtonNumPad}" Click="PressKey" Content="Num" Tag="144" DataContext="144" Grid.Column="1" Grid.Row="1"/>
+        <RepeatButton x:Name="Numpad7" Click="PressKey" Grid.Row="3" Grid.Column="1" Tag="103" DataContext="36" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}" Content="7"/>
+        <RepeatButton x:Name="Numpad8" Click="PressKey" Content="8" Grid.Row="3" Grid.Column="3" Tag="104" DataContext="38" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="Numpad9" Click="PressKey" Content="9" Margin="4,0,0,0" Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="2" Tag="105" DataContext="33" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="Slash" Click="PressKey" Content="/" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Margin="5,0,0,0" Tag="111" DataContext="111" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="Numpad4" Click="PressKey" Content="4" Margin="0,1,0,0" Grid.Row="5" Grid.Column="1" Tag="100" DataContext="37" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="Numpad5" Click="PressKey" Content="5" VerticalAlignment="Stretch" Margin="0,1,0,0" Grid.Row="5" Grid.Column="3" Tag="101" DataContext="101" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="Numpad6" Click="PressKey" Content="6" Margin="0,1,0,0" Grid.Row="5" Grid.Column="5" Tag="102" DataContext="39" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton Click="PressKey" Content="*" Grid.Column="5" Grid.Row="1" Margin="1,0,1,0" Tag="106" DataContext="106" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="Numpad1" Click="PressKey" Content="1" Grid.Row="7" Grid.Column="1" Tag="97" DataContext="35" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="Numpad2" Click="PressKey" Content="2" Grid.Row="7" Grid.Column="3" Tag="98" DataContext="40" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="Numpad3" Click="PressKey" Content="3" Grid.Row="7" Grid.Column="5" Tag="99" DataContext="34" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton Click="PressKey" Content="&#xe750;" Grid.Column="7" Grid.Row="1" Tag="8" DataContext="8" Style="{StaticResource CompanionDisplayRepeatButtonNumPadIcon}"/>
+        <RepeatButton Click="PressKey" Content="-" Grid.Column="7" Grid.Row="3" Tag="109" DataContext="109" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="NumpadDot" Click="PressKey" Content="." Grid.Row="9" Grid.Column="5" Margin="1,0,1,0" Tag="110" DataContext="110" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton x:Name="Numpad0" Click="PressKey" Content="0" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3" Tag="96" DataContext="45" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
+        <RepeatButton Content="&#xe751;" Click="PressKey" Grid.Row="7" Grid.Column="7" Grid.RowSpan="3" Tag="13" DataContext="13" Style="{StaticResource CompanionDisplayRepeatButtonNumPadIcon}"/>
+        <RepeatButton Click="PressKey" Content="+" Grid.Row="5" Grid.Column="7" Tag="107" DataContext="107" Style="{StaticResource CompanionDisplayRepeatButtonNumPad}"/>
     </Grid>
 </Page>

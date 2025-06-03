@@ -13,8 +13,26 @@
             <RowDefinition/>
             <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
-        <Image Name="AlbumCoverImg" Margin="0,0,0,0" Grid.RowSpan="2" Stretch="UniformToFill" />
+        <Image Name="AlbumCoverImg" Grid.RowSpan="2" Stretch="UniformToFill" />
         <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosity}" Grid.RowSpan="2"/>
+        <StackPanel  Margin="10,10,10,0">
+            <TextBlock x:Name="SongTitle" Style="{StaticResource CompanionDisplayMediaTitle}"/>
+            <TextBlock x:Name="SongInfo" Style="{StaticResource CompanionDisplayMediaSubtext}"/>
+            <TextBlock x:Name="AlbumName" Style="{StaticResource CompanionDisplayMediaSubtext}"/>
+            <TextBlock x:Name="SongLyrics" Style="{StaticResource CompanionDisplayMediaLyrics}"/>
+        </StackPanel>
+        <Grid Margin="10,20,10,60" Grid.Row="1" PointerCaptureLost="Grid_PointerCaptureLost" PointerReleased="Grid_PointerCaptureLost" Style="{StaticResource CompanionDisplayGridBottom}">
+            <Slider Name="SongProgressBar" Style="{StaticResource CompanionDisplaySliderMedia}" ManipulationStarted="SongProgressBar_ManipulationStarted" ManipulationCompleted="Grid_ManipulationCompleted" Tapped="SongProgressBar_Tapped"/>
+        </Grid>
+        <Grid Margin="10,0,0,30"  Style="{StaticResource CompanionDisplayMediaTimings}" Grid.Row="1">
+            <TextBlock x:Name="CurrentTime" Style="{StaticResource CompanionDisplayTimeStamp}" />
+        </Grid>
+        <Grid Margin="0,0,10,30" Style="{StaticResource CompanionDisplayMediaTimings}" HorizontalAlignment="Right" Grid.Row="1">
+            <TextBlock x:Name="EndTime" Style="{StaticResource CompanionDisplayTimeStamp}"/>
+        </Grid>
+        <Slider x:Name="VolumeBar" Margin="50,0,50,83" VerticalAlignment="Bottom" Grid.RowSpan="2" ValueChanged="VolumeBar_ValueChanged" ManipulationCompleted="VolumeBar_ManipulationCompleted" ManipulationStarting="VolumeBar_ManipulationStarting" Style="{StaticResource CompanionDisplaySliderMedia}" IsThumbToolTipEnabled="True"/>
+        <RepeatButton Content="&#xE993;" Padding="5,0,0,0" Margin="0,0,0,82" Grid.Row="1" Click="HyperlinkButton_Tapped" Style="{StaticResource CompanionDisplayVolumeButtonsBottom}"/>
+        <RepeatButton Content="&#xE994;" Margin="0,0,0,82" Padding="2,0,0,0" HorizontalAlignment="Right" Grid.Row="1" Click="HyperlinkButton_Tapped_1" Style="{StaticResource CompanionDisplayVolumeButtonsBottom}"/>
         <Grid Margin="1,34,0,0" Height="89" VerticalAlignment="Top" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
@@ -23,30 +41,11 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <HyperlinkButton Content="&#xf8ad;" FontFamily="Segoe Fluent Icons" Tag="176" FontSize="25" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_1" Foreground="{ThemeResource SystemBaseHighColor}" Height="60"/>
-            <HyperlinkButton x:Name="PlayPauseBtn" Tag="179" Content="&#xf8ae;" FontFamily="Segoe Fluent Icons" FontSize="36" Grid.Column="2" Margin="1,0,1,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="60" Click="PlayPauseBtn_Click" Foreground="{ThemeResource SystemBaseHighColor}"/>
-            <HyperlinkButton Content="&#xf8ac;" FontFamily="Segoe Fluent Icons" Tag="177" FontSize="25" Margin="1,0,1,0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="60" Click="Button_Click" Foreground="{ThemeResource SystemBaseHighColor}"/>
-            <HyperlinkButton Content="&#xe8a7;" x:Name="OpenWindow" FontFamily="Segoe Fluent Icons" Tag="177" FontSize="16" Margin="50,0,0,0" Width="50" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="50" Click="HyperlinkButton_Click" Foreground="{ThemeResource SystemBaseHighColor}"/>
-            <HyperlinkButton Content="&#xe708;" x:Name="SleepTimer" FontFamily="Segoe Fluent Icons" Tag="177" FontSize="16" Margin="-50,0,0,0" Width="50" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="50" Click="SleepTimer_Click" Foreground="{ThemeResource SystemBaseHighColor}"/>
+            <HyperlinkButton Content="&#xf8ad;" Tag="176" Grid.Column="3" Click="PressKey" Style="{StaticResource CompanionDisplayHyperlinkButtonMedia}"/>
+            <HyperlinkButton x:Name="PlayPauseBtn" Tag="179" Content="&#xf8ae;" Grid.Column="2" Click="PressKey" Style="{StaticResource CompanionDisplayHyperlinkButtonPlay}"/>
+            <HyperlinkButton Content="&#xf8ac;" Tag="177" Grid.Column="1" Click="PressKey" Style="{StaticResource CompanionDisplayHyperlinkButtonMedia}"/>
+            <HyperlinkButton Content="&#xe8a7;" x:Name="OpenWindow" FontFamily="Segoe Fluent Icons" Tag="177" Margin="50,0,0,0" Click="HyperlinkButton_Click" Style="{StaticResource CompanionDisplayHyperlinkButtonMediaSmol}"/>
+            <HyperlinkButton Content="&#xe708;" x:Name="SleepTimer" FontFamily="Segoe Fluent Icons" Tag="177" Margin="-50,0,0,0" Grid.Column="4" Click="SleepTimer_Click" Style="{StaticResource CompanionDisplayHyperlinkButtonMediaSmol}"/>
         </Grid>
-        <StackPanel  VerticalAlignment="Top" Margin="10,10,10,0">
-            <TextBlock x:Name="SongTitle" Text="-" FontSize="40" VerticalAlignment="Top" Padding="0,0,0,0"/>
-            <TextBlock x:Name="SongInfo" Text="-" FontSize="26" VerticalAlignment="Top" Padding="0,0,0,0"/>
-            <TextBlock x:Name="AlbumName" Text="-" FontSize="26" VerticalAlignment="Top" Padding="0,0,0,0"/>
-            <TextBlock Text="" x:Name="SongLyrics" FontSize="24" VerticalAlignment="Top" TextWrapping="WrapWholeWords"/>
-        </StackPanel>
-        <Image x:Name="Album" Margin="10,10,0,0" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Width="114" Opacity="0.2"/>
-        <Grid Margin="10,20,10,60" Grid.Row="1" PointerCaptureLost="Grid_PointerCaptureLost" PointerReleased="Grid_PointerCaptureLost" VerticalAlignment="Bottom">
-            <Slider Name="SongProgressBar" IsEnabled="True" VerticalAlignment="Center"  ManipulationMode="All" ManipulationStarted="SongProgressBar_ManipulationStarted" IsThumbToolTipEnabled="False" ManipulationCompleted="Grid_ManipulationCompleted" Tapped="SongProgressBar_Tapped"/>
-        </Grid>
-        <Grid Margin="10,0,0,30" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="1" Height="36">
-            <TextBlock x:Name="CurrentTime" Text="--:--" FontSize="18"  VerticalAlignment="Center" />
-        </Grid>
-        <Grid Margin="0,0,10,30" VerticalAlignment="Bottom" Height="36" HorizontalAlignment="Right" Grid.Row="1">
-            <TextBlock x:Name="EndTime" Text="--:--" FontSize="18"  VerticalAlignment="Center"/>
-        </Grid>
-        <Slider x:Name="VolumeBar" Margin="50,0,50,83" Maximum="100" SmallChange="1" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" Grid.Row="0" Grid.RowSpan="2" ValueChanged="VolumeBar_ValueChanged" ManipulationCompleted="VolumeBar_ManipulationCompleted" ManipulationStarting="VolumeBar_ManipulationStarting" ManipulationMode="All"/>
-        <RepeatButton Content="&#xE993;" FontFamily="Segoe Fluent Icons" Foreground="{ThemeResource TextFillColorPrimary}" FontSize="20" RenderTransformOrigin="0.5,0.5" Padding="5,0,0,0" HorizontalAlignment="Left" Width="50" Height="34" VerticalAlignment="Bottom" Margin="0,0,0,82" Grid.Row="1" Click="HyperlinkButton_Tapped" Background="Transparent" BorderBrush="Transparent"/>
-        <RepeatButton Content="&#xE994;" FontFamily="Segoe Fluent Icons" Foreground="{ThemeResource TextFillColorPrimary}" FontSize="20" Margin="0,0,0,82" RenderTransformOrigin="0.5,0.5" Padding="2,0,0,0" HorizontalAlignment="Right" Width="50" Height="34" VerticalAlignment="Bottom" Grid.Row="1" Click="HyperlinkButton_Tapped_1" Background="Transparent" BorderBrush="Transparent"/>
     </Grid>
 </Page>

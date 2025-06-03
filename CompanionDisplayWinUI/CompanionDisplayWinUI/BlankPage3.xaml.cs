@@ -83,6 +83,9 @@ namespace CompanionDisplayWinUI
             }
             FontSelector.Content = ThemingAndColors.CurrentFont();
             SoundsToggle.IsOn = Globals.enableUISounds;
+            UseLessIntensiveUI.IsOn = Globals.useLessDemandingEffects;
+            TwelveHourToggle.IsOn = Globals.use12HourClock;
+            PromoToggle.IsOn = Globals.showPromo;
             LoadFinish = true;
         }
         private void ProcessShit(NavigationView sender, object args)
@@ -203,14 +206,7 @@ namespace CompanionDisplayWinUI
         {
             if (LoadFinish)
             {
-                if (ImageBlurToggle.IsOn)
-                {
-                    Globals.Blur = true;
-                }
-                else
-                {
-                    Globals.Blur = false;
-                }
+                Globals.Blur = ImageBlurToggle.IsOn;
                 ConfigurationOperations.Save_Settings();
                 (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
             }
@@ -231,8 +227,9 @@ namespace CompanionDisplayWinUI
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             UpdateBtn.IsEnabled = false;
+            UpdateLocalBtn.IsEnabled = false;
             UpdateBtn.Content = AppStrings.updateUpdating;
-            UpdateSystem.PerformUpdate();
+            UpdateSystem.PerformUpdate(true);
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -443,14 +440,35 @@ namespace CompanionDisplayWinUI
         private void SoundsToggle_Toggled(object sender, RoutedEventArgs e)
         {
             Globals.enableUISounds = SoundsToggle.IsOn;
-            if (Globals.enableUISounds)
-            {
-                ElementSoundPlayer.State = ElementSoundPlayerState.On;
-            }
-            else
-            {
-                ElementSoundPlayer.State = ElementSoundPlayerState.Off;
-            }
+            ElementSoundPlayer.State = (ElementSoundPlayerState)(Convert.ToByte(Globals.enableUISounds) + 1);
+            ConfigurationOperations.Save_Settings_Background();
+        }
+
+        private void UseLessIntensiveUI_Toggled(object sender, RoutedEventArgs e)
+        {
+            Globals.useLessDemandingEffects = UseLessIntensiveUI.IsOn;
+            (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
+            ConfigurationOperations.Save_Settings();
+        }
+
+        private void TwelveHourToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            Globals.use12HourClock = TwelveHourToggle.IsOn;
+            ConfigurationOperations.Save_Settings();
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            UpdateBtn.IsEnabled = false;
+            UpdateLocalBtn.IsEnabled = false;
+            UpdateSystem.PerformUpdate(false);
+            UpdateBtn.IsEnabled = true;
+            UpdateLocalBtn.IsEnabled = true;
+        }
+
+        private void PromoToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            Globals.showPromo = PromoToggle.IsOn;
             ConfigurationOperations.Save_Settings_Background();
         }
     }

@@ -14,21 +14,21 @@ namespace CompanionDisplayWinUI.ClassImplementations
         public static void SetAccentColor(Color color)
         {
             customResourceDictionary["SystemAccentColor"] = color;
-            customResourceDictionary["SystemAccentColorLight1"] = color;
-            customResourceDictionary["SystemAccentColorLight2"] = color;
-            customResourceDictionary["SystemAccentColorLight3"] = color;
-            customResourceDictionary["SystemAccentColorDark1"] = color;
-            customResourceDictionary["SystemAccentColorDark2"] = color;
+            customResourceDictionary["SystemAccentColorLight1"] = customResourceDictionary["SystemAccentColor"];
+            customResourceDictionary["SystemAccentColorLight2"] = customResourceDictionary["SystemAccentColor"];
+            customResourceDictionary["SystemAccentColorLight3"] = customResourceDictionary["SystemAccentColor"];
+            customResourceDictionary["SystemAccentColorDark1"] = customResourceDictionary["SystemAccentColor"];
+            customResourceDictionary["SystemAccentColorDark2"] = customResourceDictionary["SystemAccentColor"];
             Application.Current.Resources = customResourceDictionary;
         }
         public static void RevertToSystemAccentColor()
         {
-            customResourceDictionary["SystemAccentColor"] = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.Accent);
-            customResourceDictionary["SystemAccentColorLight1"] = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.AccentLight1);
-            customResourceDictionary["SystemAccentColorLight2"] = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.AccentLight2);
-            customResourceDictionary["SystemAccentColorLight3"] = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.AccentLight3);
-            customResourceDictionary["SystemAccentColorDark1"] = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.AccentDark1);
-            customResourceDictionary["SystemAccentColorDark2"] = uiSettings.GetColorValue(Windows.UI.ViewManagement.UIColorType.AccentDark2);
+            customResourceDictionary["SystemAccentColor"] = uiSettings.GetColorValue(UIColorType.Accent);
+            customResourceDictionary["SystemAccentColorLight1"] = uiSettings.GetColorValue(UIColorType.AccentLight1);
+            customResourceDictionary["SystemAccentColorLight2"] = uiSettings.GetColorValue(UIColorType.AccentLight2);
+            customResourceDictionary["SystemAccentColorLight3"] = uiSettings.GetColorValue(UIColorType.AccentLight3);
+            customResourceDictionary["SystemAccentColorDark1"] = uiSettings.GetColorValue(UIColorType.AccentDark1);
+            customResourceDictionary["SystemAccentColorDark2"] = uiSettings.GetColorValue(UIColorType.AccentDark2);
             Application.Current.Resources = customResourceDictionary;
         }
         public static void OverrideAccent()
@@ -82,7 +82,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
         }
         public static void ImageOptionalBlur_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Globals.Backdrop < 1)
+            if (Globals.Backdrop < 1 || Globals.useLessDemandingEffects)
             {
                 (sender as Rectangle).Fill = null;
                 if (ThemingAndColors.GetTheme() == ElementTheme.Dark)

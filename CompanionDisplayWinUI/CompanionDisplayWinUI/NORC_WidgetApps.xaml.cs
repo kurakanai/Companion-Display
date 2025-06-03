@@ -53,14 +53,7 @@ namespace CompanionDisplayWinUI
                         i++;
                     }
                 }
-                if (BasicGridView.Items.Count == 0)
-                {
-                    EmptyApps.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    EmptyApps.Visibility = Visibility.Collapsed;
-                }
+                EmptyApps.Visibility = (Visibility)Convert.ToByte(!(BasicGridView.Items.Count == 0));
             });
         }
         private void ElevationCheck()
@@ -112,14 +105,7 @@ namespace CompanionDisplayWinUI
             var GridControl = childControl.Parent as Grid;
             var GridViewControl = GridControl.Parent as GridView;
             GridViewControl.Items.Remove(GridControl);
-            if (BasicGridView.Items.Count == 0)
-            {
-                EmptyApps.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                EmptyApps.Visibility = Visibility.Collapsed;
-            }
+            EmptyApps.Visibility = (Visibility)Convert.ToByte(!(BasicGridView.Items.Count == 0));
             SaveList();
         }
         private void MenuFlyoutItem2_Click(object sender, RoutedEventArgs e)
@@ -251,7 +237,7 @@ namespace CompanionDisplayWinUI
             BitmapImage bitmapImage = new();
             StorageFile storageFile = await StorageFile.GetFileFromPathAsync(filePath);
             const ThumbnailMode thumbnailMode = ThumbnailMode.PicturesView;
-            const uint requestedSize = 100; // Size of the thumbnail
+            const uint requestedSize = 100;
             using (StorageItemThumbnail thumbnail = await storageFile.GetThumbnailAsync(thumbnailMode, requestedSize))
             {
                 bitmapImage.SetSource(thumbnail);
@@ -340,14 +326,7 @@ namespace CompanionDisplayWinUI
                     childControl3.IsHitTestVisible = true;
                 }
             }
-            if(BasicGridView.Items.Count == 0)
-            {
-                EmptyApps.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                EmptyApps.Visibility = Visibility.Collapsed;
-            }
+            EmptyApps.Visibility = (Visibility)Convert.ToByte(!(BasicGridView.Items.Count == 0));
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -360,14 +339,7 @@ namespace CompanionDisplayWinUI
                         CreateEntry(false, btntag);
                         i++;
                     }
-                    if (BasicGridView.Items.Count == 0)
-                    {
-                        EmptyApps.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        EmptyApps.Visibility = Visibility.Collapsed;
-                    }
+                    EmptyApps.Visibility = (Visibility)Convert.ToByte(!(BasicGridView.Items.Count == 0));
                 }
                 SaveList();
             });

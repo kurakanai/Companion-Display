@@ -26,7 +26,7 @@ namespace CompanionDisplayWinUI
                 var parent = this.Parent as Frame;
                 if (parent != null)
                 {
-                    FTU = false;
+                    FTU = !FTU;
                     SensorName.Text = parent.Name;
                     sensor1 = parent.Tag as ISensor;
                 }
