@@ -27,7 +27,6 @@
     <Compile Remove="WidgetAppsWidgetSettings.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="AccentOverride.xaml" />
     <None Remove="AcrobatProShortcutsWidget.xaml" />
     <None Remove="AllWidgets.xaml" />
     <None Remove="AppDesign\CustomButtons.xaml" />
@@ -296,7 +295,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="AccentOverride.xaml">
+    <Page Update="ThemeOverrides.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

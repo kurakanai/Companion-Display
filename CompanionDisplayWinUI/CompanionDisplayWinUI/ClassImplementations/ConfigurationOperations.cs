@@ -78,6 +78,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
                 dispatcherQueue.TryEnqueue(() =>
                 {
                     ElementSoundPlayer.State = (ElementSoundPlayerState)(Convert.ToByte(Globals.enableUISounds) + 1);
+                    ThemingAndColors.ImageOptionalBlur_Loaded();
                 });
                 Globals.showPromo = bool.Parse(readerconfig.ReadLine());
                 readerconfig.Close();

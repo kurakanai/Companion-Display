@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="AppDesign/ThemeOverrides.xaml" />
                 <ResourceDictionary Source="AppDesign/CustomButtons.xaml" />
                 <ResourceDictionary Source="AppDesign/CustomGrids.xaml" />
                 <ResourceDictionary Source="AppDesign/CustomTextBlocks.xaml" />
@@ -29,10 +30,6 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
-            <AcrylicBrush x:Key="CustomAcrylicInAppLuminosity" TintOpacity="0" FallbackColor="{ThemeResource SystemAltMediumHighColor}" TintColor="{ThemeResource SystemAltLowColor}" />
-            <AcrylicBrush x:Key="CustomAcrylicInAppLuminosity2" TintOpacity="0" FallbackColor="{ThemeResource SystemAltMediumHighColor}" TintColor="{ThemeResource SystemAltLowColor}" />
-            <AcrylicBrush x:Key="CustomAcrylicInAppLuminosity3" TintOpacity="0.2" FallbackColor="{ThemeResource SystemAltLowColor}" TintColor="{ThemeResource SystemAltHighColor}" />
-            <AcrylicBrush x:Key="CustomAcrylicInAppLuminosity4" TintOpacity="0" FallbackColor="{ThemeResource SystemAltMediumHighColor}" TintColor="{ThemeResource SystemAltHighColor}" />
             <Style TargetType="NavigationView">
                 <Setter Property="PaneToggleButtonStyle" Value="{StaticResource PaneToggleButtonStyle}" />
                 <Setter Property="IsTabStop" Value="False" />

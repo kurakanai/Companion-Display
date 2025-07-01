@@ -14,7 +14,7 @@
             <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
         <Image Name="AlbumCoverImg" Grid.RowSpan="2" Stretch="UniformToFill" />
-        <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosity}" Grid.RowSpan="2"/>
+        <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosityAlwaysTransparent}" Grid.RowSpan="2"/>
         <StackPanel  Margin="10,10,10,0">
             <TextBlock x:Name="SongTitle" Style="{StaticResource CompanionDisplayMediaTitle}"/>
             <TextBlock x:Name="SongInfo" Style="{StaticResource CompanionDisplayMediaSubtext}"/>

@@ -13,10 +13,11 @@
     </Style>
     
     <Style x:Key="CompanionDisplayImageOptionalBlurRectangleFullScreen" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayBackgroundRectangle}">
-        <Setter Property="Fill" Value="{ThemeResource CustomAcrylicInAppLuminosity3}"/>
+        <Setter Property="Fill" Value="{ThemeResource CustomAcrylicInAppLuminosityAlwaysTransparent}"/>
     </Style>
     
     <Style x:Key="CompanionDisplayImageOptionalBlurRectanglePin" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayImageOptionalBlurRectangle}">
+        <Setter Property="Fill" Value="{ThemeResource CustomAcrylicInAppLuminositySlightTint}"/>
         <Setter Property="RadiusX" Value="8"/>
         <Setter Property="RadiusY" Value="8"/>
     </Style>
@@ -41,7 +42,8 @@
     </Style>
 
     <!--Very sorry for the redundancy here, but it's what saves the most while keeping my sanity, at least for now. Maybe in 25.7 tho.-->
+    <!--YAG-dev @01/07/2025 - Not in 25.7. Apparently this is already efficient.-->
     <Style x:Key="CompanionDisplayImageOptionalBlurRectangleLyricsView" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayImageOptionalBlurRectanglePin}">
-        <Setter Property="Fill" Value="{ThemeResource CustomAcrylicInAppLuminosity3}"/>
+        <Setter Property="Fill" Value="{ThemeResource CustomAcrylicInAppLuminositySlightTint}"/>
     </Style>
 </ResourceDictionary>

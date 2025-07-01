@@ -106,24 +106,5 @@ namespace CompanionDisplayWinUI
 
             }
         }
-        private void ImageOptionalBlur_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (Globals.Backdrop <= 1)
-            {
-                (sender as Rectangle).Fill = null;
-                if (ThemingAndColors.GetTheme() == ElementTheme.Dark)
-                {
-                    (sender as Rectangle).Fill = new SolidColorBrush(Color.FromArgb(255, 33, 33, 33));
-                }
-                else
-                {
-                    (sender as Rectangle).Fill = new SolidColorBrush(Color.FromArgb(255, 212, 212, 212));
-                }
-            }
-            else
-            {
-                (sender as Rectangle).Fill = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminosity"];
-            }
-        }
     }
 }

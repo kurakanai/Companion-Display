@@ -15,9 +15,6 @@
     <Page Update="AllWidgets.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="AccentOverride.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="AcrobatProShortcutsWidget.xaml">
       <SubType>Designer</SubType>
     </Page>

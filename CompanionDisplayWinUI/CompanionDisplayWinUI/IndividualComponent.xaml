@@ -14,7 +14,7 @@
                 <TextBlock Name="NoSensorsWarning" x:Uid="NoSensors" Foreground="{StaticResource SystemBaseMediumColor}" TextWrapping="Wrap" HorizontalAlignment="Center" HorizontalTextAlignment="Center" FontSize="30" Height="150" VerticalAlignment="Top" Visibility="Collapsed"/>
             </StackPanel>
         </ScrollViewer>
-        <Rectangle Name="ImageOptionalBlur" Fill="{ThemeResource CustomAcrylicInAppLuminosity4}" Grid.RowSpan="1" Margin="-10,-10,-10,0" Height="55" VerticalAlignment="Top" Visibility="Visible" Grid.Row="0" Loaded="ImageOptionalBlur_Loaded" RadiusX="8" RadiusY="8"/>
+        <Rectangle Name="ImageOptionalBlur" Fill="{ThemeResource CustomAcrylicInAppLuminosity}" Grid.RowSpan="1" Margin="-10,-10,-10,0" Height="55" VerticalAlignment="Top" Visibility="Visible" Grid.Row="0"  RadiusX="8" RadiusY="8"/>
         <TextBlock Name="ComponentType" Text="-" FontSize="30" Height="55" VerticalAlignment="Top"/>
     </Grid>
 </Page>

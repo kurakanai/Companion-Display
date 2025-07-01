@@ -447,7 +447,7 @@ namespace CompanionDisplayWinUI
         private void UseLessIntensiveUI_Toggled(object sender, RoutedEventArgs e)
         {
             Globals.useLessDemandingEffects = UseLessIntensiveUI.IsOn;
-            (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
+            ThemingAndColors.ImageOptionalBlur_Loaded();
             ConfigurationOperations.Save_Settings();
         }
 

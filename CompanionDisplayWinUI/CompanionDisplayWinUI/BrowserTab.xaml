@@ -132,7 +132,7 @@
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-        <TabView x:Name="BrowserTabs" AddTabButtonClick="Tabs_AddTabButtonClick" TabCloseRequested="Tabs_TabCloseRequested">
+        <TabView x:Name="BrowserTabs" AddTabButtonClick="Tabs_AddTabButtonClick" TabCloseRequested="Tabs_TabCloseRequested" VerticalAlignment="Stretch">
             <TabView.TabStripHeader>
                 <Grid x:Name="ShellTitleBarInset" Background="Transparent"/>
             </TabView.TabStripHeader>

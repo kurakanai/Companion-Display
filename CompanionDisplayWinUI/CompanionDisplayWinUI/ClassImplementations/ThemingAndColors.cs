@@ -80,24 +80,12 @@ namespace CompanionDisplayWinUI.ClassImplementations
                 frameworkElement.RequestedTheme = theme;
             }
         }
-        public static void ImageOptionalBlur_Loaded(object sender, RoutedEventArgs e)
+        public static void ImageOptionalBlur_Loaded()
         {
-            if (Globals.Backdrop < 1 || Globals.useLessDemandingEffects)
-            {
-                (sender as Rectangle).Fill = null;
-                if (ThemingAndColors.GetTheme() == ElementTheme.Dark)
-                {
-                    (sender as Rectangle).Fill = new SolidColorBrush(Color.FromArgb(255, 33, 33, 33));
-                }
-                else
-                {
-                    (sender as Rectangle).Fill = new SolidColorBrush(Color.FromArgb(255, 212, 212, 212));
-                }
-            }
-            else
-            {
-                (sender as Rectangle).Fill = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminosity"];
-            }
+            var brush = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminosity"];
+            var brush2 = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminositySlightTint"];
+            brush.AlwaysUseFallback = Globals.useLessDemandingEffects;
+            brush2.AlwaysUseFallback = Globals.useLessDemandingEffects;
         }
     }
 }

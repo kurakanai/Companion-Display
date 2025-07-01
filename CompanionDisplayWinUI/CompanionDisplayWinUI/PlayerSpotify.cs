@@ -309,7 +309,12 @@ namespace CompanionDisplayWinUI
             {
                 using HttpClient client2 = new(new SocketsHttpHandler() { ConnectTimeout = TimeSpan.FromSeconds(2.0), KeepAlivePingTimeout = TimeSpan.FromSeconds(5.0), EnableMultipleHttp2Connections = false });
                 string name = Media.ArtistName;
-                string url2 = "https://musicbrainz.org/ws/2/recording/?query=" + HttpUtility.UrlEncode(Regex.Replace(Media.SongName, @"[^\w\s]", "")) + "+AND+artist:" + HttpUtility.UrlEncode(Media.ArtistName.Replace(" - Topic", "")) + "&release-group-type=album,single,ep,lp&fmt=json";
+                string AlbumName = "";
+                if (Media.AlbumName != "")
+                {
+                    AlbumName = "+AND+release:" + HttpUtility.UrlEncode(Media.AlbumName);
+                }
+                string url2 = "https://musicbrainz.org/ws/2/recording/?query=" + HttpUtility.UrlEncode(Regex.Replace(Media.SongName, @"[^\w\s]", "")) + AlbumName + "+AND+artist:" + HttpUtility.UrlEncode(Media.ArtistName.Replace(" - Topic", "")) + "&release-group-type=album,single,ep,lp&fmt=json";
                 client2.DefaultRequestHeaders.Clear();
                 client2.DefaultRequestHeaders.Add("User-Agent", "Companion Display " + Globals.Version + " (https://github.com/yagdev/Companion-Display)");
                 var response2 = client2.GetStringAsync(url2);
@@ -318,13 +323,14 @@ namespace CompanionDisplayWinUI
                 int count = array.Count();
                 int i = 0;
                 double testa = TimeSpan.ParseExact(Media.SongEnd, @"m\:ss", null).TotalMilliseconds;
-                while (array[i]["length"] == null || Math.Abs((int)array[i]["length"] - testa) > 3000)
+                while (array[i]["length"] == null || Math.Abs((int)array[i]["length"] - testa) > 3000 && (array[i]["releases"][0]["artist-credit"][0]["name"].ToString() == "Various Artists"))
                 {
                     i++;
                 }
                 Media.SongDetails = array[i]["artist-credit"][0]["name"].ToString() + " · " + array[i]["first-release-date"].ToString();
                 Media.AlbumName = array[i]["releases"][0]["title"].ToString();
-                Media.SongBackgroundDiscord = "https://coverartarchive.org/release-group/" + array[i]["releases"][0]["release-group"]["id"] + "/front";
+                Media.SongBackgroundDiscord = "https://coverartarchive.org/release/" + array[i]["releases"][0]["id"] + "/front";
+                Media.SongBackground = Media.SongBackgroundDiscord;
             }
             catch { }
             Media.SongChanged();
@@ -467,7 +473,8 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                if ((client != null && Globals.playbackInfo != null && Globals.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing) || Globals.IsSpotify)
+                bool checkPlaybackInfo = (Globals.playbackInfo != null && (Globals.playbackInfo.PlaybackStatus == (GlobalSystemMediaTransportControlsSessionPlaybackStatus)4));
+                if (client != null && (checkPlaybackInfo || Globals.IsSpotify))
                 {
                     if (presence.State != comparisonPresence.State || presence.Details != comparisonPresence.Details)
                     {
@@ -498,13 +505,22 @@ namespace CompanionDisplayWinUI
                 Globals.currentSession = sender.GetCurrentSession();
                 Globals.currentSession.MediaPropertiesChanged -= UpdateInfo;
                 Globals.currentSession.MediaPropertiesChanged += UpdateInfo;
+                Globals.currentSession.TimelinePropertiesChanged -= UpdateTiming;
                 Globals.currentSession.TimelinePropertiesChanged += UpdateTiming;
+                Globals.currentSession.PlaybackInfoChanged -= checkStatus;
+                Globals.currentSession.PlaybackInfoChanged += checkStatus;
                 Globals.playbackInfo = Globals.currentSession.GetPlaybackInfo();
                 UpdateInfo(Globals.currentSession, null);
                 UpdateTiming(Globals.currentSession, null);
             }
             catch { }
         }
+
+        private void checkStatus(GlobalSystemMediaTransportControlsSession sender, PlaybackInfoChangedEventArgs args)
+        {
+            Globals.playbackInfo = Globals.currentSession.GetPlaybackInfo();
+        }
+
         private void UpdateTiming(GlobalSystemMediaTransportControlsSession sender, TimelinePropertiesChangedEventArgs args)
         {
             Media.SongTimingChanged();

@@ -237,16 +237,18 @@ namespace CompanionDisplayWinUI
             bool fullscreen = _appWindow.Presenter.Kind == AppWindowPresenterKind.FullScreen;
             if (fullscreen)
             {
-                CornerMask.Visibility = Visibility.Visible;
+                ExtendsContentIntoTitleBar = true;
                 AppTitleBar.Visibility = Visibility.Visible;
+                CornerMask.Visibility = Visibility.Visible;
                 _appWindow.SetPresenter(AppWindowPresenterKind.Default);
                 DebugPage.Content = AppStrings.fullscrenEnter;
                 DebugPage.Icon = new SymbolIcon(Symbol.FullScreen);
             }
             else
             {
-                CornerMask.Visibility = Visibility.Collapsed;
+                ExtendsContentIntoTitleBar = false;
                 AppTitleBar.Visibility = Visibility.Collapsed;
+                CornerMask.Visibility = Visibility.Collapsed;
                 _appWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
                 DebugPage.Content = AppStrings.fullscrenExit;
                 DebugPage.Icon = new SymbolIcon(Symbol.BackToWindow);
