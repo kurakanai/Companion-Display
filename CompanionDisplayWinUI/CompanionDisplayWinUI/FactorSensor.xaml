@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Page
-    x:Class="CompanionDisplayWinUI.FactorSensor"
+<common:SharedSensorPage
+    x:Class="CompanionDisplayWinUI.ClassImplementations.SharedPages.FactorSensor"
+    xmlns:common="using:CompanionDisplayWinUI.ClassImplementations.SharedPages"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CompanionDisplayWinUI"
@@ -9,10 +10,11 @@
     mc:Ignorable="d" Loaded="Page_Loaded" Unloaded="Page_Unloaded" Height="35">
 
     <Grid>
+
         <StackPanel Orientation="Horizontal" Style="{StaticResource CompanionDisplayStackPanelHorizontalSpacing5}">
-            <TextBlock x:Uid="Factor" Style="{StaticResource CompanionDisplaySensorLeftBase}"/>
+            <TextBlock x:Uid="Clock" Style="{StaticResource CompanionDisplaySensorLeftBase}"/>
             <TextBlock Name="SensorName"  Style="{StaticResource CompanionDisplaySensorLeftName}"/>
         </StackPanel>
-        <TextBlock Name="LoadPercent" Text="-x" Style="{StaticResource CompanionDisplaySensorRight}"/>
+        <TextBlock Name="LoadPercent" Text="-X" Style="{StaticResource CompanionDisplaySensorRight}"/>
     </Grid>
-</Page>
+</common:SharedSensorPage>

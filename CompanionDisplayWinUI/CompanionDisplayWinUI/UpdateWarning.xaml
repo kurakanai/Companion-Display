@@ -11,17 +11,17 @@
 
     <Grid>
         <Grid>
-            <Image Name="BackgroundImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" Visibility="Visible" Source="https://i.imgur.com/z7C10ZG.gif"/>
-            <Rectangle Name="ImageOptionalBlur" Fill="{ThemeResource CustomAcrylicInAppLuminosity}" Grid.RowSpan="2" Visibility="Visible"/>
-            <TextBlock Name="VersionName" Text="-" Width="480" Height="50" FontSize="36" Margin="10" VerticalAlignment="Top"/>
-            <GridView SelectionMode="None" CanDrag="False" Margin="10,55,10,55" ShowsScrollingPlaceholders="False">
-                <StackPanel Spacing="5" Width="500">
+            <Image Name="BackgroundImage" Style="{StaticResource CompanionDisplayBackgroundImage}" Source="https://i.imgur.com/z7C10ZG.gif"/>
+            <Rectangle Name="ImageOptionalBlur" Fill="{ThemeResource CustomAcrylicInAppLuminosity}"/>
+            <TextBlock Name="VersionName" Style="{StaticResource CompanionDisplayTitleTextBlock}" Margin="10"/>
+            <GridView Style="{StaticResource CompanionDisplayGridViewNonDraggable}" Margin="10,43,10,41">
+                <StackPanel Spacing="5" Width="480">
                     <TextBlock x:Uid="Changelog" FontSize="22"/>
-                    <TextBlock Name="ChangelogBlock" TextWrapping="Wrap" Text="-" FontSize="16"/>
+                    <TextBlock Name="ChangelogBlock" Style="{StaticResource CompanionDisplayBaseText}" TextWrapping="Wrap" Text="-"/>
                 </StackPanel>
             </GridView>
-            <StackPanel Padding="10" VerticalAlignment="Bottom" Spacing="2">
-                <Button Name="UpdateBtn" Height="45" Width="480" VerticalAlignment="Top" x:Uid="UpdateBtn" FontSize="16" Style="{StaticResource AccentButtonStyle}" Click="Button_Click" CornerRadius="8"/>
+            <StackPanel Padding="10" VerticalAlignment="Bottom">
+                <Button Name="UpdateBtn" x:Uid="UpdateBtn" Style="{StaticResource CompanionDisplayAccentButtonStretch}" Click="Button_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

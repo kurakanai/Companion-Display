@@ -12,9 +12,9 @@
     <Window.SystemBackdrop>
         <DesktopAcrylicBackdrop />
     </Window.SystemBackdrop>
-    <Grid Name="GridMain" Background="#00FFFFFF">
+    <Grid Name="GridMain">
         <Image Name="BackgroundImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" Visibility="Collapsed" ImageOpened="BackgroundImage_ImageOpened"/>
-        <Rectangle Name="ImageOptionalBlur" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleFullScreen}" Grid.RowSpan="2" Visibility="Collapsed"/>
+        <Rectangle Name="ImageOptionalBlur" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleFullScreen}" Visibility="Collapsed"/>
         <Rectangle Name="SleepReptangle" Fill="Black" Grid.RowSpan="2" Visibility="Collapsed"/>
         <NavigationView x:Name="nvSample" Grid.Row="1" SelectedItem="{x:Bind HomeItem, Mode=OneTime}"
                         PaneDisplayMode="Auto" SelectionFollowsFocus="Enabled"  SelectionChanged="NavigationView_SelectionChanged"

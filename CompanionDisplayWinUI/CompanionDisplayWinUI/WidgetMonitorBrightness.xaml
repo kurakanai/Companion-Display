@@ -9,11 +9,9 @@
     mc:Ignorable="d" Height="300" Width="500" Loaded="Page_Loaded" Tag="ControlWidgets">
 
     <Grid>
-        
+        <TextBlock x:Name="NoMonitors" x:Uid="NoMonitorsFound" Style="{StaticResource CompanionDisplayTextBlockNoItemsLaunchpad}"/>
         <ScrollViewer VerticalScrollBarVisibility="Hidden">
-            <GridView  Name="AllMonitors" HorizontalAlignment="Center" SelectionMode="None" Margin="0,0,0,-16">
-
-            </GridView>
+            <GridView  Name="AllMonitors" HorizontalAlignment="Center" SelectionMode="None" Margin="0,0,0,-16" SizeChanged="AllMonitors_SizeChanged"/>
         </ScrollViewer>
     </Grid>
 </Page>

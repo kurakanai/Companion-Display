@@ -28,7 +28,7 @@
             <RowDefinition/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <Rectangle Style="{StaticResource CompanionDisplayBackgroundRectangle}" Grid.ColumnSpan="9" Grid.RowSpan="7" RightTapped="MainGrid_RightTapped"/>
+        <Rectangle Style="{StaticResource CompanionDisplayFillerRectangle}" Grid.ColumnSpan="9" Grid.RowSpan="7" RightTapped="MainGrid_RightTapped"/>
         <Button Grid.Row="1" Grid.Column="1" x:Name="F13Btn" Style="{StaticResource CompanionDisplayShortcutButton}" RightTapped="Button_RightTapped" Tag="124" Tapped="F13Btn_Tapped">
             <Grid Style="{StaticResource CompanionDisplayMacroGrid}">
                 <TextBlock Style="{StaticResource CompanionDisplayMacroTextBlock}" Text="F13"/>

@@ -1,5 +1,5 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.IO;
 
@@ -8,9 +8,6 @@ namespace CompanionDisplayWinUI.ClassImplementations
     static class BackupOperations
     {
         public static event CommonlyAccessedInstances.HandleEventsWithNoArgs BackupFinished;
-        private static string enableGeneralString = " del /f /q ..\\GlobalSettings.crlh & copy GlobalSettings.crlh .. &";
-        private static string enableWidgetLayoutString = " del /f /q ..\\PinnedOrder.crlh & copy PinnedOrder.crlh .. & del /f /q ..\\WidgetOrder.crlh & copy WidgetOrder.crlh .. & rmdir /S /Q ..\\Stacks & robocopy Stacks ../Stacks /mir & rmdir /S /Q ..\\WidgetNotes & robocopy WidgetNotes ../WidgetNotes /mir &";
-        private static string enableWidgetSettingsString = " del /f /q ..\\MacroThumbs.crlh & copy MacroThumbs.crlh .. & del /f /q ..\\MediaConfig.crlh & copy MediaConfig.crlh .. & del /f /q ..\\OBSSettings.crlh & copy OBSSettings.crlh .. & del /f /q ..\\PhotoConfig.crlh & copy PhotoConfig.crlh .. & del /f /q ..\\RefreshToken.crlh & copy RefreshToken.crlh .. & del /f /q ..\\RefreshToken2.crlh & copy RefreshToken2.crlh .. & del /f /q ..\\TimeConfigQS.crlh & copy TimeConfigQS.crlh .. &";
         private static string enableGeneralStringBackup = " copy GlobalSettings.crlh Backup &";
         private static string enableWidgetLayoutStringBackup = " copy PinnedOrder.crlh Backup & copy WidgetOrder.crlh Backup & robocopy Stacks Backup/Stacks /mir & robocopy WidgetNotes Backup/WidgetNotes /mir &";
         private static string enableWidgetSettingsStringBackup = " copy MacroThumbs.crlh Backup & copy MediaConfig.crlh Backup & copy OBSSettings.crlh Backup & copy PhotoConfig.crlh Backup & copy RefreshToken.crlh Backup & copy RefreshToken2.crlh Backup & copy TimeConfigQS.crlh Backup &";
@@ -18,28 +15,33 @@ namespace CompanionDisplayWinUI.ClassImplementations
         {
             BackupFinished?.Invoke();
         }
+
         public static void RestoreBackup(bool enableGeneral, bool enableWidgetLayout, bool enableWidgetSettings, string backupFile)
         {
-            CMDOperations.PerformCMDCommand("taskkill /f /im msedgewebview2.exe");
-            string options = "&";
-            if (enableGeneral)
-            {
-                options += enableGeneralString;
+            FileOps.ExtractFile(backupFile, "Config/Backup");
+            if (enableGeneral){
+                FileOps.MoveToTopFileOvr("Config/Backup/GlobalSettings.crlh");
+                FileOps.MoveToTopFileOvr("Config/Backup/SecSettings.crlh");
             }
             if (enableWidgetLayout)
             {
-                options += enableWidgetLayoutString;
+                FileOps.MoveToTopFileOvr("Config/Backup/PinnedOrder.crlh");
+                FileOps.MoveToTopFileOvr("Config/Backup/WidgetOrder.crlh");
+                FileOps.MoveToTopDirOvr("Config/Backup/Stacks");
+                FileOps.MoveToTopDirOvr("Config/Backup/WidgetNotes");
             }
             if (enableWidgetSettings)
             {
-                options += enableWidgetSettingsString;
+                FileOps.MoveToTopFileOvr("Config/Backup/MacroThumbs.crlh");
+                FileOps.MoveToTopFileOvr("Config/Backup/MediaConfig.crlh");
+                FileOps.MoveToTopFileOvr("Config/Backup/OBSSettings.crlh");
+                FileOps.MoveToTopFileOvr("Config/Backup/PhotoConfig.crlh");
+                FileOps.MoveToTopFileOvr("Config/Backup/RefreshToken.crlh");
+                FileOps.MoveToTopFileOvr("Config/Backup/RefreshToken2.crlh");
+                FileOps.MoveToTopFileOvr("Config/Backup/TimeConfigQS.crlh");
             }
-            if (!Directory.Exists("Config"))
-            {
-                Directory.CreateDirectory("Config");
-            }
-            CMDOperations.PerformCMDCommand("cd Config & rmdir /S /Q Backup & mkdir Backup & cd Backup & tar -xf \"" + backupFile + "\" " + options + " cd .. & rmdir /S /Q Backup");
-            Microsoft.Windows.AppLifecycle.AppInstance.Restart("");
+            Directory.Delete("Config/Backup", true);
+            Microsoft.Windows.AppLifecycle.AppInstance.Restart("Backup Restore in progress...");
         }
         public static void PerformBackup(bool enableGeneral, bool enableWidgetLayout, bool enableWidgetSettings, string backupFile)
         {
@@ -67,7 +69,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
             ContentDialog dialog = new()
             {
                 XamlRoot = xamlRoot,
-                Style = Microsoft.UI.Xaml.Application.Current.Resources["DefaultContentDialogStyle"] as Style
+                Style = Application.Current.Resources["DefaultContentDialogStyle"] as Style
             };
             if (isBackup)
             {

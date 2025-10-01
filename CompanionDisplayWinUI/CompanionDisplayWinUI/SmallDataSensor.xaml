@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Page
-    x:Class="CompanionDisplayWinUI.SmallDataSensor"
+<common:SharedSensorPage
+    x:Class="CompanionDisplayWinUI.ClassImplementations.SharedPages.SmallDataSensor"
+    xmlns:common="using:CompanionDisplayWinUI.ClassImplementations.SharedPages"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CompanionDisplayWinUI"
@@ -15,4 +16,4 @@
         </StackPanel>
         <TextBlock Name="LoadPercent" Text="-MB" Style="{StaticResource CompanionDisplaySensorRight}"/>
     </Grid>
-</Page>
+</common:SharedSensorPage>

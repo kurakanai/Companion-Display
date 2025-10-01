@@ -21,14 +21,14 @@ namespace CompanionDisplayWinUI
 
         private void Button_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
+            var frame = Parent as Frame;
             var navviewparent = frame.Parent as NavigationView;
             frame.GoBack();
         }
 
         private void Button_Tapped_1(object sender, TappedRoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
+            var frame = Parent as Frame;
             var navviewparent = frame.Parent as NavigationView;
             frame.Navigate(typeof(SetupStep4), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
@@ -38,7 +38,7 @@ namespace CompanionDisplayWinUI
             Globals.SleepColorR = SleepModeColor.Color.R;
             Globals.SleepColorG = SleepModeColor.Color.G;
             Globals.SleepColorB = SleepModeColor.Color.B;
-            Globals.sleepModeOpacity = Opacity.Value;
+            Globals.sleepModeOpacity = OpacitySlider.Value;
             Globals.OverrideColor = OvrColorSleepMode.IsChecked.Value;
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)

@@ -1,11 +1,5 @@
-﻿using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.System;
 using Microsoft.UI.Xaml.Input;
 using System.Windows.Controls;
@@ -31,6 +25,15 @@ namespace CompanionDisplayWinUI.ClassImplementations
             PressKey((VirtualKey)desiredKey, up: false);
             PressKey((VirtualKey)desiredKey, up: true);
             PressKey((VirtualKey)secondaryKey, up: true);
+        }
+        public static void PressKeyCTRL(object sender, TappedRoutedEventArgs e)
+        {
+            callKeys(int.Parse((string)(sender as Button).Tag), 17);
+        }
+
+        public static void PressKeyNoModifiers(object sender, TappedRoutedEventArgs e)
+        {
+            callKeys(int.Parse((string)(sender as Button).Tag), -1);
         }
     }
 }

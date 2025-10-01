@@ -7,7 +7,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
     class CommonlyAccessedInstances
     {
         public delegate void HandleEventsWithNoArgs();
-        internal static Window m_window = new MainWindow();
+        internal static Window m_window;
         public static NavigationView nvSample;
         public static GridView BasicGridView;
         public static GridView PinnedView;

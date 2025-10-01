@@ -64,7 +64,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
         {
             BitmapImage bitmapImage = new()
             {
-                UriSource = new System.Uri("https://www.google.com/s2/favicons?domain=" + uri.Host + "&sz=256")
+                UriSource = new Uri("https://www.google.com/s2/favicons?domain=" + uri.Host + "&sz=256")
             };
             Image image = new()
             {

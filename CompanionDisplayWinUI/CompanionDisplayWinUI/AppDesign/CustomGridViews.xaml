@@ -22,7 +22,8 @@
 
     <Style x:Key="CompanionDisplayGridViewDraggableLaunchpad" TargetType="GridView" BasedOn="{StaticResource CompanionDisplayGridViewDraggable}">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="Padding" Value="0,10,0,0"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Padding" Value="0,10,0,5"/>
         <Setter Property="Margin" Value="10,0,0,0"/>
     </Style>
 

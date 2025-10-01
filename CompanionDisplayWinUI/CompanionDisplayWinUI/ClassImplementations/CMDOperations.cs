@@ -21,7 +21,6 @@ namespace CompanionDisplayWinUI.ClassImplementations
                 FileName = "powershell.exe",
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true,
-                UseShellExecute = false,
                 RedirectStandardOutput = true
             }
         };

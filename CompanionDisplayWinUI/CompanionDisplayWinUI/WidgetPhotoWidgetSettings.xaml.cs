@@ -35,7 +35,7 @@ namespace CompanionDisplayWinUI
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Globals.SmartFlipToggle = Globals.SmartFlipToggle;
+            Globals.SmartFlipToggle = SmartFlipToggle.IsOn;
             var parent = this.Parent as Frame;
             parent.Tag = DirectoryTextBox.Text;
             var frame = this.Parent as Frame;

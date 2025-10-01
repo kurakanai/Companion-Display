@@ -1,7 +1,6 @@
 ﻿using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using static CompanionDisplayWinUI.MediaPlayerWidget;
@@ -10,9 +9,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
 {
     static class Media
     {
-        public static event CommonlyAccessedInstances.HandleEventsWithNoArgs CallInfoUpdate;
-        public static event CommonlyAccessedInstances.HandleEventsWithNoArgs CallTimingUpdate;
-        public static event CommonlyAccessedInstances.HandleEventsWithNoArgs CallLyricUpdate;
+        public static event CommonlyAccessedInstances.HandleEventsWithNoArgs CallInfoUpdate, CallTimingUpdate, CallLyricUpdate;
         public static int currentLyric = 0;
         public static double SongProgress;
         public static string SongName, SongDetails, SongLyrics, SongTime, SongEnd, SongBackground, AlbumName, ArtistName, SongBackgroundDiscord;
@@ -87,7 +84,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
         }
         public static void GetCover(DispatcherQueue dispatcherQueue, Image image)
         {
-            if (Globals.IsSpotify || (SongBackground != "" && SongBackground != null))
+            if (Globals.IsSpotify || (SongBackground != null && SongBackground.Length > 0))
             {
                 dispatcherQueue.TryEnqueue(() =>
                 {
@@ -95,31 +92,19 @@ namespace CompanionDisplayWinUI.ClassImplementations
                     {
                         image.Source = new BitmapImage(new Uri(SongBackground));
                     }
-                    catch
-                    {
-                    }
+                    catch { }
                 });
             }
             else
             {
-                try
+                dispatcherQueue.TryEnqueue(() =>
                 {
-                    dispatcherQueue.TryEnqueue(() =>
+                    try
                     {
-                        try
-                        {
-                            image.Source = null;
-                            image.Source = (ImageSource)Helper.GetThumbnail(Globals.songInfo.Thumbnail);
-                        }
-                        catch
-                        {
-
-                        }
-                    });
-                }
-                catch
-                {
-                }
+                        image.Source = Helper.GetThumbnail(Globals.songInfo.Thumbnail);
+                    }
+                    catch { }
+                });
             }
         }
     }

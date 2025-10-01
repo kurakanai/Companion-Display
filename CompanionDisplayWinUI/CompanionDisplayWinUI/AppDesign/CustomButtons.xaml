@@ -12,6 +12,11 @@
         <Setter Property="CornerRadius" Value="8"/>
     </Style>
 
+    <Style x:Key="CompanionDisplaySmallBrowserButton" TargetType="Button" BasedOn="{StaticResource CompanionDisplayIconButton}">
+        <Setter Property="Width" Value="235"/>
+        <Setter Property="Height" Value="66"/>
+    </Style>
+
     <Style x:Key="CompanionDisplayAccentButton" TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
         <Setter Property="CornerRadius" Value="8"/>
     </Style>

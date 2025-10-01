@@ -71,16 +71,16 @@ namespace CompanionDisplayWinUI.ClassImplementations
             {
                 if (Globals.use12HourClock)
                 {
-                    CurrentTime = DateTime.Now.ToString("h:mm tt", new System.Globalization.CultureInfo("en-US")).ToLower();
-                    CurrentTimeSecs = DateTime.Now.ToString("h:mm:ss tt", new System.Globalization.CultureInfo("en-US")).ToLower();
+                    CurrentTime = DateTime.Now.ToString("h:mm tt", CultureInfo.CurrentUICulture).ToLower();
+                    CurrentTimeSecs = DateTime.Now.ToString("h:mm:ss tt", CultureInfo.CurrentUICulture).ToLower();
                 }
                 else
                 {
-                    CurrentTime = DateTime.Now.ToString("HH:mm");
-                    CurrentTimeSecs = DateTime.Now.ToString("HH:mm:ss");
+                    CurrentTime = DateTime.Now.ToString("HH:mm", CultureInfo.CurrentUICulture);
+                    CurrentTimeSecs = DateTime.Now.ToString("HH:mm:ss", CultureInfo.CurrentUICulture);
                 }
-                CurrentDate = DateTime.Now.Date.ToString("dddd, dd MMMM yyyy");
-                CurrentDateAbbr = DateTime.Now.Date.ToString("dd/MM/yyyy");
+                CurrentDate = DateTime.Now.Date.ToString("dddd, dd MMMM yyyy", CultureInfo.CurrentUICulture);
+                CurrentDateAbbr = DateTime.Now.Date.ToString("dd/MM/yyyy", CultureInfo.CurrentUICulture);
             };
             timer.Start();
         }

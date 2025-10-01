@@ -10,15 +10,11 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using System.Drawing.Text;
 using Microsoft.UI.Xaml.Media.Animation;
 using CompanionDisplayWinUI.ClassImplementations;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using System.Threading.Tasks;
+using System.IO;
 
 namespace CompanionDisplayWinUI
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class BlankPage3 : Page
     {
         public bool LoadFinish = false;
@@ -26,13 +22,17 @@ namespace CompanionDisplayWinUI
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
-            LoadValues();
+            _ = LoadValues();
         }
-        private void LoadValues()
+        private async Task LoadValues()
         {
             if (System.IO.File.Exists("Config/SE.crlh"))
             {
                 AppIconImg.Source = new BitmapImage(new Uri("https://i.imgur.com/ng8AhkJ.jpeg"));
+            }
+            if (Globals.IgnoreUpdates)
+            {
+                await UpdateSystem.CheckUpdate();
             }
             if (Globals.IsUpdateAvailable)
             {
@@ -55,7 +55,7 @@ namespace CompanionDisplayWinUI
             AddButtonToggle.IsOn = Globals.HideAddButton;
             StartupToggle.IsOn = Globals.LaunchOnStartup;
             LockToggle.IsOn = Globals.LockLayout;
-            Opacity.Value = Globals.sleepModeOpacity;
+            OpacitySlider.Value = Globals.sleepModeOpacity;
             OvrColorSleepMode.IsOn = Globals.OverrideColor;
             SleepModeColor.Color = Color.FromArgb(255, (byte)Globals.SleepColorR, (byte)Globals.SleepColorG, (byte)Globals.SleepColorB);
             SearchEngineCust.Text = Globals.SearchEngine.ToString();
@@ -86,6 +86,8 @@ namespace CompanionDisplayWinUI
             UseLessIntensiveUI.IsOn = Globals.useLessDemandingEffects;
             TwelveHourToggle.IsOn = Globals.use12HourClock;
             PromoToggle.IsOn = Globals.showPromo;
+            UpdateNagToggle.IsOn = Globals.IgnoreUpdates;
+            DiscordToggle.IsOn = Globals.disableDiscord;
             LoadFinish = true;
         }
         private void ProcessShit(NavigationView sender, object args)
@@ -462,7 +464,7 @@ namespace CompanionDisplayWinUI
             UpdateBtn.IsEnabled = false;
             UpdateLocalBtn.IsEnabled = false;
             UpdateSystem.PerformUpdate(false);
-            UpdateBtn.IsEnabled = true;
+            UpdateBtn.IsEnabled = Globals.IsUpdateAvailable;
             UpdateLocalBtn.IsEnabled = true;
         }
 
@@ -470,6 +472,32 @@ namespace CompanionDisplayWinUI
         {
             Globals.showPromo = PromoToggle.IsOn;
             ConfigurationOperations.Save_Settings_Background();
+        }
+
+        private void UpdateNagToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            Globals.IgnoreUpdates = UpdateNagToggle.IsOn;
+            ConfigurationOperations.Save_Settings_Background();
+        }
+
+        private void ResetBrowser_Click(object sender, RoutedEventArgs e)
+        {
+            CMDOperations.PerformCMDCommand("taskkill /im msedgewebview2.exe");
+            FileOps.deleteDirectoryRecursive("CompanionDisplayWinUI.exe.WebView2");
+        }
+
+        private void DiscordToggle_Toggled(object sender, RoutedEventArgs e)
+        {
+            Globals.disableDiscord = DiscordToggle.IsOn;
+            if (Globals.disableDiscord)
+            {
+               Globals.playerSpotify.client.Deinitialize();
+            }
+            else
+            {
+                Globals.playerSpotify.LoadDiscordRPC();
+            }
+            ConfigurationOperations.Save_Settings();
         }
     }
 }

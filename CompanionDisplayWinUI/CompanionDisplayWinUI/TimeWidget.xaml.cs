@@ -29,13 +29,12 @@ namespace CompanionDisplayWinUI
     {
         public TimeWidget()
         {
-            this.InitializeComponent();
-            this.DataContext = Globals.publicTimeViewModel;
+            InitializeComponent();
+            DataContext = Globals.publicTimeViewModel;
         }
         private bool isVisible = false;
         public bool configChanged = true;
         private int loadCountPerUnload = 0;
-        Thread timeThread;
         private void SongUpdated()
         {
             DispatcherQueue.TryEnqueue(() =>
@@ -165,11 +164,6 @@ namespace CompanionDisplayWinUI
                     mDevice.AudioEndpointVolume.OnVolumeNotification += ChangeVol;
                     radio1.StateChanged += UpdateWiFi;
                     radio2.StateChanged += UpdateBT;
-                }
-                catch { }
-                try
-                {
-                    timeThread.Start();
                 }
                 catch { }
                 SongUpdated();

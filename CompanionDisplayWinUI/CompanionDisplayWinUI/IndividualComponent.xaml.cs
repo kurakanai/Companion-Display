@@ -1,4 +1,4 @@
-using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.ClassImplementations.SharedPages;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Hardware.Motherboard;
 using Microsoft.UI.Xaml;
@@ -41,12 +41,15 @@ namespace CompanionDisplayWinUI
                         {
                             foreach (ISensor sensor in subhardware.Sensors)
                             {
-                                Frame frame = new()
+                                if (sensor.Value != null)
                                 {
-                                    Tag = sensor,
-                                    Name = sensor.Name
-                                };
-                                AddSensors(sensor, frame);
+                                    Frame frame = new()
+                                    {
+                                        Tag = sensor,
+                                        Name = sensor.Name
+                                    };
+                                    AddSensors(sensor, frame);
+                                }
                             }
                         }
                         NoSensorsWarning.Visibility = (Visibility)Convert.ToByte(!(ComponentSensorStack.Children.Count == 1));

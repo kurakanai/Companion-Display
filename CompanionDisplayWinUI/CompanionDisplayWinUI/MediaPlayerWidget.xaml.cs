@@ -9,23 +9,131 @@ using Windows.Media.Control;
 using Windows.Storage.Streams;
 using CoreAudio;
 using Windows.System;
-using System.Runtime.InteropServices;
 using CompanionDisplayWinUI.ClassImplementations;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using Microsoft.UI.Text;
 
 namespace CompanionDisplayWinUI
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MediaPlayerWidget : Page
     {
         public double VolumeCur;
+        private bool ManualScrolling = false;
         public MediaPlayerWidget()
         {
             this.InitializeComponent();
+        }
+        private void ChangeSong()
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                LyricsList.Children.Clear();
+                try
+                {
+                    if (Media.Lyrics != null && Media.Lyrics.Length > 0)
+                    {
+                        for (int i = 0; i < Media.Lyrics.Length; i++)
+                        {
+                            TextBlock textBlock = new()
+                            {
+                                Text = Media.Lyrics[i]
+                            };
+                            try
+                            {
+                                textBlock.Tag = Media.LyricTimings[i];
+                                textBlock.Tapped += GoToLyric;
+                            }
+                            catch
+                            {
+
+                            }
+                            textBlock.FontSize = 28;
+                            textBlock.Opacity = 0.6;
+                            textBlock.FontWeight = FontWeights.SemiBold;
+                            textBlock.TextWrapping = TextWrapping.WrapWholeWords;
+                            LyricsList.Children.Add(textBlock);
+                        }
+                        LyricsList.Children[0].StartBringIntoView();
+                    }
+                    else if (Media.nonTimedLyrics != null)
+                    {
+                        TextBlock textBlock = new()
+                        {
+                            Text = Media.nonTimedLyrics,
+                            FontSize = 28,
+                            TextWrapping = TextWrapping.WrapWholeWords
+                        };
+                        LyricsList.Children.Add(textBlock);
+                    }
+                    else if (Media.Lyrics == null || Media.Lyrics.Length == 0)
+                    {
+                        DispatcherQueue.TryEnqueue(() =>
+                        {
+                            TextBlock textBlock = new()
+                            {
+                                Text = AppStrings.mediaNoLyrics,
+                                FontSize = 36,
+                                TextWrapping = TextWrapping.WrapWholeWords
+                            };
+                            LyricsList.Children.Add(textBlock);
+                        });
+                    }
+                }
+                catch { }
+            });
+        }
+        private void ChangeActiveLyric()
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                try
+                {
+                    if (LyricsList.Children.Count != 0)
+                    {
+                        for (int i = 0; i < LyricsList.Children.Count; i++)
+                        {
+                            if (i < Media.currentLyric)
+                            {
+                                (LyricsList.Children[i] as TextBlock).Opacity = 0.9;
+                            }
+                            else if (i == Media.currentLyric)
+                            {
+                                (LyricsList.Children[i] as TextBlock).Opacity = 1;
+                                if (!ManualScrolling)
+                                {
+                                    var options = new BringIntoViewOptions
+                                    {
+                                        HorizontalAlignmentRatio = 0.5,
+                                        VerticalAlignmentRatio = 0.3,
+                                        AnimationDesired = true
+                                    };
+                                    (LyricsList.Children[i] as TextBlock).StartBringIntoView(options);
+                                }
+                            }
+                            else
+                            {
+                                (LyricsList.Children[i] as TextBlock).Opacity = 0.6;
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+            });
+        }
+        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ManualScrolling = true;
+        }
+
+        private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ManualScrolling = false;
+        }
+        private async void GoToLyric(object sender, TappedRoutedEventArgs e)
+        {
+            await (Globals.sessionManager.GetCurrentSession().TryChangePlaybackPositionAsync((long)((double)(sender as TextBlock).Tag) * 10000));
         }
         public bool CleanUp = false, IsDragging = false;
         internal static class Helper
@@ -68,6 +176,9 @@ namespace CompanionDisplayWinUI
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             CleanUp = true;
+            Media.CallInfoUpdate -= ChangeSong;
+            Media.CallLyricUpdate -= ChangeActiveLyric;
+            LyricsList.Children.Clear();
             Globals.sleepTimer.CallUpdate -= UpdateIcon;
             Media.CallInfoUpdate -= UpdateUI;
             Media.CallTimingUpdate -= TimingUpdate;
@@ -138,6 +249,10 @@ namespace CompanionDisplayWinUI
             Media.CallInfoUpdate += UpdateUI;
             Media.CallTimingUpdate += TimingUpdate;
             Media.CallLyricUpdate += LyricsUpdate;
+            Media.CallInfoUpdate += ChangeSong;
+            Media.CallLyricUpdate += ChangeActiveLyric;
+            ChangeSong();
+            ChangeActiveLyric();
             Thread thread0 = new(StartUI);
             thread0.Start();
             UpdateIcon();
@@ -174,7 +289,7 @@ namespace CompanionDisplayWinUI
             }
         }
 
-        private async void Grid_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
+        private void Grid_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
         {
             SongProgressBar_Tapped(sender, null);
         }

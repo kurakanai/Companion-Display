@@ -1,17 +1,12 @@
+using CompanionDisplayWinUI.ClassImplementations;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace CompanionDisplayWinUI
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class WidgetMonitorBrightness : Page
     {
         public WidgetMonitorBrightness()
@@ -99,10 +94,7 @@ namespace CompanionDisplayWinUI
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
         {
-            public int left;
-            public int top;
-            public int right;
-            public int bottom;
+            public int left, top, right, bottom;
         }
         private bool FTU = true;
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -112,6 +104,11 @@ namespace CompanionDisplayWinUI
                 LoadMonitorNames();
                 FTU = !FTU;
             }
+        }
+
+        private void AllMonitors_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            NoMonitors.Visibility = VariableQuirks.getVisibilityFromBool(!(AllMonitors.Items.Count > 0));
         }
     }
 }

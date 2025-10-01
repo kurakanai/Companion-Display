@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Page
-    x:Class="CompanionDisplayWinUI.VoltageSensor"
+<common:SharedSensorPage
+    x:Class="CompanionDisplayWinUI.ClassImplementations.SharedPages.VoltageSensor"
+    xmlns:common="using:CompanionDisplayWinUI.ClassImplementations.SharedPages"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CompanionDisplayWinUI"
@@ -16,4 +17,4 @@
         <TextBlock Name="LoadPercent" Text="-V" Style="{StaticResource CompanionDisplaySensorRight}"/>
 
     </Grid>
-</Page>
+</common:SharedSensorPage>

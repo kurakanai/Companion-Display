@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Page
-    x:Class="CompanionDisplayWinUI.AcrobatProShortcutsWidget"
+<common:SharedAdobePage
+    x:Class="CompanionDisplayWinUI.ClassImplementations.AcrobatProShortcutsWidget"
+    xmlns:common="using:CompanionDisplayWinUI.ClassImplementations"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CompanionDisplayWinUI"
@@ -30,4 +31,4 @@
             </StackPanel>
         </StackPanel>
     </Grid>
-</Page>
+</common:SharedAdobePage>

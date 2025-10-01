@@ -134,19 +134,19 @@ namespace CompanionDisplayWinUI
                 });
                 switch (Globals.Backdrop)
                 {
-                    case (0):
+                    case 0:
                         DispatcherQueue.TryEnqueue(() =>
                         {
                             SystemBackdrop = new DesktopAcrylicBackdrop();
                         });
                         break;
-                    case (1):
+                    case 1:
                         DispatcherQueue.TryEnqueue(() =>
                         {
                             SystemBackdrop = new MicaBackdrop();
                         });
                         break;
-                    case (2):
+                    case 2:
                         DispatcherQueue.TryEnqueue(() =>
                         {
                             ImageOptionalBlur.Visibility = (Visibility)Convert.ToByte(!Globals.Blur);
@@ -178,24 +178,17 @@ namespace CompanionDisplayWinUI
                             catch { }
                         });
                         break;
-                    case (3):
+                    case 3:
                         DispatcherQueue.TryEnqueue(() =>
                         {
                             BackgroundImage.Visibility = Visibility.Visible;
-                            if (Globals.Blur == true)
-                            {
-                                ImageOptionalBlur.Visibility = Visibility.Visible;
-                            }
-                            else
-                            {
-                                ImageOptionalBlur.Visibility = Visibility.Collapsed;
-                            }
+                            ImageOptionalBlur.Visibility = VariableQuirks.getVisibilityFromBool(Globals.Blur);
                         });
                         Thread thread2 = new(SongCoverBackground);
                         thread2.Start();
                         Media.CallInfoUpdate += SongCoverBackground;
                         break;
-                    case (4):
+                    case 4:
                         DispatcherQueue.TryEnqueue(() =>
                         {
                             GridMain.Background = new SolidColorBrush(Color.FromArgb(255, (byte)Globals.BackgroundColorR, (byte)Globals.BackgroundColorG, (byte)Globals.BackgroundColorB));
@@ -217,11 +210,6 @@ namespace CompanionDisplayWinUI
 
         private void BackgroundImage_ImageOpened(object sender, RoutedEventArgs e)
         {
-            if (ImageOptionalBlur.Visibility == Visibility.Visible)
-            {
-                ImageOptionalBlur.Stretch = Stretch.None;
-                ImageOptionalBlur.Stretch = Stretch.UniformToFill;
-            }
             try
             {
                 if (!Globals.useLessDemandingEffects)
@@ -235,25 +223,20 @@ namespace CompanionDisplayWinUI
         private void DebugPage_Tapped(object sender, TappedRoutedEventArgs e)
         {
             bool fullscreen = _appWindow.Presenter.Kind == AppWindowPresenterKind.FullScreen;
+            ExtendsContentIntoTitleBar = fullscreen;
+            AppTitleBar.Visibility = VariableQuirks.getVisibilityFromBool(fullscreen);
+            CornerMask.Visibility = AppTitleBar.Visibility;
+            _appWindow.SetPresenter(VariableQuirks.getPresenterKindFromBool(fullscreen));
             if (fullscreen)
             {
-                ExtendsContentIntoTitleBar = true;
-                AppTitleBar.Visibility = Visibility.Visible;
-                CornerMask.Visibility = Visibility.Visible;
-                _appWindow.SetPresenter(AppWindowPresenterKind.Default);
                 DebugPage.Content = AppStrings.fullscrenEnter;
                 DebugPage.Icon = new SymbolIcon(Symbol.FullScreen);
             }
             else
             {
-                ExtendsContentIntoTitleBar = false;
-                AppTitleBar.Visibility = Visibility.Collapsed;
-                CornerMask.Visibility = Visibility.Collapsed;
-                _appWindow.SetPresenter(AppWindowPresenterKind.FullScreen);
                 DebugPage.Content = AppStrings.fullscrenExit;
                 DebugPage.Icon = new SymbolIcon(Symbol.BackToWindow);
             }
-            this.ExtendsContentIntoTitleBar = fullscreen;
         }
 
         private void NvSample_Loaded(object sender, RoutedEventArgs e)

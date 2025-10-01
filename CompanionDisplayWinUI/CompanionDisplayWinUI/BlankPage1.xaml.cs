@@ -41,15 +41,19 @@ namespace CompanionDisplayWinUI
 
         private void GridView_DragOver(object sender, DragEventArgs e)
         {
-            _ = DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
+            try
             {
-                e.AcceptedOperation = DataPackageOperation.Copy;
-                var sourceGridView = e.DataView.Properties["sourceGridView"] as string;
-                if (sourceGridView != (sender as GridView).Tag as string)
+                _ = DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
                 {
-                    e.AcceptedOperation = DataPackageOperation.None;
-                }
-            });
+                    e.AcceptedOperation = DataPackageOperation.Copy;
+                    var sourceGridView = e.DataView.Properties["sourceGridView"] as string;
+                    if (sourceGridView != (sender as GridView).Tag as string)
+                    {
+                        e.AcceptedOperation = DataPackageOperation.None;
+                    }
+                });
+            }
+            catch { }
         }
 
         private void GridView_Drop(object sender, DragEventArgs e)
@@ -60,10 +64,7 @@ namespace CompanionDisplayWinUI
                 var targetGridView = sender as GridView;
                 if (sourceGridView == targetGridView.Tag as string)
                 {
-                    // Assuming the items are strings for this example
                     var items = e.DataView.GetDataAsync("Text").GetResults() as IEnumerable<string>;
-
-                    // Add items to the target GridView
                     foreach (var item in items)
                     {
                         (targetGridView.ItemsSource as IList<string>).Add(item);
@@ -244,7 +245,6 @@ namespace CompanionDisplayWinUI
                 PinScrollView.Height = 0;
             }
         }
-
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             Frame senderWidget = (sender as FrameworkElement).Tag as Frame;
@@ -263,7 +263,6 @@ namespace CompanionDisplayWinUI
             Type type1 = Type.GetType(senderWidget.Content + "WidgetSettings");
             senderWidget.Navigate(type1);
         }
-
         private void BasicGridView_DragItemsCompleted(ListViewBase sender, DragItemsCompletedEventArgs args)
         {
             Thread thread = new(SaveTo);
@@ -397,34 +396,33 @@ namespace CompanionDisplayWinUI
                     BasicGridView.Items.Add(grid);
                 });
             }
-            try
+            if (!Globals.IgnoreUpdates)
             {
-                await UpdateSystem.CheckUpdate();
-                if (Globals.IsUpdateAvailable && !Globals.isConfidential)
+                try
                 {
-                    DispatcherQueue.TryEnqueue(() =>
+                    await UpdateSystem.CheckUpdate();
+                    if (Globals.IsUpdateAvailable && !Globals.isConfidential)
                     {
-                        Frame frame = new()
+                        DispatcherQueue.TryEnqueue(() =>
                         {
-                            Name = "UpdateWidget1",
-                            CornerRadius = new CornerRadius(8),
-                        };
-                        frame.RightTapped += Frame_RightTapped;
-                        BasicGridView.Items.Insert(0, frame);
-                        frame.Navigate(typeof(UpdateWarning));
-                    });
+                            Frame frame = new()
+                            {
+                                Name = "UpdateWidget1",
+                                CornerRadius = new CornerRadius(8),
+                            };
+                            frame.RightTapped += Frame_RightTapped;
+                            BasicGridView.Items.Insert(0, frame);
+                            frame.Navigate(typeof(UpdateWarning));
+                        });
+                    }
                 }
+                catch { }
             }
-            catch
-            {
-
-            }
-            
         }
         private void Frame_IsEnabledChanged2(object sender, DependencyPropertyChangedEventArgs e)
         {
             var frame2 = (Frame)sender;
-            if(frame2 != null && frame2.IsEnabled == true)
+            if(frame2 != null && frame2.IsEnabled)
             {
                 Thread thread = new(SaveTo);
                 thread.Start();
@@ -478,7 +476,7 @@ namespace CompanionDisplayWinUI
                 PinnedView.Items.Clear();
                 Thread thread0 = new(UpdateUI);
                 thread0.Start();
-                Globals.ResetHome = false;
+                Globals.ResetHome = !Globals.ResetHome;
             }
         }
 

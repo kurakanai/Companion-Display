@@ -147,11 +147,23 @@
                         </Expander>
                     </StackPanel>
                 </Expander>
+                <Expander x:Uid="PrivacyHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
+                        <Grid>
+                            <TextBlock x:Uid="EraseBrowser" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <Button x:Uid="ResetBtn" Name="ResetBrowser" Style="{StaticResource CompanionDisplayAccentButtonRight}" Click="ResetBrowser_Click"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="DisableDiscord" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="DiscordToggle" Toggled="DiscordToggle_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
+                        </Grid>
+                    </StackPanel>
+                </Expander>
                 <Expander x:Uid="SleepModeHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
                     <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
                         <Grid>
                             <TextBlock x:Uid="TextOpacity" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
-                            <Slider Name="Opacity" Value="10" ManipulationCompleted="Opacity_ManipulationCompleted" Tapped="Opacity_Tapped" Style="{StaticResource CompanionDisplaySliderSettings}"/>
+                            <Slider Name="OpacitySlider" Value="10" ManipulationCompleted="Opacity_ManipulationCompleted" Tapped="Opacity_Tapped" Style="{StaticResource CompanionDisplaySliderSettings}"/>
                         </Grid>
                         <Grid>
                             <TextBlock x:Uid="OverrideTextColor" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
@@ -176,6 +188,10 @@
                         <Grid>
                             <TextBlock x:Uid="EnableBetaUpdates" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
                             <ToggleSwitch Name="UpdateToggle" Style="{StaticResource CompanionDisplayToggleSettings}" Toggled="UpdateToggle_Toggled"/>
+                        </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="DisableUpdateWarnings" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <ToggleSwitch Name="UpdateNagToggle" Style="{StaticResource CompanionDisplayToggleSettings}" Toggled="UpdateNagToggle_Toggled"/>
                         </Grid>
                         <Grid>
                             <TextBlock x:Uid="Update" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>

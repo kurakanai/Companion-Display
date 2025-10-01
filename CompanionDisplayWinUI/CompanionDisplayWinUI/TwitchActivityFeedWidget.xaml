@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Page
-    x:Class="CompanionDisplayWinUI.TwitchActivityFeedWidget"
+<common:SharedTwitch
+    x:Class="CompanionDisplayWinUI.ClassImplementations.SharedPages.TwitchActivityFeedWidget"
+    xmlns:common="using:CompanionDisplayWinUI.ClassImplementations.SharedPages"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CompanionDisplayWinUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Tag="TwitchWidgets" Width="500" Height="300" CanDrag="False"
+    mc:Ignorable="d" Tag="TwitchWidgets" Width="500" Height="300" CanDrag="False" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <WebView2 Name="Player" CanDrag="False" Loaded="Player_Loaded"/>
+        <WebView2 Name="Player" CanDrag="False"/>
         <Border BorderThickness="10" Height="300" Width="500" BorderBrush="Transparent" Opacity="0"/>
         <HyperlinkButton Width="30" Height="30"  VerticalAlignment="Top" HorizontalAlignment="Right" Content="&#xe72c;" FontFamily="Segoe Fluent Icons" Margin="0,0,5,0" Padding="0" Foreground="White" Click="HyperlinkButton_Click"/>
         <HyperlinkButton Width="30" Height="30"  VerticalAlignment="Top" HorizontalAlignment="Right" Content="&#xe78b;" FontFamily="Segoe Fluent Icons" Margin="0,0,35,0" Padding="0" Foreground="White" Click="Button_Click"/>
     </Grid>
-</Page>
+</common:SharedTwitch>

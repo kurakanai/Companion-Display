@@ -31,7 +31,7 @@
                 <StackPanel Spacing="20">
                     <Grid>
                         <TextBlock x:Uid="TextOpacity" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Slider Name="Opacity" Width="300" HorizontalAlignment="Right" VerticalAlignment="Center" Value="10" ValueChanged="Opacity_ValueChanged"/>
+                        <Slider Name="OpacitySlider" Width="300" HorizontalAlignment="Right" VerticalAlignment="Center" Value="10" ValueChanged="Opacity_ValueChanged"/>
                     </Grid>
                     <Grid>
                         <TextBlock x:Uid="OverrideTextColor" HorizontalAlignment="Left" VerticalAlignment="Center"/>

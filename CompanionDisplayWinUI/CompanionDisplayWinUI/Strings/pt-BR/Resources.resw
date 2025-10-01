@@ -278,7 +278,7 @@
 Conecte um dispositivo Android com a Depuração ADB ativada.</value>
   </data>
   <data name="NoSensors.Text" xml:space="preserve">
-    <value>Não foram detetados sensores
+    <value>Não foram detectados sensores
 Por favor execute o Companion Display como administrador.</value>
   </data>
   <data name="NotesPlaceholder.PlaceholderText" xml:space="preserve">
@@ -773,5 +773,20 @@ Pressione o botão direito e pressione Editar para adicionar uma imagem.</value>
   </data>
   <data name="SupportToggle.Text" xml:space="preserve">
     <value>Mostrar botão "Transferir Companion Display" na presença do Discord.</value>
+  </data>
+  <data name="NoMonitorsFound.Text" xml:space="preserve">
+    <value>Não foram detectados monitores DDC/CI</value>
+  </data>
+  <data name="DisableUpdateWarnings.Text" xml:space="preserve">
+    <value>Desativar lembretes de nova atualização</value>
+  </data>
+  <data name="EraseBrowser.Text" xml:space="preserve">
+    <value>Deletar todos os dados de navegação</value>
+  </data>
+  <data name="PrivacyHeader.Header" xml:space="preserve">
+    <value>Privacidade</value>
+  </data>
+  <data name="DisableDiscord.Text" xml:space="preserve">
+    <value>Desabilitar a transmissão da presença do Discord</value>
   </data>
 </root>

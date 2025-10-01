@@ -6,6 +6,7 @@
     <Style x:Key="CompanionDisplayBackgroundRectangle" TargetType="Rectangle">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Fill" Value="Transparent"/>
     </Style>
     
     <Style x:Key="CompanionDisplayImageOptionalBlurRectangle" TargetType="Rectangle">
@@ -40,7 +41,6 @@
     <Style x:Key="CompanionDisplayFillerRectangle" TargetType="Rectangle">
         <Setter Property="Fill" Value="Transparent"/>
     </Style>
-
     <!--Very sorry for the redundancy here, but it's what saves the most while keeping my sanity, at least for now. Maybe in 25.7 tho.-->
     <!--YAG-dev @01/07/2025 - Not in 25.7. Apparently this is already efficient.-->
     <Style x:Key="CompanionDisplayImageOptionalBlurRectangleLyricsView" TargetType="Rectangle" BasedOn="{StaticResource CompanionDisplayImageOptionalBlurRectanglePin}">

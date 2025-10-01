@@ -15,12 +15,22 @@
         </Grid.RowDefinitions>
         <Image Name="AlbumCoverImg" Grid.RowSpan="2" Stretch="UniformToFill" />
         <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosityAlwaysTransparent}" Grid.RowSpan="2"/>
-        <StackPanel  Margin="10,10,10,0">
-            <TextBlock x:Name="SongTitle" Style="{StaticResource CompanionDisplayMediaTitle}"/>
-            <TextBlock x:Name="SongInfo" Style="{StaticResource CompanionDisplayMediaSubtext}"/>
-            <TextBlock x:Name="AlbumName" Style="{StaticResource CompanionDisplayMediaSubtext}"/>
-            <TextBlock x:Name="SongLyrics" Style="{StaticResource CompanionDisplayMediaLyrics}"/>
-        </StackPanel>
+        <FlipView Grid.RowSpan="2" Background="Transparent">
+            <StackPanel  Margin="10,10,10,0">
+                <TextBlock x:Name="SongTitle" Style="{StaticResource CompanionDisplayMediaTitle}"/>
+                <TextBlock x:Name="SongInfo" Style="{StaticResource CompanionDisplayMediaSubtext}"/>
+                <TextBlock x:Name="AlbumName" Style="{StaticResource CompanionDisplayMediaSubtext}"/>
+                <TextBlock x:Name="SongLyrics" Style="{StaticResource CompanionDisplayMediaLyrics}"/>
+            </StackPanel>
+            
+            <Grid>
+                <ScrollView>
+                    <StackPanel x:Name="LyricsList" Padding="10,10,10,120"/>
+                </ScrollView>
+                <ToggleButton Grid.Row="2" Content="&#xece7;" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked" Style="{StaticResource CompanionDisplayToggleButtonIconLyricsView}" Margin="0,0,10,0"/>
+                <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosityAlwaysTransparent}" Height="120" RadiusX="8" RadiusY="8" VerticalAlignment="Bottom"/>
+            </Grid>
+        </FlipView>
         <Grid Margin="10,20,10,60" Grid.Row="1" PointerCaptureLost="Grid_PointerCaptureLost" PointerReleased="Grid_PointerCaptureLost" Style="{StaticResource CompanionDisplayGridBottom}">
             <Slider Name="SongProgressBar" Style="{StaticResource CompanionDisplaySliderMedia}" ManipulationStarted="SongProgressBar_ManipulationStarted" ManipulationCompleted="Grid_ManipulationCompleted" Tapped="SongProgressBar_Tapped"/>
         </Grid>

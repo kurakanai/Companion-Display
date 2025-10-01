@@ -10,12 +10,12 @@ namespace CompanionDisplayWinUI.ClassImplementations
         public static void Save_Settings()
         {
             Globals.ResetHome = true;
-            string settingsfile = Globals.ColorSchemeSelect + "\n" + Globals.InjectCustomAccent + "\n" + Globals.ColorSchemeSelectAccentR + "\n" + Globals.ColorSchemeSelectAccentG + "\n" + Globals.ColorSchemeSelectAccentB + "\n" + Globals.Backdrop + "\n" + Globals.BackgroundLink + "\n" + Globals.Wallpaper + "\n" + Globals.Blur + "\n" + Globals.StealFocus + "\n" + Globals.BackgroundColorR + "\n" + Globals.BackgroundColorG + "\n" + Globals.BackgroundColorB + "\n" + Globals.IsBetaProgram + "\n" + Globals.HideAddButton + "\n" + Globals.LaunchOnStartup + "\n" + Globals.LockLayout + "\n" + ThemingAndColors.CurrentFont() + "\n" + Globals.sleepModeOpacity + "\n" + Globals.OverrideColor + "\n" + Globals.SleepColorR + "\n" + Globals.SleepColorG + "\n" + Globals.SleepColorB + "\n" + Globals.SearchEngine + "\n" + Globals.NewTabBehavior + "\n" + Globals.triggerSetup + "\n" + Globals.useLessDemandingEffects + "\n" + Globals.use12HourClock;
+            string settingsfile = Globals.ColorSchemeSelect + "\n" + Globals.InjectCustomAccent + "\n" + Globals.ColorSchemeSelectAccentR + "\n" + Globals.ColorSchemeSelectAccentG + "\n" + Globals.ColorSchemeSelectAccentB + "\n" + Globals.Backdrop + "\n" + Globals.BackgroundLink + "\n" + Globals.Wallpaper + "\n" + Globals.Blur + "\n" + Globals.StealFocus + "\n" + Globals.BackgroundColorR + "\n" + Globals.BackgroundColorG + "\n" + Globals.BackgroundColorB + "\n" + Globals.IsBetaProgram + "\n" + Globals.HideAddButton + "\n" + Globals.LaunchOnStartup + "\n" + Globals.LockLayout + "\n" + ThemingAndColors.CurrentFont() + "\n" + Globals.sleepModeOpacity + "\n" + Globals.OverrideColor + "\n" + Globals.SleepColorR + "\n" + Globals.SleepColorG + "\n" + Globals.SleepColorB + "\n" + Globals.SearchEngine + "\n" + Globals.NewTabBehavior + "\n" + Globals.triggerSetup + "\n" + Globals.useLessDemandingEffects + "\n" + Globals.use12HourClock + "\n" + Globals.disableDiscord;
             File.WriteAllText("Config/GlobalSettings.crlh", settingsfile);
         }
         public static void Save_Settings_Background()
         {
-            string settingsfile = Globals.enableUISounds + "\n" + Globals.showPromo + "\n";
+            string settingsfile = Globals.enableUISounds + "\n" + Globals.showPromo + "\n" + Globals.IgnoreUpdates + "\n";
             File.WriteAllText("Config/SecSettings.crlh", settingsfile);
             ElementSoundPlayer.State = (ElementSoundPlayerState)(Convert.ToByte(Globals.enableUISounds) + 1);
         }
@@ -61,6 +61,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
                 Globals.triggerSetup = bool.Parse(readerconfig.ReadLine());
                 Globals.useLessDemandingEffects = bool.Parse(readerconfig.ReadLine());
                 Globals.use12HourClock = bool.Parse(readerconfig.ReadLine());
+                Globals.disableDiscord = bool.Parse(readerconfig.ReadLine());
                 readerconfig.Close();
             }
             catch
@@ -81,6 +82,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
                     ThemingAndColors.ImageOptionalBlur_Loaded();
                 });
                 Globals.showPromo = bool.Parse(readerconfig.ReadLine());
+                Globals.IgnoreUpdates = bool.Parse(readerconfig.ReadLine());
                 readerconfig.Close();
             }
             catch
@@ -101,7 +103,6 @@ namespace CompanionDisplayWinUI.ClassImplementations
         }
         public static void SaveOBSConfig()
         {
-            Globals.ResetHome = true;
             string settingsfile = Globals.obsIP + "\n" + Globals.obsPass;
             File.WriteAllText(Globals.OBSConfigFile, settingsfile);
         }

@@ -20,14 +20,13 @@ namespace CompanionDisplayWinUI
 {
     class PlayerSpotify
     {
-        private string Toki, TokiA, TokiO, TitleSongOffline, AlbumCoverBase2, SongID, SongIDCache, timestamp, timestamp2;
+        private string Toki, TokiA, TokiO, TitleSongOffline, SongID, SongIDCache, timestamp, timestamp2;
         bool changed = false;
         public TimeSpan ts, ts2;
         private int currenttimestamp = 0, endtimestamp = 0;
         public const byte VK_MEDIA_PLAY_PAUSE = 179, VK_MEDIA_NEXT = 176, VK_MEDIA_PREV = 177;
         public DiscordRpcClient client;
         private readonly Uri BaseUri = new("http://localhost:5543/callback");
-        private readonly PlayerCurrentlyPlayingRequest request2 = new();
         // Media rework effort
         // Start Logic
         public void Page_Loaded()
@@ -123,7 +122,12 @@ namespace CompanionDisplayWinUI
                         {
                             double time = TimeSpan.ParseExact(match.Groups[1].Value.Trim(), @"mm\:ss\.ff", CultureInfo.InvariantCulture).TotalMilliseconds;
                             timestamps.Add(time);
-                            lyricsList.Add(match.Groups[2].Value.Trim());
+                            string Lyric = match.Groups[2].Value.Trim();
+                            if(Lyric == "")
+                            {
+                                Lyric = "♪‎‎ ";
+                            }
+                            lyricsList.Add(Lyric);
                         }
                     }
                     Media.LyricTimings = [.. timestamps];
@@ -323,7 +327,7 @@ namespace CompanionDisplayWinUI
                 int count = array.Count();
                 int i = 0;
                 double testa = TimeSpan.ParseExact(Media.SongEnd, @"m\:ss", null).TotalMilliseconds;
-                while (array[i]["length"] == null || Math.Abs((int)array[i]["length"] - testa) > 3000 && (array[i]["releases"][0]["artist-credit"][0]["name"].ToString() == "Various Artists"))
+                while (array[i]["length"] == null || Math.Abs((int)array[i]["length"] - testa) > 3000 || (array[i]["releases"][0]["artist-credit"][0]["name"].ToString() == "Various Artists"))
                 {
                     i++;
                 }
@@ -338,25 +342,28 @@ namespace CompanionDisplayWinUI
         // End Spotify DB
         public void LoadDiscordRPC()
         {
-            if(client != null)
+            if (!Globals.disableDiscord)
             {
-                client?.Dispose();
-            }
-            try
-            {
-                client = new DiscordRpcClient(Globals.DiscordID);
-                client.OnReady += delegate (object sender, ReadyMessage e)
+                if (client != null)
                 {
-                    Console.WriteLine("Received Ready from user {0}", e.User.Username);
-                };
-                client.OnPresenceUpdate += delegate (object sender, PresenceMessage e)
+                    client?.Dispose();
+                }
+                try
                 {
-                    Console.WriteLine("Received Update! {0}", e.Presence);
-                };
-                client.Initialize();
-            }
-            catch
-            {
+                    client = new DiscordRpcClient(Globals.DiscordID);
+                    client.OnReady += delegate (object sender, ReadyMessage e)
+                    {
+                        Console.WriteLine("Received Ready from user {0}", e.User.Username);
+                    };
+                    client.OnPresenceUpdate += delegate (object sender, PresenceMessage e)
+                    {
+                        Console.WriteLine("Received Update! {0}", e.Presence);
+                    };
+                    client.Initialize();
+                }
+                catch
+                {
+                }
             }
         }
         private static void LoadConfigs()

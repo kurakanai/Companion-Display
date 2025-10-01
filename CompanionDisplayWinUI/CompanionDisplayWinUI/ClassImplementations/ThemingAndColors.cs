@@ -1,6 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Shapes;
 using System;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -13,12 +12,13 @@ namespace CompanionDisplayWinUI.ClassImplementations
         private static readonly UISettings uiSettings = new();
         public static void SetAccentColor(Color color)
         {
+            var accentColor = customResourceDictionary["SystemAccentColor"];
             customResourceDictionary["SystemAccentColor"] = color;
-            customResourceDictionary["SystemAccentColorLight1"] = customResourceDictionary["SystemAccentColor"];
-            customResourceDictionary["SystemAccentColorLight2"] = customResourceDictionary["SystemAccentColor"];
-            customResourceDictionary["SystemAccentColorLight3"] = customResourceDictionary["SystemAccentColor"];
-            customResourceDictionary["SystemAccentColorDark1"] = customResourceDictionary["SystemAccentColor"];
-            customResourceDictionary["SystemAccentColorDark2"] = customResourceDictionary["SystemAccentColor"];
+            customResourceDictionary["SystemAccentColorLight1"] = accentColor;
+            customResourceDictionary["SystemAccentColorLight2"] = accentColor;
+            customResourceDictionary["SystemAccentColorLight3"] = accentColor;
+            customResourceDictionary["SystemAccentColorDark1"] = accentColor;
+            customResourceDictionary["SystemAccentColorDark2"] = accentColor;
             Application.Current.Resources = customResourceDictionary;
         }
         public static void RevertToSystemAccentColor()
@@ -39,7 +39,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
                 {
                     var customResources = new ResourceDictionary
                     {
-                        Source = new Uri("ms-appx:///AccentOverride.xaml")
+                        Source = new Uri("ms-appx:///AppDesign/ThemeOverrides.xaml")
                     };
                     Application.Current.Resources.MergedDictionaries.Add(customResources);
                     Globals.InjectedCustomAccent = true;
@@ -85,7 +85,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
             var brush = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminosity"];
             var brush2 = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminositySlightTint"];
             brush.AlwaysUseFallback = Globals.useLessDemandingEffects;
-            brush2.AlwaysUseFallback = Globals.useLessDemandingEffects;
+            brush2.AlwaysUseFallback = brush.AlwaysUseFallback;
         }
     }
 }

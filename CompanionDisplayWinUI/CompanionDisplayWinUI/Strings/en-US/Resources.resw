@@ -774,4 +774,19 @@ Right click and press edit to add an image.</value>
   <data name="SupportToggle.Text" xml:space="preserve">
     <value>Show "Download Companion Display" button in Discord activity</value>
   </data>
+  <data name="NoMonitorsFound.Text" xml:space="preserve">
+    <value>No DDC/CI monitors found</value>
+  </data>
+  <data name="DisableUpdateWarnings.Text" xml:space="preserve">
+    <value>Disable update popups</value>
+  </data>
+  <data name="EraseBrowser.Text" xml:space="preserve">
+    <value>Erase browsing data</value>
+  </data>
+  <data name="PrivacyHeader.Header" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="DisableDiscord.Text" xml:space="preserve">
+    <value>Disable Discord Rich Presence</value>
+  </data>
 </root>

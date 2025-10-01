@@ -10,7 +10,7 @@ namespace CompanionDisplayWinUI
     {
         // Runtime variables
         public static bool IsAdmin = false;
-        public static string Version = "25.7";
+        public static string Version = "25.10";
         public static bool isConfidential = false; // this is nothing too special, just disables update warnings for developer builds for sanity purposes :p
         public static ObsControls obsControls = new();
         public static SleepTimer sleepTimer = new();
@@ -92,5 +92,6 @@ namespace CompanionDisplayWinUI
         public static bool useLessDemandingEffects = false;
         public static bool use12HourClock = false;
         public static bool showPromo = true;
+        public static bool disableDiscord = false;
     }
 }

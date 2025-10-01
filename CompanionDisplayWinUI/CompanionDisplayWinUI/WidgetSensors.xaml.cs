@@ -40,13 +40,16 @@ namespace CompanionDisplayWinUI
                     NoDevices.Visibility = Visibility.Collapsed;
                     foreach (IHardware hardware in hardwareSensorsFunction.computer.Hardware)
                     {
-                        Frame frame = new()
+                        if(hardware.Sensors.Length > 0 || (hardware.SubHardware.Length > 0 && hardware.SubHardware[0].Sensors.Length > 0))
                         {
-                            Tag = hardware,
-                            Name = hardware.Name
-                        };
-                        FlipViewHW.Items.Add(frame);
-                        frame.Navigate(typeof(IndividualComponent));
+                            Frame frame = new()
+                            {
+                                Tag = hardware,
+                                Name = hardware.Name
+                            };
+                            FlipViewHW.Items.Add(frame);
+                            frame.Navigate(typeof(IndividualComponent));
+                        }
                     }
                 });
             }

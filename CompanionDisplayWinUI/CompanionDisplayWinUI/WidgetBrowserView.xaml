@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="CompanionDisplayWinUI.WidgetBrowserView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompanionDisplayWinUI.ClassImplementations"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Height="300" Width="500"
+    Tag="UtilWidgets">
+
+    <Grid>
+        <FlipView Background="Transparent">
+            <ScrollView>
+                <Grid>
+                    <WebView2 x:Name="WebView" NavigationCompleted="WebView_NavigationCompleted" CoreWebView2Initialized="WebView_CoreWebView2Initialized" Loaded="WebView_Loaded"/>
+                    <Frame Background="Transparent" Width="20" HorizontalAlignment="Right"/>
+                </Grid>
+            </ScrollView>
+            <Grid>
+                <StackPanel Padding="10" Style="{StaticResource CompanionDisplayStackPanelPadding10}">
+                    <TextBox Style="{StaticResource CompanionDisplayAddressBarTextBox}" x:Uid="SearchInsertURL" x:Name="AddressBar" KeyDown="AddressBar_KeyDown"/>
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelPadding10Horizontal}">
+                        <Button Style="{StaticResource CompanionDisplaySmallBrowserButton}" Content="&#xe76b;" Tapped="Button_Click"/>
+                        <Button Style="{StaticResource CompanionDisplaySmallBrowserButton}" Content="&#xe76c;" Tapped="Button_Click_1"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelPadding10Horizontal}">
+                        <Button Style="{StaticResource CompanionDisplaySmallBrowserButton}" Content="&#xe72c;" Tapped="Button_Click_5"/>
+                        <Button Style="{StaticResource CompanionDisplaySmallBrowserButton}" Content="&#xe80f;" Tapped="Button_Click_2"/>
+                    </StackPanel>
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelPadding10Horizontal}">
+                        <Button Style="{StaticResource CompanionDisplaySmallBrowserButton}" Content="&#xe896;" Tapped="Button_Click_3"/>
+                        <Button Style="{StaticResource CompanionDisplaySmallBrowserButton}" Content="&#xf738;" Tapped="Button_Click_4"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </FlipView>
+    </Grid>
+</Page>

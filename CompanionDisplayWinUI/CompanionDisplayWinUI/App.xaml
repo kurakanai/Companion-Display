@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="AppDesign/CustomScrollViewers.xaml" />
                 <ResourceDictionary Source="AppDesign/CustomTextBoxes.xaml" />
                 <ResourceDictionary Source="AppDesign/CustomComboBox.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomFrames.xaml" />
                 <ResourceDictionary Source="AppDesign/CustomSliders.xaml" />
                 <ResourceDictionary Source="AppDesign/CustomToggleSwitch.xaml" />
                 <ResourceDictionary Source="AppDesign/CustomExpanders.xaml" />
@@ -446,6 +447,11 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+            </Style>
+            <!--Quirks of WinUI3 being retarded with merged directories and code behind-->
+            <Style x:Key="CompanionDisplayWidgetFrame" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Background" Value="{CustomResource CustomAcrylicInAppLuminosity}"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

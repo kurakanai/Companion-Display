@@ -21,6 +21,9 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="AppDesign\CustomFrames.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="AppDesign\CustomProgressRings.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -23,7 +23,11 @@ namespace CompanionDisplayWinUI.ClassImplementations
             }
             else
             {
-                updatePath = FileFolderPicker.OpenFileDialog(false)[0];
+                try
+                {
+                    updatePath = FileFolderPicker.OpenFileDialog(false)[0];
+                }
+                catch { }
             }
             if(updatePath != "")
             {

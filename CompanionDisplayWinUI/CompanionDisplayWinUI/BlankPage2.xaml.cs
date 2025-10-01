@@ -75,8 +75,7 @@ namespace CompanionDisplayWinUI
                     MainGrid.Margin = new Thickness(0);
                     WebView.Margin = MainGrid.Margin;
                 }
-                nv.IsPaneVisible = fullScreen;
-                nv.IsPaneOpen = fullScreen;
+                nv.IsPaneVisible = !fullScreen;
             }
         }
         private void WebView_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
@@ -116,10 +115,7 @@ namespace CompanionDisplayWinUI
             {
                 frame.Margin = new Thickness(0, 45, 0, 0);
             }
-            catch
-            {
-
-            }
+            catch { }
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
