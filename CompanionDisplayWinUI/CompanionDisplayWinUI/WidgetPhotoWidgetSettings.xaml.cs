@@ -2,6 +2,7 @@ using System.IO;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -49,13 +50,13 @@ namespace CompanionDisplayWinUI
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            string btntag = FileFolderPicker.OpenFileDialog(false)[0];
+            string btntag = FileAPI.OpenFileDialog(false)[0];
             DirectoryTextBox.Text = btntag;
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            string btntag2 = FileFolderPicker.OpenFolder();
+            string btntag2 = FileAPI.OpenFolder();
             DirectoryTextBox.Text = btntag2;
         }
 

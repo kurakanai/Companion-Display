@@ -1,13 +1,15 @@
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.Objects;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using System;
 using System.Runtime.InteropServices;
-using Windows.System;
 using Windows.Media.Control;
-using CompanionDisplayWinUI.ClassImplementations;
-using Microsoft.UI.Text;
+using Windows.System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -31,6 +33,7 @@ namespace CompanionDisplayWinUI
         private static readonly IntPtr HWND_NOTOPMOST = new(-2);
         private const uint SWP_NOMOVE = 0x0002;
         private const uint SWP_NOSIZE = 0x0001;
+        private SongObject songObject = MusicAPI.currentSong;
 
         // Import SetWindowLong and GetWindowLong from User32.dll
         [DllImport("user32.dll", SetLastError = true)]
@@ -67,9 +70,9 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                long maxpos = long.Parse(Globals.sessionManager.GetCurrentSession().GetTimelineProperties().EndTime.Ticks.ToString());
+                long maxpos = long.Parse(MusicAPI.timelineProperties.EndTime.Ticks.ToString());
                 long newpos = (long)(Math.Round((SongProgressBar.Value / 100) * maxpos));
-                await (Globals.sessionManager.GetCurrentSession().TryChangePlaybackPositionAsync(newpos));
+                await (MusicAPI.currentSession.TryChangePlaybackPositionAsync(newpos));
                 IsDragging = false;
                 SongProgressBar.IsFocusEngaged = false;
             }
@@ -83,9 +86,9 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                long maxpos = long.Parse(Globals.sessionManager.GetCurrentSession().GetTimelineProperties().EndTime.Ticks.ToString());
+                long maxpos = long.Parse(MusicAPI.timelineProperties.EndTime.Ticks.ToString());
                 long newpos = (long)(Math.Round((SongProgressBar.Value / 100) * maxpos));
-                await (Globals.sessionManager.GetCurrentSession().TryChangePlaybackPositionAsync(newpos));
+                await (MusicAPI.currentSession.TryChangePlaybackPositionAsync(newpos));
                 IsDragging = false;
                 SongProgressBar.IsFocusEngaged = false;
             }
@@ -105,9 +108,9 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                long maxpos = long.Parse(Globals.sessionManager.GetCurrentSession().GetTimelineProperties().EndTime.Ticks.ToString());
+                long maxpos = long.Parse(MusicAPI.timelineProperties.EndTime.Ticks.ToString());
                 long newpos = (long)(Math.Round((SongProgressBar.Value / 100) * maxpos));
-                await (Globals.sessionManager.GetCurrentSession().TryChangePlaybackPositionAsync(newpos));
+                await (MusicAPI.currentSession.TryChangePlaybackPositionAsync(newpos));
                 IsDragging = false;
                 SongProgressBar.IsFocusEngaged = false;
             }
@@ -118,28 +121,29 @@ namespace CompanionDisplayWinUI
         }
         private void ChangeSong()
         {
+            songObject = MusicAPI.currentSong;
             DispatcherQueue.TryEnqueue(() =>
             {
                 LyricsList.Children.Clear();
                 try
                 {
-                    this.Title = Media.SongName + " · " + Media.SongDetails;
-                    titleSong.Text = Media.SongName;
-                    detailsSong.Text = Media.SongDetails;
-                    EndTime.Text = Media.SongEnd;
-                    Media.GetCover(DispatcherQueue, AlbumCoverImg);
-                    Media.GetCover(DispatcherQueue, BackgroundImage);
-                    if (Media.Lyrics != null && Media.Lyrics.Length > 0)
+                    this.Title = songObject.artist + " · " + MusicAPI.buildDetails();
+                    titleSong.Text = songObject.title;
+                    detailsSong.Text = MusicAPI.buildDetails();
+                    EndTime.Text = MusicAPI.songEndFormatted;
+                    AlbumCoverImg.Source = songObject.albumCover;
+                    BackgroundImage.Source = AlbumCoverImg.Source;
+                    if (songObject.lyricsType == 2)
                     {
-                        for (int i = 0; i < Media.Lyrics.Length; i++)
+                        for (int i = 0; i < songObject.timedLyricsText.Length; i++)
                         {
                             TextBlock textBlock = new()
                             {
-                                Text = Media.Lyrics[i]
+                                Text = songObject.timedLyricsText[i]
                             };
                             try
                             {
-                                textBlock.Tag = Media.LyricTimings[i];
+                                textBlock.Tag = songObject.timedLyricsTimestamps[i];
                                 textBlock.Tapped += GoToLyric;
                             }
                             catch
@@ -154,38 +158,28 @@ namespace CompanionDisplayWinUI
                         }
                         LyricsList.Children[0].StartBringIntoView();
                     }
-                    else if(Media.nonTimedLyrics != null)
+                    else if (songObject.lyricsType == 1)
                     {
                         TextBlock textBlock = new()
                         {
-                            Text = Media.nonTimedLyrics,
+                            Text = songObject.nonTimedLyrics,
                             FontSize = 28,
                             TextWrapping = TextWrapping.WrapWholeWords
                         };
                         LyricsList.Children.Add(textBlock);
                     }
-                    else if (Media.Lyrics == null || Media.Lyrics.Length == 0)
+                    else
                     {
-                        DispatcherQueue.TryEnqueue(() =>
+                        TextBlock textBlock = new()
                         {
-                            TextBlock textBlock = new()
-                            {
-                                Text = AppStrings.mediaNoLyrics,
-                                FontSize = 36,
-                                TextWrapping = TextWrapping.WrapWholeWords
-                            };
-                            LyricsList.Children.Add(textBlock);
-                        });
+                            Text = AppStrings.mediaNoLyrics,
+                            FontSize = 36,
+                            TextWrapping = TextWrapping.WrapWholeWords
+                        };
+                        LyricsList.Children.Add(textBlock);
                     }
                 }
-                catch
-                {
-                    titleSong.Text = AppStrings.mediaNoMedia;
-                    detailsSong.Text = "";
-                    CurrentTime.Text = AppStrings.mediaPlaceholderTime;
-                    EndTime.Text = AppStrings.mediaPlaceholderTime;
-                    SongProgressBar.Value = 0;
-                }
+                catch { }
             });
         }
         private void ChangeTime()
@@ -194,9 +188,9 @@ namespace CompanionDisplayWinUI
             {
                 try
                 {
-                    CurrentTime.Text = Media.SongTime;
-                    SongProgressBar.Value = Media.SongProgress;
-                    if (Globals.sessionManager.GetCurrentSession().GetPlaybackInfo().PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
+                    CurrentTime.Text = MusicAPI.songElapsedFormatted;
+                    SongProgressBar.Value = MusicAPI.songProgress;
+                    if (MusicAPI.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                     {
                         DispatcherQueue.TryEnqueue(() =>
                         {
@@ -226,11 +220,11 @@ namespace CompanionDisplayWinUI
                     {
                         for (int i = 0; i < LyricsList.Children.Count; i++)
                         {
-                            if (i < Media.currentLyric)
+                            if (i < MusicAPI.currentLyricIndex)
                             {
                                 (LyricsList.Children[i] as TextBlock).Opacity = 0.9;
                             }
-                            else if (i == Media.currentLyric)
+                            else if (i == MusicAPI.currentLyricIndex)
                             {
                                 (LyricsList.Children[i] as TextBlock).Opacity = 1;
                                 if (!ManualScrolling)
@@ -259,7 +253,7 @@ namespace CompanionDisplayWinUI
         }
         private async void GoToLyric(object sender, TappedRoutedEventArgs e)
         {
-            await (Globals.sessionManager.GetCurrentSession().TryChangePlaybackPositionAsync((long)((double)(sender as TextBlock).Tag) * 10000));
+            await (MusicAPI.currentSession.TryChangePlaybackPositionAsync((long)((double)(sender as TextBlock).Tag) * 10000));
         }
 
         private bool ManualScrolling = false;
@@ -276,9 +270,9 @@ namespace CompanionDisplayWinUI
         private void Window_Closed(object sender, WindowEventArgs args)
         {
             Globals.sleepTimer.CallUpdate -= UpdateIcon;
-            Media.CallInfoUpdate -= ChangeSong;
-            Media.CallTimingUpdate -= ChangeTime;
-            Media.CallLyricUpdate -= ChangeActiveLyric;
+            MusicAPI.CallInfoUpdate -= ChangeSong;
+            MusicAPI.CallTimingUpdate -= ChangeTime;
+            MusicAPI.CallLyricUpdate -= ChangeActiveLyric;
             LyricsList.Children.Clear();
         }
         private void UpdateIcon()
@@ -298,9 +292,9 @@ namespace CompanionDisplayWinUI
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             Globals.sleepTimer.CallUpdate += UpdateIcon;
-            Media.CallInfoUpdate += ChangeSong;
-            Media.CallTimingUpdate += ChangeTime;
-            Media.CallLyricUpdate += ChangeActiveLyric;
+            MusicAPI.CallInfoUpdate += ChangeSong;
+            MusicAPI.CallTimingUpdate += ChangeTime;
+            MusicAPI.CallLyricUpdate += ChangeActiveLyric;
             UpdateIcon();
             ChangeSong();
             ChangeTime();
@@ -309,7 +303,7 @@ namespace CompanionDisplayWinUI
 
         private void SleepTimer_Click(object sender, RoutedEventArgs e)
         {
-            Media.OpenSleepDialogue(MainGrid.XamlRoot);
+            PopupAPI.OpenSleepDialogue(MainGrid.XamlRoot);
         }
 
         private void ToggleButton_Unchecked(object sender, RoutedEventArgs e)

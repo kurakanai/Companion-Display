@@ -12,29 +12,31 @@
     <Window.SystemBackdrop>
         <DesktopAcrylicBackdrop />
     </Window.SystemBackdrop>
-    <Grid Name="GridMain">
-        <Image Name="BackgroundImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" Visibility="Collapsed" ImageOpened="BackgroundImage_ImageOpened"/>
-        <Rectangle Name="ImageOptionalBlur" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleFullScreen}" Visibility="Collapsed"/>
-        <Rectangle Name="SleepReptangle" Fill="Black" Grid.RowSpan="2" Visibility="Collapsed"/>
-        <NavigationView x:Name="nvSample" Grid.Row="1" SelectedItem="{x:Bind HomeItem, Mode=OneTime}"
+    <Grid Name="Scaling" Loaded="Scaling_Loaded">
+        <Grid Name="GridMain" >
+            <Image Name="BackgroundImage" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="UniformToFill" Visibility="Collapsed" ImageOpened="BackgroundImage_ImageOpened"/>
+            <Rectangle Name="ImageOptionalBlur" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleFullScreen}" Visibility="Collapsed"/>
+            <Rectangle Name="SleepReptangle" Fill="Black" Grid.RowSpan="2" Visibility="Collapsed"/>
+            <NavigationView x:Name="nvSample" Grid.Row="1" SelectedItem="{x:Bind HomeItem, Mode=OneTime}"
                         PaneDisplayMode="Auto" SelectionFollowsFocus="Enabled"  SelectionChanged="NavigationView_SelectionChanged"
                         IsTabStop="False" IsBackButtonVisible="Collapsed" Loaded="NvSample_Loaded">
-            <NavigationView.Resources>
-                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAltHighColor}" Opacity="0.2"/>
-            </NavigationView.Resources>
-            <NavigationView.MenuItems>
-                <NavigationViewItem Icon="FullScreen" x:Uid="EnterFullscreen" Tag="Musixmatch" x:Name="DebugPage" SelectsOnInvoked="False" Tapped="DebugPage_Tapped"/>
-                <NavigationViewItem Icon="Home" x:Uid="Home" Tag="SamplePage1" x:Name="HomeItem"/>
-                <NavigationViewItem Icon="Globe" x:Uid="Internet" Tag="SamplePage2" x:Name="BrowserPage"/>
-                <NavigationViewItem Icon="MusicInfo" x:Uid="Spotify" Tag="SamplePage3" x:Name="SpotifyBuiltInPage"/>
-                <!--<NavigationViewItem Icon="ReportHacked" Content="Secret Stuff" Tag="SecretStuff" x:Name="SecretStuff"/>-->
-            </NavigationView.MenuItems>
-            <NavigationView.FooterMenuItems>
-                <NavigationViewItem Icon="Clock" x:Uid="SleepMode" Tag="SleepMode" x:Name="SleepPage"/>
-            </NavigationView.FooterMenuItems>
-            <Frame x:Name="contentFrame"/>
-        </NavigationView>
-        <Rectangle Name="CornerMask" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleButtonMaskNoPin}"/>
-        <Grid x:Name="AppTitleBar" Background="Transparent" Height="20" VerticalAlignment="Top" Margin="43,0,0,0"/>
+                <NavigationView.Resources>
+                    <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="{ThemeResource SystemAltHighColor}" Opacity="0.2"/>
+                </NavigationView.Resources>
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Icon="FullScreen" x:Uid="EnterFullscreen" Tag="Musixmatch" x:Name="DebugPage" SelectsOnInvoked="False" Tapped="DebugPage_Tapped"/>
+                    <NavigationViewItem Icon="Home" x:Uid="Home" Tag="SamplePage1" x:Name="HomeItem"/>
+                    <NavigationViewItem Icon="Globe" x:Uid="Internet" Tag="SamplePage2" x:Name="BrowserPage"/>
+                    <NavigationViewItem Icon="MusicInfo" x:Uid="Spotify" Tag="SamplePage3" x:Name="SpotifyBuiltInPage"/>
+                    <!--<NavigationViewItem Icon="ReportHacked" Content="Secret Stuff" Tag="SecretStuff" x:Name="SecretStuff"/>-->
+                </NavigationView.MenuItems>
+                <NavigationView.FooterMenuItems>
+                    <NavigationViewItem Icon="Clock" x:Uid="SleepMode" Tag="SleepMode" x:Name="SleepPage"/>
+                </NavigationView.FooterMenuItems>
+                <Frame x:Name="contentFrame"/>
+            </NavigationView>
+            <Rectangle Name="CornerMask" Style="{StaticResource CompanionDisplayImageOptionalBlurRectangleButtonMaskNoPin}"/>
+            <Grid x:Name="AppTitleBar" Background="Transparent" Height="20" VerticalAlignment="Top" Margin="43,0,0,0"/>
+        </Grid>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using CompanionDisplayWinUI.ClassImplementations;
+﻿using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.ClassImplementations;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using System;
@@ -23,24 +24,26 @@ namespace CompanionDisplayWinUI
         {
             System.Runtime.GCSettings.LargeObjectHeapCompactionMode = System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce;
             WindowsStuff.SetAdmin();
-            ConfigurationOperations.LoadGeneralConfigs();
+            ConfigAPI.LoadGeneralConfigs();
             this.InitializeComponent();
             Thread thread = new(InitializeOBS);
             thread.Start();
             Thread thread1 = new(InitMedia);
             thread1.Start();
-            ConfigurationOperations.LoadSecConfig(DispatcherQueue.GetForCurrentThread());
+            Thread thread2 = new(ConfigAPI.LoadMusicConfig);
+            thread2.Start();
+            ConfigAPI.LoadSecConfig(DispatcherQueue.GetForCurrentThread());
+
         }
 
         private void InitializeOBS()
         {
-            ConfigurationOperations.LoadOBSConfig();
+            ConfigAPI.LoadOBSConfig();
             Globals.obsControls.Connect();
         }
         private void InitMedia()
         {
             Globals.StartedPlayer = true;
-            Globals.playerSpotify.Page_Loaded();
         }
         /// <summary>
         /// Invoked when the application is launched.
@@ -57,16 +60,16 @@ namespace CompanionDisplayWinUI
                     case (0):
                         break;
                     case (1):
-                        ThemingAndColors.SetAppTheme(ElementTheme.Dark);
+                        ThemingAPI.SetAppTheme(ElementTheme.Dark);
                         break;
                     case (2):
-                        ThemingAndColors.SetAppTheme(ElementTheme.Light);
+                        ThemingAPI.SetAppTheme(ElementTheme.Light);
                         break;
                 }
-                ThemingAndColors.OverrideAccent();
+                ThemingAPI.OverrideAccent();
                 if (Globals.FontFamily != "")
                 {
-                    ThemingAndColors.SetFont(new Microsoft.UI.Xaml.Media.FontFamily(Globals.FontFamily));
+                    ThemingAPI.SetFont(new Microsoft.UI.Xaml.Media.FontFamily(Globals.FontFamily));
                 }
             }
             catch

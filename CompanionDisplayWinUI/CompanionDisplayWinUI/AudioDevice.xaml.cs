@@ -16,7 +16,7 @@ namespace CompanionDisplayWinUI
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateUI();
-            device = (Parent as Frame).Tag as MMDevice;
+            device = (MMDevice)(Parent as Frame).Tag;
             device.AudioSessionManager2.OnSessionCreated += NewSesh;
             if (FTU)
             {

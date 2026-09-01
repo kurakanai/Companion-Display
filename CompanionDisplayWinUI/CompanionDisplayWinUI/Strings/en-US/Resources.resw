@@ -423,13 +423,7 @@ Try running Companion Display as an administrator.</value>
     <value>Solid Color</value>
   </data>
   <data name="Spotify.Content" xml:space="preserve">
-    <value>Spotify</value>
-  </data>
-  <data name="SpotifyClientID.PlaceholderText" xml:space="preserve">
-    <value>Client ID</value>
-  </data>
-  <data name="SpotifyClientID2.PlaceholderText" xml:space="preserve">
-    <value>Secondary Client ID</value>
+    <value>Music Player</value>
   </data>
   <data name="StopFocus.Text" xml:space="preserve">
     <value>Stop app from stealing focus</value>
@@ -456,7 +450,7 @@ Try running Companion Display as an administrator.</value>
     <value>Version</value>
   </data>
   <data name="YAGdev.Text" xml:space="preserve">
-    <value>Made with ❤︎ by YAG-dev</value>
+    <value>Made by kura with ❤︎</value>
   </data>
   <data name="MediaWidgetSetup.Text" xml:space="preserve">
     <value>Setup Media Widget</value>
@@ -788,5 +782,14 @@ Right click and press edit to add an image.</value>
   </data>
   <data name="DisableDiscord.Text" xml:space="preserve">
     <value>Disable Discord Rich Presence</value>
+  </data>
+  <data name="ScaleText.Text" xml:space="preserve">
+    <value>App UI Scale</value>
+  </data>
+  <data name="PlayerHeader.Header" xml:space="preserve">
+    <value>Music Player</value>
+  </data>
+  <data name="MusicPlayerSelectedHeader.Text" xml:space="preserve">
+    <value>Music provider service link</value>
   </data>
 </root>

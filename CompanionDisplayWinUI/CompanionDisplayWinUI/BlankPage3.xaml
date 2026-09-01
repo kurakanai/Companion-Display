@@ -109,6 +109,10 @@
                             <TextBlock x:Uid="LaunchStartup" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
                             <ToggleSwitch Name="StartupToggle" Toggled="StartupToggle_Toggled" Style="{StaticResource CompanionDisplayToggleSettings}"/>
                         </Grid>
+                        <Grid>
+                            <TextBlock x:Uid="ScaleText" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <Slider Name="ScaleSlider" Value="1.0" StepFrequency="0.01" Minimum="1" Maximum="5.0" LargeChange="0.25" SmallChange="0.01" Tapped="ScaleSlider_Tapped" ManipulationCompleted="ScaleSlider_ManipulationCompleted" Style="{StaticResource CompanionDisplaySliderSettings}"/>
+                        </Grid>
                     </StackPanel>
                 </Expander>
                 <Expander x:Uid="BrowserHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
@@ -127,6 +131,15 @@
                         </Grid>
                     </StackPanel>
                 </Expander>
+                <Expander x:Uid="PlayerHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
+                    <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
+                        <Grid>
+                            <TextBlock x:Uid="MusicPlayerSelectedHeader" Style="{StaticResource CompanionDisplayVerticalCenterTextBlock}"/>
+                            <TextBox Name="MusicPlayerSelectedCust" Width="300" Style="{StaticResource CompanionDisplayTextBoxSettings}" TextChanged="MusicPlayerSelectedCust_TextChanged" PlaceholderText="https://open.spotify.com/"/>
+                        </Grid>
+                    </StackPanel>
+                </Expander>
+
                 <Expander x:Uid="IntegrationsHeader" Style="{StaticResource CompanionDisplayDefaultExpander}">
                     <StackPanel Style="{StaticResource CompanionDisplayStackPanelSettings}">
                         <Grid>

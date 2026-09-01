@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
 namespace CompanionDisplayWinUI
 {
     // This will likely be on 25.2's source code, so pretend you didn't see anything :P (18/1/2025)
@@ -119,7 +120,7 @@ namespace CompanionDisplayWinUI
         {
             return command switch
             {
-                "mediareq" => (Media.SongName + "\n" + Media.SongDetails + "\n" + Media.AlbumName + "\n" + Media.SongLyrics + "\n" + Media.SongTime + "\n" + Media.SongEnd + "\n" + Media.SongProgress + "\n" + Media.SongBackground),
+                //"mediareq" => (MusicAPI.songTitle + "\n" + MusicAPI.buildDetails() + "\n" + MusicAPI.albumName + "\n" + + "\n" + Media.SongTime + "\n" + Media.SongEnd + "\n" + Media.SongProgress + "\n" + Media.SongBackground),
                 _ => ("Hello from Companion Display Desktop. Invalid command."),
             };
         }

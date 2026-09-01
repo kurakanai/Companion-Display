@@ -127,7 +127,7 @@ public partial class MainWindow : Window
             key.SetValue("DisplayName", "Companion Display");
             key.SetValue("UninstallString", installDir + "setup.exe");
             key.SetValue("InstallLocation", installDir);
-            key.SetValue("Publisher", "YAG-dev");
+            key.SetValue("Publisher", "kurakanai");
             key.Close();
             string shortcutPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms), "Companion Display.lnk");
             string shortcutPathDesktop = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Companion Display.lnk");

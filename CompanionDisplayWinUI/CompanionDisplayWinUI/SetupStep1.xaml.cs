@@ -72,7 +72,7 @@ namespace CompanionDisplayWinUI
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            string url = "https://github.com/yagdev/Spotify-Lyrics-For-Discord/wiki/User-Guides#" + (sender as Button).Tag;
+            string url = "https://github.com/kurakanai/Spotify-Lyrics-For-Discord/wiki/User-Guides#" + (sender as Button).Tag;
             await Launcher.LaunchUriAsync(new Uri(url));
         }
     }

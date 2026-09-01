@@ -13,15 +13,43 @@
             <RowDefinition/>
             <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
-        <Image Name="AlbumCoverImg" Grid.RowSpan="2" Stretch="UniformToFill" />
+        <Image Name="AlbumCoverImg" Opacity="0.2" Grid.RowSpan="2" Stretch="UniformToFill" />
         <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosityAlwaysTransparent}" Grid.RowSpan="2"/>
-        <FlipView Grid.RowSpan="2" Background="Transparent">
-            <StackPanel  Margin="10,10,10,0">
-                <TextBlock x:Name="SongTitle" Style="{StaticResource CompanionDisplayMediaTitle}"/>
-                <TextBlock x:Name="SongInfo" Style="{StaticResource CompanionDisplayMediaSubtext}"/>
-                <TextBlock x:Name="AlbumName" Style="{StaticResource CompanionDisplayMediaSubtext}"/>
-                <TextBlock x:Name="SongLyrics" Style="{StaticResource CompanionDisplayMediaLyrics}"/>
-            </StackPanel>
+        <FlipView x:Name="FlipViewItem" Grid.RowSpan="2" Background="Transparent"  >
+            <Grid>
+                <Grid Opacity="0" Loaded="SongStack_Loaded">
+                    <StackPanel Name="SongStack" Margin="10,10,10,0">
+                        <Canvas Height="{Binding ElementName=SongTitle, Path=ActualHeight}">
+                            <TextBlock x:Name="SongTitle" Style="{StaticResource CompanionDisplayMediaTitle}" SizeChanged="SongProgressBar_SizeChanged">
+                                <TextBlock.RenderTransform>
+                                    <TranslateTransform x:Name="TitleTransform"/>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                        </Canvas>
+                        <Canvas Height="{Binding ElementName=SongInfo, Path=ActualHeight}">
+                            <TextBlock x:Name="SongInfo" Style="{StaticResource CompanionDisplayMediaSubtext}" SizeChanged="SongProgressBar_SizeChanged">
+                                <TextBlock.RenderTransform>
+                                    <TranslateTransform x:Name="InfoTransform"/>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                        </Canvas>
+                        <Canvas Height="{Binding ElementName=AlbumName, Path=ActualHeight}">
+                            <TextBlock x:Name="AlbumName" Style="{StaticResource CompanionDisplayMediaSubtext}" SizeChanged="SongProgressBar_SizeChanged">
+                                <TextBlock.RenderTransform>
+                                    <TranslateTransform x:Name="AlbumTransform"/>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                        </Canvas>
+                        <Canvas Height="{Binding ElementName=SongLyrics, Path=ActualHeight}">
+                            <TextBlock x:Name="SongLyrics" Style="{StaticResource CompanionDisplayMediaLyrics}" Width="480">
+                                <TextBlock.RenderTransform>
+                                    <TranslateTransform x:Name="LyricsTransform"/>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                        </Canvas>
+                    </StackPanel>
+                </Grid>
+            </Grid>
             
             <Grid>
                 <ScrollView>

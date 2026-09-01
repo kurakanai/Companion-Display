@@ -1,22 +1,32 @@
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.Objects;
+using CoreAudio;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.ComponentModel;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
-using CoreAudio;
 using Windows.System;
-using CompanionDisplayWinUI.ClassImplementations;
-using Microsoft.UI.Text;
+using Windows.UI.Composition;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CompanionDisplayWinUI
 {
     public sealed partial class MediaPlayerWidget : Page
     {
         public double VolumeCur;
+        private SongObject songObject = MusicAPI.currentSong;
         private bool ManualScrolling = false;
         public MediaPlayerWidget()
         {
@@ -24,22 +34,23 @@ namespace CompanionDisplayWinUI
         }
         private void ChangeSong()
         {
+            songObject = MusicAPI.currentSong;
             DispatcherQueue.TryEnqueue(() =>
             {
                 LyricsList.Children.Clear();
                 try
                 {
-                    if (Media.Lyrics != null && Media.Lyrics.Length > 0)
+                    if(songObject.lyricsType == 2)
                     {
-                        for (int i = 0; i < Media.Lyrics.Length; i++)
+                        for (int i = 0; i < songObject.timedLyricsText.Length; i++)
                         {
                             TextBlock textBlock = new()
                             {
-                                Text = Media.Lyrics[i]
+                                Text = songObject.timedLyricsText[i]
                             };
                             try
                             {
-                                textBlock.Tag = Media.LyricTimings[i];
+                                textBlock.Tag = songObject.timedLyricsTimestamps[i];
                                 textBlock.Tapped += GoToLyric;
                             }
                             catch
@@ -54,35 +65,33 @@ namespace CompanionDisplayWinUI
                         }
                         LyricsList.Children[0].StartBringIntoView();
                     }
-                    else if (Media.nonTimedLyrics != null)
+                    else if(songObject.lyricsType == 1)
                     {
                         TextBlock textBlock = new()
                         {
-                            Text = Media.nonTimedLyrics,
+                            Text = songObject.nonTimedLyrics,
                             FontSize = 28,
                             TextWrapping = TextWrapping.WrapWholeWords
                         };
                         LyricsList.Children.Add(textBlock);
                     }
-                    else if (Media.Lyrics == null || Media.Lyrics.Length == 0)
+                    else
                     {
-                        DispatcherQueue.TryEnqueue(() =>
+                        TextBlock textBlock = new()
                         {
-                            TextBlock textBlock = new()
-                            {
-                                Text = AppStrings.mediaNoLyrics,
-                                FontSize = 36,
-                                TextWrapping = TextWrapping.WrapWholeWords
-                            };
-                            LyricsList.Children.Add(textBlock);
-                        });
+                            Text = AppStrings.mediaNoLyrics,
+                            FontSize = 36,
+                            TextWrapping = TextWrapping.WrapWholeWords
+                        };
+                        LyricsList.Children.Add(textBlock);
                     }
                 }
                 catch { }
             });
         }
-        private void ChangeActiveLyric()
+        private async void ChangeActiveLyric()
         {
+            semaphore.Wait();
             DispatcherQueue.TryEnqueue(() =>
             {
                 try
@@ -91,14 +100,14 @@ namespace CompanionDisplayWinUI
                     {
                         for (int i = 0; i < LyricsList.Children.Count; i++)
                         {
-                            if (i < Media.currentLyric)
+                            if (i < MusicAPI.currentLyricIndex)
                             {
                                 (LyricsList.Children[i] as TextBlock).Opacity = 0.9;
                             }
-                            else if (i == Media.currentLyric)
+                            else if (i == MusicAPI.currentLyricIndex)
                             {
                                 (LyricsList.Children[i] as TextBlock).Opacity = 1;
-                                if (!ManualScrolling)
+                                if (!ManualScrolling && FlipViewItem.SelectedIndex == 1)
                                 {
                                     var options = new BringIntoViewOptions
                                     {
@@ -121,6 +130,7 @@ namespace CompanionDisplayWinUI
 
                 }
             });
+            semaphore.Release();
         }
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -133,7 +143,7 @@ namespace CompanionDisplayWinUI
         }
         private async void GoToLyric(object sender, TappedRoutedEventArgs e)
         {
-            await (Globals.sessionManager.GetCurrentSession().TryChangePlaybackPositionAsync((long)((double)(sender as TextBlock).Tag) * 10000));
+            await (MusicAPI.currentSession.TryChangePlaybackPositionAsync((long)((double)(sender as TextBlock).Tag) * 10000));
         }
         public bool CleanUp = false, IsDragging = false;
         internal static class Helper
@@ -176,15 +186,51 @@ namespace CompanionDisplayWinUI
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             CleanUp = true;
-            Media.CallInfoUpdate -= ChangeSong;
-            Media.CallLyricUpdate -= ChangeActiveLyric;
+            MusicAPI.CallInfoUpdate -= ChangeSong;
+            MusicAPI.CallLyricUpdate -= ChangeActiveLyric;
             LyricsList.Children.Clear();
             Globals.sleepTimer.CallUpdate -= UpdateIcon;
-            Media.CallInfoUpdate -= UpdateUI;
-            Media.CallTimingUpdate -= TimingUpdate;
-            Media.CallLyricUpdate -= LyricsUpdate;
+            MusicAPI.CallInfoUpdate -= UpdateUI;
+            MusicAPI.CallCoverUpdate -= UpdateCover;
+            MusicAPI.CallTimingUpdate -= TimingUpdate;
+            MusicAPI.CallLyricUpdate -= LyricsUpdate;
         }
-
+        private static readonly SemaphoreSlim semaphore = new(1);
+        private void AnimateSideways(TranslateTransform translateTransform, TextBlock target)
+        {
+            double containerWidth = SongStack.ActualWidth;
+            double textWidth = target.ActualWidth;
+            double maxOffset = textWidth - containerWidth;
+            Storyboard sb0 = target.Tag as Storyboard;
+            if(sb0 == null)
+            {
+                sb0 = new Storyboard();
+                target.Tag = sb0;
+                var anim = new DoubleAnimation
+                {
+                    From = 0,
+                    To = -maxOffset,
+                    Duration = TimeSpan.FromSeconds(5),
+                    AutoReverse = true,
+                    EasingFunction = new CubicEase { EasingMode = EasingMode.EaseInOut },
+                    RepeatBehavior = RepeatBehavior.Forever,
+                };
+                Storyboard.SetTarget(anim, translateTransform);
+                Storyboard.SetTargetProperty(anim, "X");
+                sb0.Children.Add(anim);
+                sb0.Begin();
+            }
+            DoubleAnimation doubleAnimation = sb0.Children[0] as DoubleAnimation;
+            if (textWidth > 460)
+            {
+                doubleAnimation.To = -maxOffset;
+                sb0.Begin();
+            }
+            else
+            {
+                sb0.Stop();
+            }
+        }
         private void UpdateIcon()
         {
             if (Globals.sleepTimer.isEnabled)
@@ -202,7 +248,6 @@ namespace CompanionDisplayWinUI
                 });
             }
         }
-
         private void StartUI()
         {
             MMDeviceEnumerator DevEnum = new();
@@ -213,11 +258,14 @@ namespace CompanionDisplayWinUI
             {
                 VolumeBar.Value = VolumeCur;
             });
-            Media.CallInfoUpdate += UpdateUI;
-            Media.CallTimingUpdate += TimingUpdate;
-            Media.CallLyricUpdate += LyricsUpdate;
-            UpdateUI();
-            TimingUpdate();
+            MusicAPI.CallInfoUpdate += UpdateUI;
+            MusicAPI.CallTimingUpdate += TimingUpdate;
+            MusicAPI.CallLyricUpdate += LyricsUpdate;
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                UpdateUI();
+                TimingUpdate();
+            });
         }
         private bool IsManipulative = false;
         private void ChangeVol(AudioVolumeNotificationData data)
@@ -246,11 +294,12 @@ namespace CompanionDisplayWinUI
             MMDeviceEnumerator DevEnum = new();
             mDevice = DevEnum.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia);
             Globals.sleepTimer.CallUpdate += UpdateIcon;
-            Media.CallInfoUpdate += UpdateUI;
-            Media.CallTimingUpdate += TimingUpdate;
-            Media.CallLyricUpdate += LyricsUpdate;
-            Media.CallInfoUpdate += ChangeSong;
-            Media.CallLyricUpdate += ChangeActiveLyric;
+            MusicAPI.CallInfoUpdate += UpdateUI;
+            MusicAPI.CallTimingUpdate += TimingUpdate;
+            MusicAPI.CallLyricUpdate += LyricsUpdate;
+            MusicAPI.CallInfoUpdate += ChangeSong;
+            MusicAPI.CallLyricUpdate += ChangeActiveLyric;
+            MusicAPI.CallCoverUpdate += UpdateCover;
             ChangeSong();
             ChangeActiveLyric();
             Thread thread0 = new(StartUI);
@@ -261,32 +310,26 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                long maxpos = long.Parse(Globals.sessionManager.GetCurrentSession().GetTimelineProperties().EndTime.Ticks.ToString());
+                long maxpos = long.Parse(MusicAPI.timelineProperties.EndTime.Ticks.ToString());
                 long newpos = (long)(Math.Round((SongProgressBar.Value / 100) * maxpos));
-                await(Globals.sessionManager.GetCurrentSession().TryChangePlaybackPositionAsync(newpos));
-                IsDragging = false;
+                await(MusicAPI.currentSession.TryChangePlaybackPositionAsync(newpos));
                 SongProgressBar.IsFocusEngaged = false;
             }
-            catch
-            {
-                IsDragging = false;
-            }
+            catch { }
+            IsDragging = false;
         }
 
         private async void SongProgressBar_Tapped(object sender, TappedRoutedEventArgs e)
         {
             try
             {
-                long maxpos = long.Parse(Globals.sessionManager.GetCurrentSession().GetTimelineProperties().EndTime.Ticks.ToString());
+                long maxpos = long.Parse(MusicAPI.timelineProperties.EndTime.Ticks.ToString());
                 long newpos = (long)(Math.Round((SongProgressBar.Value / 100) * maxpos));
-                await(Globals.sessionManager.GetCurrentSession().TryChangePlaybackPositionAsync(newpos));
+                await(MusicAPI.currentSession.TryChangePlaybackPositionAsync(newpos));
                 IsDragging = false;
                 SongProgressBar.IsFocusEngaged = false;
             }
-            catch
-            {
-                IsDragging = false;
-            }
+            catch { }
         }
 
         private void Grid_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
@@ -295,7 +338,7 @@ namespace CompanionDisplayWinUI
         }
         private void SleepTimer_Click(object sender, RoutedEventArgs e)
         {
-            Media.OpenSleepDialogue(this.XamlRoot);
+            PopupAPI.OpenSleepDialogue(this.XamlRoot);
         }
 
         private void HyperlinkButton_Tapped_1(object sender, RoutedEventArgs e)
@@ -347,24 +390,30 @@ namespace CompanionDisplayWinUI
         {
             DispatcherQueue.TryEnqueue(() =>
             {
-                SongTitle.Text = Media.SongName;
-                AlbumName.Text = Media.AlbumName;
-                SongInfo.Text = Media.SongDetails;
-                Media.GetCover(DispatcherQueue, AlbumCoverImg);
-                AlbumCoverImg.Opacity = 0.2;
+                try
+                {
+                    SongTitle.Text = songObject.title;
+                    AlbumName.Text = songObject.album;
+                    SongInfo.Text = MusicAPI.buildDetails();
+                }
+                catch { }
             });
+        }
+        private void UpdateCover()
+        {
+            AlbumCoverImg.Source = songObject.albumCover;
         }
         private void TimingUpdate()
         {
             DispatcherQueue.TryEnqueue(() =>
             {
-                CurrentTime.Text = Media.SongTime;
-                EndTime.Text = Media.SongEnd;
+                CurrentTime.Text = MusicAPI.songElapsedFormatted;
+                EndTime.Text = MusicAPI.songEndFormatted;
                 if (!IsDragging)
                 {
                     try
                     {
-                        SongProgressBar.Value = Media.SongProgress;
+                        SongProgressBar.Value = MusicAPI.songProgress;
                     }
                     catch
                     {
@@ -373,7 +422,7 @@ namespace CompanionDisplayWinUI
                 }
                 try
                 {
-                    if (Globals.sessionManager.GetCurrentSession().GetPlaybackInfo().PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
+                    if (MusicAPI.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing)
                     {
                         DispatcherQueue.TryEnqueue(() =>
                         {
@@ -393,11 +442,30 @@ namespace CompanionDisplayWinUI
                 }
             });
         }
+
+        private async void SongProgressBar_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            semaphore.WaitAsync();
+            TextBlock senderBlock = sender as TextBlock;
+            AnimateSideways((sender as TextBlock).RenderTransform as TranslateTransform, sender as TextBlock);
+            semaphore.Release();
+        }
+
+        private void SongStack_Loaded(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement frameworkElement = sender as FrameworkElement;
+            FancyPantsUX.SetupMaskedContainer(frameworkElement.Parent as FrameworkElement, frameworkElement);
+        }
+
         private void LyricsUpdate()
         {
             DispatcherQueue.TryEnqueue(() =>
             {
-                SongLyrics.Text = Media.SongLyrics;
+                if(LyricsList.Children.Count == 1)
+                {
+                    ChangeSong();
+                }
+                SongLyrics.Text = MusicAPI.currentLyric;
             });
         }
     }

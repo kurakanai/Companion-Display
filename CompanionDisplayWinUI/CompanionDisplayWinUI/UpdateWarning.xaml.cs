@@ -1,3 +1,4 @@
+using CompanionDisplayWinUI.API;
 using CompanionDisplayWinUI.ClassImplementations;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -46,7 +47,7 @@ namespace CompanionDisplayWinUI
             using HttpClient client = new();
             UpdateBtn.IsEnabled = false;
             UpdateBtn.Content = AppStrings.updateUpdating;
-            UpdateSystem.PerformUpdate(true);
+            MaintenanceAPI.PerformUpdate(true);
         }
     }
 }

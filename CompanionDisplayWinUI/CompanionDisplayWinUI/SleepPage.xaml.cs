@@ -1,10 +1,12 @@
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.Objects;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using System;
 using System.Threading;
 using Windows.Media.Control;
-using CompanionDisplayWinUI.ClassImplementations;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -22,7 +24,7 @@ namespace CompanionDisplayWinUI
             this.DataContext = Globals.publicTimeViewModel;
         }
         private bool CleanUp = false;
-
+        SongObject songObject = MusicAPI.currentSong;
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
             CleanUp = true;
@@ -60,8 +62,6 @@ namespace CompanionDisplayWinUI
             if (!Globals.StartedPlayer)
             {
                 Globals.StartedPlayer = !Globals.StartedPlayer;
-                PlayerSpotify mediaPlayerWidget = new();
-                mediaPlayerWidget.Page_Loaded();
             }
         }
 
@@ -73,18 +73,19 @@ namespace CompanionDisplayWinUI
         {
             try
             {
+                songObject = MusicAPI.currentSong;
                 DispatcherQueue.TryEnqueue(() =>
                 {
                     try
                     {
-                        bool showMedia = Globals.playbackInfo != null && Globals.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing || Globals.IsSpotify;
+                        bool showMedia = MusicAPI.playbackInfo != null && MusicAPI.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing;
                         if (showMedia)
                         {
-                            SongTitle.Text = Media.SongName + " · " + Media.SongDetails;
-                            Lyrics.Text = Media.SongLyrics;
+                            SongTitle.Text = songObject.title + " · " + MusicAPI.buildDetails();
+                            Lyrics.Text = MusicAPI.currentLyric;
                         }
                         SongTitle.Visibility = (Visibility)Convert.ToSByte(!showMedia);
-                        Lyrics.Visibility = (Visibility)Convert.ToSByte(Media.SongLyrics == "" || !showMedia || !(SongTitle.Visibility == Visibility.Visible));
+                        Lyrics.Visibility = (Visibility)Convert.ToSByte(MusicAPI.currentLyric == "" || !showMedia || !(SongTitle.Visibility == Visibility.Visible));
                     }
                     catch
                     {
@@ -94,7 +95,7 @@ namespace CompanionDisplayWinUI
                 });
                 try
                 {
-                    bool isPlaying = Globals.sessionManager.GetCurrentSession().GetPlaybackInfo().PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused && !Globals.IsSpotify ;
+                    bool isPlaying = MusicAPI.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused ;
                     DispatcherQueue.TryEnqueue(() =>
                     {
                         SongTitle.Visibility = (Visibility)Convert.ToSByte(isPlaying);

@@ -49,8 +49,6 @@ namespace CompanionDisplayWinUI
             {
                 File.Delete(Globals.RefreshToken2Path);
             }
-            Globals.playerSpotify.RefreshToken();
-            Globals.playerSpotify.LoadDiscordRPC();
             var frame = this.Parent as Frame;
             frame.GoBack();
         }

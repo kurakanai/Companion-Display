@@ -1,20 +1,21 @@
-using Windows.Foundation;
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.Objects;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using System.Threading;
-using CompanionDisplayWinUI.ClassImplementations;
 using System;
+using System.Threading;
+using Windows.Foundation;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace CompanionDisplayWinUI
+namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NORC_WidgetPhone : Page
+    public sealed partial class NORC_WidgetPhone : EmbeddedRCWidget
     {
         string LastID;
         public NORC_WidgetPhone()
@@ -23,42 +24,30 @@ namespace CompanionDisplayWinUI
         }
         private void Frame_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            if ((this.Parent as Frame).Parent as Grid == null)
-            {
-                FrameworkElement senderElement = sender as FrameworkElement;
-                MenuFlyout myFlyout = new();
-                MenuFlyoutItem firstItem = new() { Text = AppStrings.removeWidget, Name = senderElement.Name + "Flyout" };
-                MenuFlyoutItem secondItem = new() { Text = AppStrings.widgetRefresh, Name = senderElement.Name + "Edit" };
-                MenuFlyoutItem thirdItem = new() { Text = AppStrings.widgetPinUnpin, Name = senderElement.Name + "Pin" };
-                MenuFlyoutItem fourthItem = new() { Text = AppStrings.pipOpen, Name = senderElement.Name + "PiP" };
-                firstItem.Click += MenuFlyoutItem_Click;
-                secondItem.Click += MenuFlyoutEdit_Click;
-                thirdItem.Click += PinButton;
-                fourthItem.Click += PiPButton;
-                myFlyout.Items.Add(firstItem);
-                myFlyout.Items.Add(secondItem);
-                if (this.Frame.Parent is not FlipView)
-                {
-                    myFlyout.Items.Add(thirdItem);
-                    myFlyout.Items.Add(fourthItem);
-                }
-                myFlyout.ShowAt(senderElement, new Point(0, 0));
-            }
+            FrameworkElement senderElement = sender as FrameworkElement;
+            MenuFlyoutItem[] flyoutRC =
+            [
+                new(){ Text = AppStrings.removeWidget, Name = senderElement.Name + "Flyout" },
+                new(){ Text = AppStrings.widgetRefresh, Name = senderElement.Name + "Edit" },
+                new(){ Text = AppStrings.widgetPinUnpin, Name = senderElement.Name + "Pin" },
+                new(){ Text = AppStrings.pipOpen, Name = senderElement.Name + "PiP" },
+            ];
+            flyoutRC[0].Click += MenuFlyoutItem_Click;
+            flyoutRC[1].Click += MenuFlyoutEdit_Click;
+            flyoutRC[2].Click += PinButton;
+            flyoutRC[3].Click += PiPButton;
+            triggerRightClick(flyoutRC, senderElement);
         }
 
-        private void PinButton(object sender, RoutedEventArgs e)
-        {
-            var frame = this.Parent as Frame;
-            frame.Tag = "pin";
-            frame.IsEnabled = false;
-            frame.IsEnabled = true;
-        }
         private void PiPButton(object sender, RoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
-            frame.Tag = "pip";
-            frame.IsEnabled = false;
-            frame.IsEnabled = true;
+            var frame = this.Parent as CommonWidgetContainer;
+            frame.TriggerRightClickFromChild("pip");
+        }
+        private void PinButton(object sender, RoutedEventArgs e)
+        {
+            var frame = this.Parent as CommonWidgetContainer;
+            frame.TriggerRightClickFromChild("pin");
         }
         private void MenuFlyoutEdit_Click(object sender, RoutedEventArgs e)
         {
@@ -68,10 +57,8 @@ namespace CompanionDisplayWinUI
         }
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
-            frame.Tag = "";
-            frame.IsEnabled = false;
-            frame.IsEnabled = true;
+            var frame = this.Parent as CommonWidgetContainer;
+            frame.TriggerRightClickFromChild("");
         }
 
         private void MainGrid_Loaded(object sender, RoutedEventArgs e)
@@ -87,7 +74,7 @@ namespace CompanionDisplayWinUI
             {
                 try
                 {
-                    string output = CMDOperations.GetCMDLog("runtimes\\adb.exe devices").Replace("List of devices attached", "").Replace("\tdevice", "");
+                    string output = CommandAPI.GetCMDLog("runtimes\\adb.exe devices").Replace("List of devices attached", "").Replace("\tdevice", "");
                     foreach (string line in output.Split('\n'))
                     {
                         try

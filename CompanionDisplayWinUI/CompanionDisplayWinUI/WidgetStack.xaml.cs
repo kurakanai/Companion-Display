@@ -1,3 +1,4 @@
+using CompanionDisplayWinUI.API;
 using CompanionDisplayWinUI.ClassImplementations;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -27,112 +28,7 @@ namespace CompanionDisplayWinUI
 
         private void UpdateUI()
         {
-            int i = 1;
-            foreach (string line in WidgetOrder.Split('\n'))
-            {
-                try
-                {
-                    if (line.Length != 0)
-                    {
-                        string fix = line.Replace("\r", "");
-                        switch (fix)
-                        {
-                            case string a when a.Contains("CompanionDisplayWinUI.WidgetPhotoIMAGESOURCE"):
-                                string fix2 = "CompanionDisplayWinUI.WidgetPhoto";
-                                string folderpath = fix.Replace("CompanionDisplayWinUI.WidgetPhotoIMAGESOURCE", "");
-                                Type type1 = Type.GetType(fix2);
-                                DispatcherQueue.TryEnqueue(() =>
-                                {
-                                    Frame frame = new()
-                                    {
-                                        Name = "Widget" + i,
-                                        CornerRadius = new CornerRadius(10),
-                                        Tag = folderpath,
-                                        Background = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminosity"],
-                                    };
-                                    frame.IsEnabledChanged += Frame_IsEnabledChanged2;
-                                    frame.Loaded += BugcheckAcrylic;
-                                    if (fix.Contains("NORC_") != true)
-                                    {
-                                        frame.RightTapped += Frame_RightTapped;
-                                    }
-                                    else
-                                    {
-                                        frame.Tag = this;
-                                        frame.IsEnabledChanged += Frame_IsEnabledChanged;
-                                    }
-                                    WidgetStackView.Items.Add(frame);
-                                    frame.Navigate(type1);
-                                    i++;
-                                });
-                                break;
-                            case string b when b.Contains("CompanionDisplayWinUI.NotesWidgetID"):
-                                string fix3 = "CompanionDisplayWinUI.NotesWidget";
-                                string ID = fix.Replace("CompanionDisplayWinUI.NotesWidgetID", "");
-                                Type type2 = Type.GetType(fix3);
-                                DispatcherQueue.TryEnqueue(() =>
-                                {
-                                    Frame frame = new()
-                                    {
-                                        Name = "Widget" + i,
-                                        CornerRadius = new CornerRadius(10),
-                                        Tag = ID,
-                                        Background = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminosity"],
-                                    };
-                                    frame.IsEnabledChanged += Frame_IsEnabledChanged2;
-                                    frame.Loaded += BugcheckAcrylic;
-                                    if (fix.Contains("NORC_") != true)
-                                    {
-                                        frame.RightTapped += Frame_RightTapped;
-                                    }
-                                    else
-                                    {
-                                        frame.IsEnabledChanged += Frame_IsEnabledChanged;
-                                        frame.Tag = this;
-                                    }
-                                    WidgetStackView.Items.Add(frame);
-                                    frame.Navigate(type2);
-                                    i++;
-                                });
-                                break;
-                            default:
-                                Type type0 = Type.GetType(fix);
-                                DispatcherQueue.TryEnqueue(() =>
-                                {
-                                    try
-                                    {
-                                        Frame frame = new()
-                                        {
-                                            Name = "Widget" + i,
-                                            CornerRadius = new CornerRadius(10),
-                                            Background = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminosity"],
-                                        };
-                                        frame.Loaded += BugcheckAcrylic;
-                                        if (fix.Contains("NORC_") != true)
-                                        {
-                                            frame.RightTapped += Frame_RightTapped;
-                                        }
-                                        else
-                                        {
-                                            frame.IsEnabledChanged += Frame_IsEnabledChanged;
-                                        }
-                                        WidgetStackView.Items.Add(frame);
-                                        frame.Navigate(type0);
-                                        i++;
-                                    }
-                                    catch
-                                    {
-
-                                    }
-                                });
-                                break;
-                        }
-                    }
-                }
-                catch
-                {
-                }
-            }
+            WidgetAPI.addWidgets(WidgetStackView, WidgetOrder);
             DispatcherQueue.TryEnqueue(() =>
             {
                 Frame grid = new()

@@ -1,4 +1,4 @@
-using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,15 +26,15 @@ namespace CompanionDisplayWinUI
         private string LastName = "-";
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Thread thread2 = new(() => CMDOperations.PerformCMDCommand("runtimes\\adb.exe - s " + ID + " reboot"));
+            Thread thread2 = new(() => CommandAPI.PerformCMDCommand("runtimes\\adb.exe - s " + ID + " reboot"));
             thread2.Start();
         }
         private void UpdateUI()
         {
-            string DevName = PhoneADB.GetDeviceName(ID);
-            int DevBattery = PhoneADB.GetDeviceBattery(ID);
-            double DevBrightness = PhoneADB.GetDeviceBrightness(ID);
-            string DevBatteryIcon = Battery.GetBatteryIcon(DevBattery);
+            string DevName = ADBAPI.getDeviceName(ID);
+            int DevBattery = ADBAPI.getDeviceBatteryLevel(ID);
+            double DevBrightness = ADBAPI.getDeviceBrightness(ID);
+            string DevBatteryIcon = BatteryAPI.GetBatteryIcon(DevBattery);
             if (DevBattery != LastLvl)
             {
                 DispatcherQueue.TryEnqueue(() =>
@@ -69,7 +69,7 @@ namespace CompanionDisplayWinUI
         }
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            Thread thread2 = new(() => CMDOperations.PerformCMDCommand("runtimes\\adb.exe -s " + ID + " shell input keyevent 26"));
+            Thread thread2 = new(() => CommandAPI.PerformCMDCommand("runtimes\\adb.exe -s " + ID + " shell input keyevent 26"));
             thread2.Start();
         }
         private void Device1Brightness_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
@@ -84,7 +84,7 @@ namespace CompanionDisplayWinUI
             if (!SliderInt)
             {
                 SliderInt = !SliderInt;
-                CMDOperations.PerformCMDCommand("runtimes\\adb.exe -s " + ID + " shell settings put system screen_brightness " + Brightness1);
+                CommandAPI.PerformCMDCommand("runtimes\\adb.exe -s " + ID + " shell settings put system screen_brightness " + Brightness1);
                 SliderInt = !SliderInt;
             }
             else

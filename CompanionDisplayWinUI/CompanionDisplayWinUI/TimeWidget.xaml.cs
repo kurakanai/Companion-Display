@@ -1,3 +1,7 @@
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.Objects;
+using CoreAudio;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -9,13 +13,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.Devices.Bluetooth;
+using Windows.Devices.Enumeration;
 using Windows.Devices.Radios;
 using Windows.Media.Control;
 using Windows.UI.ViewManagement;
-using CoreAudio;
-using Windows.Devices.Bluetooth;
-using Windows.Devices.Enumeration;
-using CompanionDisplayWinUI.ClassImplementations;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -34,16 +36,18 @@ namespace CompanionDisplayWinUI
         }
         private bool isVisible = false;
         public bool configChanged = true;
+        SongObject songObject = MusicAPI.currentSong;
         private int loadCountPerUnload = 0;
         private void SongUpdated()
         {
+            songObject = MusicAPI.currentSong;
             DispatcherQueue.TryEnqueue(() =>
             {
                 try
                 {
-                    SongTitle.Text = Media.SongName;
-                    Media.GetCover(DispatcherQueue, Album);
-                    Media.GetCover(DispatcherQueue, Album2);
+                    SongTitle.Text = songObject.title;
+                    Album.Source = songObject.albumCover;
+                    Album2.Source = Album.Source;
                 }
                 catch { }
             });
@@ -58,8 +62,8 @@ namespace CompanionDisplayWinUI
                     radio1.StateChanged -= UpdateWiFi;
                     radio2.StateChanged -= UpdateBT;
                     mDevice.AudioEndpointVolume.OnVolumeNotification -= ChangeVol;
-                    Media.CallInfoUpdate -= SongUpdated;
-                    Globals.currentSession.PlaybackInfoChanged -= PlayPauseUpdated;
+                    MusicAPI.CallInfoUpdate -= SongUpdated;
+                    MusicAPI.currentSession.PlaybackInfoChanged -= PlayPauseUpdated;
                 }
                 catch { }
                 loadCountPerUnload = 0;
@@ -159,8 +163,8 @@ namespace CompanionDisplayWinUI
                 }
                 try
                 {
-                    Media.CallInfoUpdate += SongUpdated;
-                    Globals.currentSession.PlaybackInfoChanged += PlayPauseUpdated;
+                    MusicAPI.CallInfoUpdate += SongUpdated;
+                    MusicAPI.currentSession.PlaybackInfoChanged += PlayPauseUpdated;
                     mDevice.AudioEndpointVolume.OnVolumeNotification += ChangeVol;
                     radio1.StateChanged += UpdateWiFi;
                     radio2.StateChanged += UpdateBT;
@@ -169,18 +173,13 @@ namespace CompanionDisplayWinUI
                 SongUpdated();
                 PlayPauseUpdated(null, null);
             }
-            //if (timeThread == null || !(timeThread.ThreadState == ThreadState.Running))
-            //{
-            //    timeThread = new Thread(ManageTimeEvents);
-            //    timeThread.Start();
-            //}
         }
 
         private void PlayPauseUpdated(GlobalSystemMediaTransportControlsSession sender, PlaybackInfoChangedEventArgs args)
         {
             try
             {
-                if (Globals.sessionManager.GetCurrentSession().GetPlaybackInfo().PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
+                if (MusicAPI.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Paused)
                 {
                     DispatcherQueue.TryEnqueue(() =>
                     {
@@ -342,11 +341,11 @@ namespace CompanionDisplayWinUI
         {
             if(DarkModeToggle.IsChecked.Value)
             {
-                CMDOperations.PerformPowershellCommand($"-Command \"New-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name AppsUseLightTheme -Value 0 -Type Dword -Force");
+                CommandAPI.PerformPowershellCommand($"-Command \"New-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name AppsUseLightTheme -Value 0 -Type Dword -Force");
             }
             else
             {
-                CMDOperations.PerformPowershellCommand($"-Command \"Remove-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name AppsUseLightTheme\"");
+                CommandAPI.PerformPowershellCommand($"-Command \"Remove-ItemProperty -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize -Name AppsUseLightTheme\"");
             }
         }
 
@@ -359,7 +358,7 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                await Globals.sessionManager.GetCurrentSession().TrySkipNextAsync();
+                await MusicAPI.currentSession.TrySkipNextAsync();
             }
             catch { }
         }
@@ -368,7 +367,7 @@ namespace CompanionDisplayWinUI
         {
             try
             {
-                await Globals.sessionManager.GetCurrentSession().TryTogglePlayPauseAsync();
+                await MusicAPI.currentSession.TryTogglePlayPauseAsync();
             }
             catch { }
         }
@@ -389,7 +388,7 @@ namespace CompanionDisplayWinUI
             var result = await dialog.ShowAsync();
             if(result == ContentDialogResult.Primary)
             {
-                CMDOperations.PerformCMDCommand((string)(sender as Button).Tag);
+                CommandAPI.PerformCMDCommand((string)(sender as Button).Tag);
             }
         }
 
@@ -433,7 +432,7 @@ namespace CompanionDisplayWinUI
         }
         private void GetAirplaneMode()
         {
-            bool output = CMDOperations.GetPowershellLog($"-Command \"(Get-ItemProperty -Path \"HKLM:\\System\\CurrentControlSet\\Control\\RadioManagement\\SystemRadioState\").'(default)'").Contains('1');
+            bool output = CommandAPI.GetPowershellLog($"-Command \"(Get-ItemProperty -Path \"HKLM:\\System\\CurrentControlSet\\Control\\RadioManagement\\SystemRadioState\").'(default)'").Contains('1');
             DispatcherQueue.TryEnqueue(() =>
             {
                 AirPlaneToggle.IsChecked = output;

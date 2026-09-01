@@ -1,4 +1,4 @@
-using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -44,17 +44,17 @@ namespace CompanionDisplayWinUI
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            BrowserClass.NavigateSpecialUrl(WebView, "downloads/all");
+            BrowserAPI.NavigateSpecialUrl(WebView, "downloads/all");
         }
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            BrowserClass.NavigateSpecialUrl(WebView, "history/all");
+            BrowserAPI.NavigateSpecialUrl(WebView, "history/all");
         }
         private void AddressBar_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter)
             {
-                WebView.Source = BrowserClass.ParseLink(AddressBar.Text);
+                WebView.Source = BrowserAPI.ParseLink(AddressBar.Text);
                 WebView.Focus(FocusState.Programmatic);
             }
         }
@@ -155,7 +155,7 @@ namespace CompanionDisplayWinUI
                         uri = Globals.SearchEngine;
                     }
                 }
-                await BrowserClass.CreateWebviewProperly(WebView, uri);
+                await BrowserAPI.CreateWebviewProperly(WebView, uri);
                 FTU = false;
             }
         }

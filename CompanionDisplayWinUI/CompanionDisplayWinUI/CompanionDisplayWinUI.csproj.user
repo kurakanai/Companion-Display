@@ -21,6 +21,12 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="AppDesign\Elements\Widgets.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AppDesign\ArduinoElements\ArduinoInterfaceHomePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="AppDesign\CustomFrames.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -100,9 +106,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SetupStep2.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="SetupStep1.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="NORC_WidgetMacros.xaml">
@@ -231,9 +234,6 @@
     <Page Update="TimeWidgetWidgetSettings.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MediaPlayerWidgetWidgetSettings.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="IndividualMonitor.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -275,6 +275,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PRIResource Update="Strings\en-US\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Update="Strings\pt-BR\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Update="Strings\pt-PT\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>

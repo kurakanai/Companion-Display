@@ -1,26 +1,27 @@
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.Objects;
+using Microsoft.UI.Composition;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.IO;
-using Windows.Storage.FileProperties;
-using Windows.Storage;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.FileProperties;
 using Windows.System;
-using Microsoft.UI.Composition;
-using CompanionDisplayWinUI.ClassImplementations;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace CompanionDisplayWinUI
+namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NORC_WidgetMacros : Page
+    public sealed partial class NORC_WidgetMacros : EmbeddedRCWidget
     {
         public NORC_WidgetMacros()
         {
@@ -29,58 +30,45 @@ namespace CompanionDisplayWinUI
         private void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             FrameworkElement senderElement = sender as FrameworkElement;
-            MenuFlyout myFlyout = new();
-            MenuFlyoutItem thirdItem = new() { Text = AppStrings.replaceImage, Name = senderElement.Name + "ACTION1" };
-            MenuFlyoutItem fourthItem = new() { Text = AppStrings.removeImage, Name = senderElement.Name + "ACTION2" };
-            thirdItem.Click += ReplaceImageClick;
-            fourthItem.Click += RemoveImageClick;
-            myFlyout.Items.Add(thirdItem);
-            myFlyout.Items.Add(fourthItem);
-            myFlyout.ShowAt(senderElement, new Windows.Foundation.Point(0, 0));
+            MenuFlyoutItem[] flyoutRC =
+            [
+                new() { Text = AppStrings.replaceImage, Name = senderElement.Name + "ACTION1" },
+                new() { Text = AppStrings.removeImage, Name = senderElement.Name + "ACTION2" },
+            ];
+            flyoutRC[0].Click += ReplaceImageClick;
+            flyoutRC[1].Click += RemoveImageClick;
+            triggerRightClick(flyoutRC, senderElement);
+
         }
         private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            if ((this.Parent as Frame).Parent as Grid == null)
-            {
-                FrameworkElement senderElement = sender as FrameworkElement;
-                MenuFlyout myFlyout = new();
-                MenuFlyoutItem firstItem = new() { Text = AppStrings.removeWidget, Name = senderElement.Name + "Flyout" };
-                MenuFlyoutItem thirdItem = new() { Text = AppStrings.widgetPinUnpin, Name = senderElement.Name + "Pin" };
-                MenuFlyoutItem fourthItem = new() { Text = AppStrings.pipOpen, Name = senderElement.Name + "PiP" };
-                firstItem.Click += MenuFlyoutItem_Click;
-                thirdItem.Click += PinButton;
-                fourthItem.Click += PiPButton;
-                if (this.Frame.Parent is not FlipView)
-                {
-                    myFlyout.Items.Add(thirdItem);
-                    myFlyout.Items.Add(fourthItem);
-                }
-                myFlyout.Items.Add(firstItem);
-                myFlyout.ShowAt(senderElement, new Windows.Foundation.Point(0, 0));
-            }
+            FrameworkElement senderElement = sender as FrameworkElement;
+            MenuFlyoutItem[] flyoutRC = 
+            [
+                new(){ Text = AppStrings.removeWidget, Name = senderElement.Name + "Flyout" },
+                new(){ Text = AppStrings.widgetPinUnpin, Name = senderElement.Name + "Pin" },
+                new(){ Text = AppStrings.pipOpen, Name = senderElement.Name + "PiP" },
+            ];
+            flyoutRC[0].Click += MenuFlyoutItem_Click;
+            flyoutRC[1].Click += PinButton;
+            flyoutRC[2].Click += PiPButton;
+            triggerRightClick(flyoutRC, senderElement);
         }
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
-            frame.Tag = "";
-            frame.IsEnabled = false;
-            frame.IsEnabled = true;
+            var frame = this.Parent as CommonWidgetContainer;
+            frame.TriggerRightClickFromChild("");
         }
 
         private void PiPButton(object sender, RoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
-            frame.Tag = "pip";
-            frame.IsEnabled = false;
-            frame.IsEnabled = true;
+            var frame = this.Parent as CommonWidgetContainer;
+            frame.TriggerRightClickFromChild("pip");
         }
-
         private void PinButton(object sender, RoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
-            frame.Tag = "pin";
-            frame.IsEnabled = false;
-            frame.IsEnabled = true;
+            var frame = this.Parent as CommonWidgetContainer;
+            frame.TriggerRightClickFromChild("pin");
         }
 
         private void RemoveImageClick(object sender, RoutedEventArgs e)
@@ -97,7 +85,7 @@ namespace CompanionDisplayWinUI
         {
             FrameworkElement senderElement = sender as FrameworkElement;
             var childControl = (Microsoft.UI.Xaml.Controls.Image)MainGrid.FindName(senderElement.Name[..^7] + "_Image");
-            string btntag = FileFolderPicker.OpenFileDialog(false)[0];
+            string btntag = FileAPI.OpenFileDialog(false)[0];
             if (btntag != "")
             {
                 childControl.Tag = btntag;

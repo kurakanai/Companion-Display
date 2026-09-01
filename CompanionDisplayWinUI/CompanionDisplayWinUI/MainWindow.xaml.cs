@@ -1,5 +1,10 @@
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.ClassImplementations;
+using Microsoft.UI;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -7,11 +12,9 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
-using WinRT.Interop;
-using Microsoft.UI.Windowing;
-using Microsoft.UI;
+using Windows.Graphics;
 using Windows.UI;
-using CompanionDisplayWinUI.ClassImplementations;
+using WinRT.Interop;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -31,7 +34,12 @@ namespace CompanionDisplayWinUI
         public MainWindow()
         {
             this.InitializeComponent();
+            var hwnd = WindowNative.GetWindowHandle(this);
+            var id = Win32Interop.GetWindowIdFromWindow(hwnd);
+            var appWindow = AppWindow.GetFromWindowId(id);
+            CommonlyAccessedInstances.mainDispatcher = DispatcherQueue;
             CommonlyAccessedInstances.nvSample = nvSample;
+            CommonlyAccessedInstances.MainGrid = GridMain;
             this.ExtendsContentIntoTitleBar = true;
             SetTitleBar(AppTitleBar);
             _appWindow = GetAppWindowForCurrentWindow();
@@ -78,7 +86,7 @@ namespace CompanionDisplayWinUI
                             break;
                         case "SamplePage3":
                             SleepReptangle.Visibility = Visibility.Collapsed;
-                            contentFrame.Navigate(typeof(SpotifyPlayer), null, args.RecommendedNavigationTransitionInfo);
+                            contentFrame.Navigate(typeof(SpotifyPlayer), args.RecommendedNavigationTransitionInfo);
                             SetWindowLong(hWnd, -20, 256);
                             sender.PaneClosed += ProcessShit;
                             break;
@@ -119,12 +127,20 @@ namespace CompanionDisplayWinUI
         }
         private void SongCoverBackground()
         {
-            Media.GetCover(DispatcherQueue, BackgroundImage);
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                try
+                {
+                    BackgroundImage.Source = MusicAPI.currentSong.albumCover;
+                }
+                catch { }
+            });
         }
         private void UpdateUI()
         {
             try
             {
+                MusicAPI.CallInfoUpdate -= SongCoverBackground;
                 DispatcherQueue.TryEnqueue(() =>
                 {
                     BackgroundImage.Visibility = Visibility.Collapsed;
@@ -186,7 +202,7 @@ namespace CompanionDisplayWinUI
                         });
                         Thread thread2 = new(SongCoverBackground);
                         thread2.Start();
-                        Media.CallInfoUpdate += SongCoverBackground;
+                        MusicAPI.CallCoverUpdate += SongCoverBackground;
                         break;
                     case 4:
                         DispatcherQueue.TryEnqueue(() =>
@@ -241,10 +257,23 @@ namespace CompanionDisplayWinUI
 
         private void NvSample_Loaded(object sender, RoutedEventArgs e)
         {
+            (sender as NavigationView).IsPaneVisible = !Globals.triggerSetup;
             if (Globals.triggerSetup)
             {
-                (sender as NavigationView).IsPaneVisible = !Globals.triggerSetup;
                 contentFrame.Navigate(typeof(SetupStep0));
+            }
+        }
+
+        private void Scaling_Loaded(object sender, RoutedEventArgs e)
+        {
+            var compositor = ElementCompositionPreview.GetElementVisual(GridMain).Compositor;
+            var rootVisual = ElementCompositionPreview.GetElementVisual(Scaling);
+            CommonlyAccessedInstances.ScalingGrid = Scaling;
+            CommonlyAccessedInstances.WindowControls = CornerMask;
+            if (Globals.scale != 1.0f)
+            {
+                AppWindowControlAPI.SetScale(Globals.scale, rootVisual, compositor);
+                Scaling.SizeChanged += AppWindowControlAPI.UpdateScaling;
             }
         }
     }

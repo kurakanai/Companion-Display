@@ -96,7 +96,7 @@
     </Style>
     <!--Media Stuff-->
     <Style x:Key="CompanionDisplayPlaceholder" TargetType="TextBlock">
-        <Setter Property="Text" Value="-"/>
+        <Setter Property="Text" Value=""/>
     </Style>
     <Style x:Key="CompanionDisplayMediaTitle" TargetType="TextBlock" BasedOn="{StaticResource CompanionDisplayPlaceholder}">
         <Setter Property="FontSize" Value="40"/>

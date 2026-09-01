@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.System;
 using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -37,8 +38,8 @@ namespace CompanionDisplayWinUI
                     childControl.IsHitTestVisible = false;
                 }
             }
-            Button button = BrowserClass.CreateLaunchPadButton("+", new Microsoft.UI.Xaml.Media.FontFamily("Segoe UI Variable Display Light"), "AddWidget");
-            Button button2 = BrowserClass.CreateLaunchPadButton("\ue73e", new Microsoft.UI.Xaml.Media.FontFamily("Segoe Fluent Icons"), "Finish");
+            Button button = BrowserAPI.CreateLaunchPadButton("+", new Microsoft.UI.Xaml.Media.FontFamily("Segoe UI Variable Display Light"), "AddWidget");
+            Button button2 = BrowserAPI.CreateLaunchPadButton("\ue73e", new Microsoft.UI.Xaml.Media.FontFamily("Segoe Fluent Icons"), "Finish");
             NoItem.Visibility = Visibility.Collapsed;
             button.Click += Button_Click_1a;
             button2.Click += Button_Click0;
@@ -76,7 +77,7 @@ namespace CompanionDisplayWinUI
                 {
                     string URL = (dialog.Content as TextBox).Text;
                     Uri myUri = new("https://" + URL);
-                    Image image = BrowserClass.GetWebsiteIcon(myUri);
+                    Image image = BrowserAPI.GetWebsiteIcon(myUri);
                     Grid grid0 = new();
                     Grid grid1 = new()
                     {
@@ -85,7 +86,7 @@ namespace CompanionDisplayWinUI
                         Height = 150
                     };
                     grid1.Children.Add(image);
-                    Button button = BrowserClass.CreateLaunchPadButton(grid1, new Microsoft.UI.Xaml.Media.FontFamily("Segoe UI Variable Display Light"), "");
+                    Button button = BrowserAPI.CreateLaunchPadButton(grid1, new Microsoft.UI.Xaml.Media.FontFamily("Segoe UI Variable Display Light"), "");
                     button.Tag = myUri;
                     grid0.RightTapped += IndividualItemRC;
                     grid0.Children.Add(button);
@@ -183,7 +184,7 @@ namespace CompanionDisplayWinUI
         {
             if (e.Key == VirtualKey.Enter)
             {
-                NewTabLaunchpad(BrowserClass.ParseLink(AddressBar.Text));
+                NewTabLaunchpad(BrowserAPI.ParseLink(AddressBar.Text));
             }
         }
         private void Tabs_AddTabButtonClick(TabView sender, object args)
@@ -292,8 +293,8 @@ namespace CompanionDisplayWinUI
                                     Width = 150,
                                     Height = 150
                                 };
-                                grid1.Children.Add(BrowserClass.GetWebsiteIcon(new System.Uri(fix)));
-                                Button button = BrowserClass.CreateLaunchPadButton(grid1, new Microsoft.UI.Xaml.Media.FontFamily("Segoe UI Variable Display Light"), "");
+                                grid1.Children.Add(BrowserAPI.GetWebsiteIcon(new System.Uri(fix)));
+                                Button button = BrowserAPI.CreateLaunchPadButton(grid1, new Microsoft.UI.Xaml.Media.FontFamily("Segoe UI Variable Display Light"), "");
                                 button.Tag = new System.Uri(line);
                                 button.Click += NewTabLaunchpad;
                                 grid.RightTapped += IndividualItemRC;

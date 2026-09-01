@@ -15,17 +15,18 @@ using Microsoft.UI.Dispatching;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.Objects;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace CompanionDisplayWinUI
+namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NORC_WidgetApps : Page
+    public sealed partial class NORC_WidgetApps : EmbeddedRCWidget
     {
         public int i = 1;
         public NORC_WidgetApps()
@@ -82,21 +83,19 @@ namespace CompanionDisplayWinUI
         private void Button_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             FrameworkElement senderElement = sender as FrameworkElement;
-            MenuFlyout myFlyout = new();
-            MenuFlyoutItem thirdItem = new () { Text = AppStrings.widgetReplace, Name = senderElement.Name + "Replace" };
-            MenuFlyoutItem fourthItem = new() { Text = AppStrings.widgetRemove, Name = senderElement.Name + "Remove" };
-            thirdItem.Click += MenuFlyoutItem2_Click;
-            fourthItem.Click += MenuFlyoutItem4_Click;
-            myFlyout.Items.Add(thirdItem);
-            myFlyout.Items.Add(fourthItem);
-            myFlyout.ShowAt(senderElement, new Windows.Foundation.Point(0, 0));
+            MenuFlyoutItem[] flyoutRC =
+            [
+                new(){ Text = AppStrings.widgetReplace, Name = senderElement.Name + "Replace" },
+                new(){ Text = AppStrings.widgetRefresh, Name = senderElement.Name + "Remove" },
+            ];
+            flyoutRC[0].Click += MenuFlyoutItem2_Click;
+            flyoutRC[1].Click += MenuFlyoutItem4_Click;
+            triggerRightClick(flyoutRC, senderElement);
         }
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
-            frame.Tag = "";
-            frame.IsEnabled = false;
-            frame.IsEnabled = true;
+            var frame = this.Parent as CommonWidgetContainer;
+            frame.TriggerRightClickFromChild("");
         }
         private void MenuFlyoutItem4_Click(object sender, RoutedEventArgs e)
         {
@@ -112,7 +111,7 @@ namespace CompanionDisplayWinUI
         {
             FrameworkElement senderElement = sender as FrameworkElement;
             var childControl = (Microsoft.UI.Xaml.Controls.Button)BasicGridView.FindName(senderElement.Name[..^7]);
-            string btntag = FileFolderPicker.OpenFileDialog(false)[0];
+            string btntag = FileAPI.OpenFileDialog(false)[0];
             if(btntag != "")
             {
                 childControl.Tag = btntag;
@@ -246,33 +245,21 @@ namespace CompanionDisplayWinUI
         }
         private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
-            if ((this.Parent as Frame).Parent as Grid == null)
-            {
-                FrameworkElement senderElement = sender as FrameworkElement;
-                MenuFlyout myFlyout = new();
-                MenuFlyoutItem firstItem = new() { Text = AppStrings.removeWidget, Name = senderElement.Name + "Flyout" };
-                MenuFlyoutItem fifthItem = new() { Text = AppStrings.widgetEdit, Name = senderElement.Name + "Edit" };
-                MenuFlyoutItem sixthItem = new() { Text = AppStrings.removeAllShortcuts, Name = senderElement.Name + "RemoveAll" };
-                MenuFlyoutItem thirdItem = new() { Text = AppStrings.widgetPinUnpin, Name = senderElement.Name + "Pin" };
-                MenuFlyoutItem fourthItem = new() { Text = AppStrings.pipOpen, Name = senderElement.Name + "PiP" };
-                firstItem.Click += MenuFlyoutItem_Click;
-                fifthItem.Click += MenuFlyoutItem5_Click;
-                thirdItem.Click += PinButton;
-                fourthItem.Click += PiPButton;
-                sixthItem.Click += RemoveAll;
-                if (this.Frame.Parent is not FlipView)
-                {
-                    if (MainGrid.FindName("AddWidget") == null)
-                    {
-                        myFlyout.Items.Add(fifthItem);
-                        myFlyout.Items.Add(sixthItem);
-                    }
-                    myFlyout.Items.Add(thirdItem);
-                    myFlyout.Items.Add(fourthItem);
-                }
-                myFlyout.Items.Add(firstItem);
-                myFlyout.ShowAt(senderElement, new Windows.Foundation.Point(0, 0));
-            }
+            FrameworkElement senderElement = sender as FrameworkElement;
+            MenuFlyoutItem[] flyoutRC =
+            [
+                new(){ Text = AppStrings.removeWidget, Name = senderElement.Name + "Flyout" },
+                new(){ Text = AppStrings.widgetEdit, Name = senderElement.Name + "Edit" },
+                new(){ Text = AppStrings.removeAllShortcuts, Name = senderElement.Name + "RemoveAll" },
+                new(){ Text = AppStrings.widgetPinUnpin, Name = senderElement.Name + "Pin" },
+                new(){ Text = AppStrings.pipOpen, Name = senderElement.Name + "PiP" },
+            ];
+            flyoutRC[0].Click += MenuFlyoutItem_Click;
+            flyoutRC[1].Click += MenuFlyoutItem5_Click;
+            flyoutRC[2].Click += RemoveAll;
+            flyoutRC[3].Click += PinButton;
+            flyoutRC[4].Click += PiPButton;
+            triggerRightClick(flyoutRC, senderElement);
         }
         private void RemoveAll(object sender, RoutedEventArgs e)
         {
@@ -281,17 +268,13 @@ namespace CompanionDisplayWinUI
         }
         private void PiPButton(object sender, RoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
-            frame.Tag = "pip";
-            frame.IsEnabled = false;
-            frame.IsEnabled = true;
+            var frame = this.Parent as CommonWidgetContainer;
+            frame.TriggerRightClickFromChild("pip");
         }
         private void PinButton(object sender, RoutedEventArgs e)
         {
-            var frame = this.Parent as Frame;
-            frame.Tag = "pin";
-            frame.IsEnabled = false;
-            frame.IsEnabled = true;
+            var frame = this.Parent as CommonWidgetContainer;
+            frame.TriggerRightClickFromChild("pin");
         }
         private void MenuFlyoutItem5_Click(object sender, RoutedEventArgs e)
         {
@@ -332,7 +315,7 @@ namespace CompanionDisplayWinUI
         {
             DispatcherQueue.TryEnqueue(() =>
             {
-                foreach (string btntag in FileFolderPicker.OpenFileDialog(true))
+                foreach (string btntag in FileAPI.OpenFileDialog(true))
                 {
                     if (btntag != "")
                     {

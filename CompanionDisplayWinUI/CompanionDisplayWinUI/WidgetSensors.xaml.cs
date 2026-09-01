@@ -1,4 +1,4 @@
-using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
 using LibreHardwareMonitor.Hardware;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -30,7 +30,7 @@ namespace CompanionDisplayWinUI
         }
         private void UpdateUI()
         {
-            HardwareSensorsFunction hardwareSensorsFunction = new();
+            HardwareMonitorAPI hardwareSensorsFunction = new();
             hardwareSensorsFunction.Init();
         start:
             if (hardwareSensorsFunction.computer.Hardware.Count != 0)

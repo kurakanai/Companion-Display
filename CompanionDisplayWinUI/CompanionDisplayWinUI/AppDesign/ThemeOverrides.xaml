@@ -13,4 +13,5 @@
     <AcrylicBrush x:Key="CustomAcrylicInAppLuminositySlightTint" TintOpacity="0" FallbackColor="{ThemeResource SystemAltMediumLowColor}" TintColor="{ThemeResource SystemAltLowColor}" />
     <AcrylicBrush x:Key="CustomAcrylicInAppLuminositySlightTintAlwaysTransparent" TintOpacity="0" FallbackColor="{ThemeResource SystemAltMediumHighColor}" TintColor="{ThemeResource SystemAltLowColor}" />
     <FontFamily x:Key="ContentControlThemeFontFamily">Segoe UI Variable Display</FontFamily>
+    <AcrylicBrush x:Key="ExpanderHeaderBackground" TintOpacity="0" FallbackColor="{ThemeResource SystemAltMediumLowColor}" TintColor="{ThemeResource SystemAltLowColor}"/>
 </ResourceDictionary>

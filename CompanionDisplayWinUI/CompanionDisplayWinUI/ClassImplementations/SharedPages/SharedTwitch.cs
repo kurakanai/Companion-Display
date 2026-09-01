@@ -1,10 +1,12 @@
-﻿using Microsoft.UI.Xaml;
+﻿using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.Objects;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 
 namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
 {
-    public class SharedTwitch : Page
+    public class SharedTwitch : CommonWidget
     {
         public WebView2 pageWebView;
         public string destinationUrl;
@@ -13,7 +15,7 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
         {
             if (FTU)
             {
-                await BrowserClass.CreateWebviewProperly(pageWebView, new Uri(destinationUrl));
+                await BrowserAPI.CreateWebviewProperly(pageWebView, new Uri(destinationUrl));
                 FTU = !FTU;
             }
         }

@@ -41,7 +41,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
         // Shortcuts
         public static string appShortcutDescription = resourceLoader.GetString("StartupObject");
         // Developer info
-        public static string devGithubUrl = "https://github.com/yagdev";
+        public static string devGithubUrl = "https://github.com/kurakanai";
         public static string devPaypalUrl = "https://www.paypal.com/paypalme/dinisp25";
         // PiP
         public static string pipIsOpen = resourceLoader.GetString("PiPOpen");

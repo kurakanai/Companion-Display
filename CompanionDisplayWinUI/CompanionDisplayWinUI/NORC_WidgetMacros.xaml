@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Page
-    x:Class="CompanionDisplayWinUI.NORC_WidgetMacros"
+<common:EmbeddedRCWidget
+    x:Class="CompanionDisplayWinUI.ClassImplementations.SharedPages.NORC_WidgetMacros"
+    xmlns:common="using:CompanionDisplayWinUI.ClassImplementations.SharedPages"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CompanionDisplayWinUI"
@@ -102,4 +103,4 @@
             </Grid>
         </Button>
     </Grid>
-</Page>
+</common:EmbeddedRCWidget>

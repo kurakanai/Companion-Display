@@ -1,4 +1,5 @@
-﻿using CoreAudio;
+﻿using CompanionDisplayWinUI.API;
+using CoreAudio;
 using System;
 using System.Threading;
 using System.Timers;
@@ -56,7 +57,7 @@ namespace CompanionDisplayWinUI
             {
                 timer.Stop();
                 timer.Dispose();
-                await Globals.currentSession.TryPauseAsync();
+                await MusicAPI.currentSession.TryPauseAsync();
                 Thread.Sleep(300);
                 device.AudioEndpointVolume.MasterVolumeLevelScalar = initialVolume;
                 isEnabled = false;

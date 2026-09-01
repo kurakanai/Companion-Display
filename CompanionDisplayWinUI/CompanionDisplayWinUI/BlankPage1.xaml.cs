@@ -1,4 +1,6 @@
+using CompanionDisplayWinUI.API;
 using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.ClassImplementations.SharedPages;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -25,9 +27,13 @@ namespace CompanionDisplayWinUI
         public BlankPage1()
         {
             this.InitializeComponent();
+            PageCacheHandler.homePage = this;
+            CommonlyAccessedInstances.blankPage1 = this;
             CommonlyAccessedInstances.BasicGridView = BasicGridView;
             CommonlyAccessedInstances.PinnedView = PinnedView;
             this.NavigationCacheMode = NavigationCacheMode.Required;
+            Thread thread0 = new(UpdateUI);
+            thread0.Start();
         }
         private void GridView_DragItemsStarting(object sender, DragItemsStartingEventArgs e)
         {
@@ -74,14 +80,14 @@ namespace CompanionDisplayWinUI
                 }
             });
         }
-        private void SaveTo()
+        public void SaveTo()
         {
             if(!Globals.IsAllApps)
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    FileOperations.SaveGridLayout(BasicGridView, "Config/WidgetOrder.crlh");
-                    FileOperations.SaveGridLayout(PinnedView, "Config/PinnedOrder.crlh");
+                    SavingAPI.SaveGridLayout(BasicGridView, "Config/WidgetOrder.crlh");
+                    SavingAPI.SaveGridLayout(PinnedView, "Config/PinnedOrder.crlh");
                 });
             }
         }
@@ -102,7 +108,7 @@ namespace CompanionDisplayWinUI
             }
         }
 
-        private void Frame_RightTapped(object sender, RightTappedRoutedEventArgs e)
+        public void Frame_RightTapped(object sender, RightTappedRoutedEventArgs e)
         {
             if((sender as Frame).Parent as GridView != null)
             {
@@ -136,7 +142,7 @@ namespace CompanionDisplayWinUI
             }
         }
 
-        private void OpenPiP(object sender, RoutedEventArgs e)
+        public void OpenPiP(object sender, RoutedEventArgs e)
         {
             Frame darkframe = (sender as MenuFlyoutItem).Tag as Frame;
             gridViewPiPTemp = darkframe.Parent as GridView;
@@ -268,78 +274,6 @@ namespace CompanionDisplayWinUI
             Thread thread = new(SaveTo);
             thread.Start();
         }
-        private void AddItems(string WidgetOrder, bool isPinned)
-        {
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                int i = 1;
-                foreach (string line in WidgetOrder.Split('\n'))
-                {
-                    try
-                    {
-                        if (line.Length != 0)
-                        {
-                            string fix = line.Replace("\r", "");
-                            Frame frame = new()
-                            {
-                                Name = "Widget" + i,
-                                CornerRadius = new CornerRadius(8),
-                                Background = (AcrylicBrush)Application.Current.Resources["CustomAcrylicInAppLuminosity"],
-                            };
-                            frame.IsEnabledChanged += Frame_IsEnabledChanged2;
-                            frame.Loaded += Workarounds.BugcheckAcrylic;
-                            frame.RightTapped += Frame_RightTapped;
-                            string fixwidget = fix;
-                            string tag = "";
-                            switch (fix)
-                            {
-                                case string a when a.Contains("CompanionDisplayWinUI.WidgetPhotoIMAGESOURCE"):
-                                    fixwidget = "CompanionDisplayWinUI.WidgetPhoto";
-                                    tag = fix.Replace("CompanionDisplayWinUI.WidgetPhotoIMAGESOURCE", "");
-                                    break;
-                                case string b when b.Contains("CompanionDisplayWinUI.NotesWidgetID"):
-                                    fixwidget = "CompanionDisplayWinUI.NotesWidget";
-                                    tag = fix.Replace("CompanionDisplayWinUI.NotesWidgetID", "");
-                                    break;
-                                case string c when c.Contains("CompanionDisplayWinUI.WidgetStackID"):
-                                    fixwidget = "CompanionDisplayWinUI.WidgetStack";
-                                    frame.Name = fix.Replace("CompanionDisplayWinUI.WidgetStackID", "");
-                                    break;
-                                default:
-                                    try
-                                    {
-                                        if (fix.Contains("NORC_"))
-                                        {
-                                            frame.RightTapped -= Frame_RightTapped;
-                                            frame.IsEnabledChanged += Frame_IsEnabledChanged;
-                                        }
-                                    }
-                                    catch
-                                    {
-
-                                    }
-                                    break;
-                            }
-                            frame.Tag = tag;
-                            Type type = Type.GetType(fixwidget);
-                            if (isPinned)
-                            {
-                                PinnedView.Items.Add(frame);
-                            }
-                            else
-                            {
-                                BasicGridView.Items.Add(frame);
-                            }
-                            frame.Navigate(type);
-                        }
-                    }
-                    catch
-                    {
-                    }
-                    i++;
-                }
-            });
-        }
         private async void UpdateUI()
         {
             string WidgetOrder = "";
@@ -352,7 +286,7 @@ namespace CompanionDisplayWinUI
                 Directory.CreateDirectory("Config");
                 File.WriteAllText("Config/WidgetOrder.crlh", "");
             }
-            AddItems(WidgetOrder, false);
+            WidgetAPI.addWidgets(BasicGridView, WidgetOrder);
             try
             {
                 WidgetOrder = File.ReadAllText("Config/PinnedOrder.crlh");
@@ -363,7 +297,7 @@ namespace CompanionDisplayWinUI
                 Directory.CreateDirectory("Config");
                 File.WriteAllText("Config/PinnedOrder.crlh", "");
             }
-            AddItems(WidgetOrder, true);
+            WidgetAPI.addWidgets(PinnedView, WidgetOrder);
             if (!Globals.HideAddButton)
             {
                 DispatcherQueue.TryEnqueue(() =>
@@ -400,7 +334,7 @@ namespace CompanionDisplayWinUI
             {
                 try
                 {
-                    await UpdateSystem.CheckUpdate();
+                    await MaintenanceAPI.CheckUpdate();
                     if (Globals.IsUpdateAvailable && !Globals.isConfidential)
                     {
                         DispatcherQueue.TryEnqueue(() =>
@@ -428,37 +362,6 @@ namespace CompanionDisplayWinUI
                 thread.Start();
             }
         }
-        int bugcheckpin = 0;
-        private void Frame_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (bugcheckpin == 0)
-            {
-                bugcheckpin = 1;
-            }
-            else
-            {
-                switch ((sender as Frame).Tag)
-                {
-                    case "pin":
-                        Pin_Click_NC(sender, null);
-                        break;
-                    case "pip":
-                        MenuFlyoutItem menuFlyoutItem = new()
-                        {
-                            Tag = sender
-                        };
-                        OpenPiP(menuFlyoutItem, null);
-                        break;
-                    default:
-                        BasicGridView.Items.Remove(sender);
-                        PinnedView.Items.Remove(sender);
-                        Thread thread = new(SaveTo);
-                        thread.Start();
-                        break;
-                }
-                bugcheckpin = 0;
-            }
-        }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -470,14 +373,6 @@ namespace CompanionDisplayWinUI
                 PinnedView.CanReorderItems = lockReorder;
                 PinnedView.CanDragItems = lockReorder;
             });
-            if (Globals.ResetHome)
-            {
-                BasicGridView.Items.Clear();
-                PinnedView.Items.Clear();
-                Thread thread0 = new(UpdateUI);
-                thread0.Start();
-                Globals.ResetHome = !Globals.ResetHome;
-            }
         }
 
         private void CompleteGrid_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -501,6 +396,10 @@ namespace CompanionDisplayWinUI
         {
             Workarounds.ForceBugcheckFrames(BasicGridView);
             Workarounds.ForceBugcheckFrames(PinnedView);
+        }
+        public void killThis()
+        {
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
         }
     }
 }

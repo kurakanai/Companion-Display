@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <StackPanel>
-        <Button Content="Get" Click="Button_Click"/>
-        <TextBlock Name="Request" IsTextSelectionEnabled="True"/>
+        <Button Content="Start Connect" Click="Button_Click"/>
+        <Frame Name="ContentAR" Loaded="Content_Loaded" Width="128" Height="64"/>
     </StackPanel>
 </Page>

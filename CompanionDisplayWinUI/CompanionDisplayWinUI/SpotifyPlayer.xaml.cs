@@ -1,4 +1,4 @@
-using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -17,6 +17,7 @@ namespace CompanionDisplayWinUI
         public SpotifyPlayer()
         {
             this.InitializeComponent();
+            PageCacheHandler.mediaPlayer = this;
             this.NavigationCacheMode = NavigationCacheMode.Required;
         }
         private bool FTU = true;
@@ -24,9 +25,14 @@ namespace CompanionDisplayWinUI
         {
             if (FTU)
             {
-                await BrowserClass.CreateWebviewProperly(SpotifyBuiltin, new Uri("https://open.spotify.com/"));
+                await BrowserAPI.CreateWebviewProperly(SpotifyBuiltin, Globals.MusicProvider);
                 FTU = !FTU;
             }
+        }
+        public void killThis()
+        {
+            this.NavigationCacheMode = NavigationCacheMode.Disabled;
+            PageCacheHandler.mediaPlayer = null;
         }
     }
 }

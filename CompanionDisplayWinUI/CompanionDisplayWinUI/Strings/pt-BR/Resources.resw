@@ -423,13 +423,7 @@ Por favor execute o Companion Display como administrador.</value>
     <value>Cor Sólida</value>
   </data>
   <data name="Spotify.Content" xml:space="preserve">
-    <value>Spotify</value>
-  </data>
-  <data name="SpotifyClientID.PlaceholderText" xml:space="preserve">
-    <value>ID de Cliente</value>
-  </data>
-  <data name="SpotifyClientID2.PlaceholderText" xml:space="preserve">
-    <value>ID de Cliente Secundário</value>
+    <value>Player de Música</value>
   </data>
   <data name="StopFocus.Text" xml:space="preserve">
     <value>Impedir app de receber foco</value>
@@ -456,7 +450,7 @@ Por favor execute o Companion Display como administrador.</value>
     <value>Versão</value>
   </data>
   <data name="YAGdev.Text" xml:space="preserve">
-    <value>Feito por YAG-dev com ❤︎</value>
+    <value>Feito por kura com ❤︎</value>
   </data>
   <data name="MediaWidgetSetup.Text" xml:space="preserve">
     <value>Configurar Widget de Mídia</value>
@@ -788,5 +782,14 @@ Pressione o botão direito e pressione Editar para adicionar uma imagem.</value>
   </data>
   <data name="DisableDiscord.Text" xml:space="preserve">
     <value>Desabilitar a transmissão da presença do Discord</value>
+  </data>
+  <data name="ScaleText.Text" xml:space="preserve">
+    <value>Escala de Elementos da IU da App</value>
+  </data>
+  <data name="PlayerHeader.Header" xml:space="preserve">
+    <value>Player de Música</value>
+  </data>
+  <data name="MusicPlayerSelectedHeader.Text" xml:space="preserve">
+    <value>Link do fornecedor de música</value>
   </data>
 </root>

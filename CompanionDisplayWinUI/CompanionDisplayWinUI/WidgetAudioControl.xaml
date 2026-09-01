@@ -6,7 +6,7 @@
     xmlns:local="using:CompanionDisplayWinUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Height="300" Width="500" Loaded="Page_Loaded" Tag="UtilWidgets">
+    mc:Ignorable="d" Height="300" Width="500" Tag="UtilWidgets">
 
     <Grid>
         <ScrollView Padding="10" VerticalScrollBarVisibility="Hidden" HorizontalScrollMode="Disabled">

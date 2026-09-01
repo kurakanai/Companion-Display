@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using CompanionDisplayWinUI.API;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 
 namespace CompanionDisplayWinUI.ClassImplementations

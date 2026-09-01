@@ -1,4 +1,4 @@
-using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
 using Microsoft.UI.Xaml;
 using Microsoft.Web.WebView2.Core;
 using System;
@@ -26,7 +26,7 @@ namespace CompanionDisplayWinUI
         {
             if (FTU)
             {
-                await BrowserClass.CreateWebviewProperly(Player, link);
+                await BrowserAPI.CreateWebviewProperly(Player, link);
                 FTU = false;
             }
             Player.Source = link;

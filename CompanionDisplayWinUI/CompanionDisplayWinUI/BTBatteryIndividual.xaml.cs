@@ -1,4 +1,4 @@
-using CompanionDisplayWinUI.ClassImplementations;
+using CompanionDisplayWinUI.API;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -52,18 +52,23 @@ $Message
                 Collection<PSObject> results = powerShell.Invoke();
                 foreach (var result in results)
                 {
-                    string battIcon = Battery.GetBatteryIcon(int.Parse(result.ToString()[..^1]));
+                    string battIcon = BatteryAPI.GetBatteryIcon(int.Parse(result.ToString()[..^1]));
                     DispatcherQueue.TryEnqueue(() =>
                     {
                         Percentage.Text = result.ToString();
                         BattIcon.Text = battIcon;
                     });
                 }
+                Thread.Sleep(10000);
+                Thread thread = new(UpdateUI);
+                thread.Start();
             }
-            catch { }
-            Thread.Sleep(10000);
-            Thread thread = new(UpdateUI);
-            thread.Start();
+            catch {
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    ((this.Parent as Frame).Parent as StackPanel).Children.Remove((this.Parent) as Frame);
+                });
+            }
         }
         private void PercentageChanged(GattCharacteristic sender, GattValueChangedEventArgs args)
         {
@@ -74,7 +79,7 @@ $Message
             var reader = DataReader.FromBuffer(Value);
             string percentage = reader.ReadByte().ToString();
             int DevBattery = int.Parse(percentage);
-            string battIcon = Battery.GetBatteryIcon(int.Parse(percentage));
+            string battIcon = BatteryAPI.GetBatteryIcon(int.Parse(percentage));
             DispatcherQueue.TryEnqueue(() =>
             {
                 BattIcon.Text = battIcon;

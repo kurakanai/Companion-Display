@@ -1,17 +1,20 @@
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.ClassImplementations;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
-using Windows.UI;
-using System.Threading;
-using Windows.System;
-using Microsoft.UI.Xaml.Media.Imaging;
 using System.Drawing.Text;
-using Microsoft.UI.Xaml.Media.Animation;
-using CompanionDisplayWinUI.ClassImplementations;
-using System.Threading.Tasks;
 using System.IO;
+using System.Printing;
+using System.Threading;
+using System.Threading.Tasks;
+using Windows.System;
+using Windows.UI;
 
 namespace CompanionDisplayWinUI
 {
@@ -32,7 +35,7 @@ namespace CompanionDisplayWinUI
             }
             if (Globals.IgnoreUpdates)
             {
-                await UpdateSystem.CheckUpdate();
+                await MaintenanceAPI.CheckUpdate();
             }
             if (Globals.IsUpdateAvailable)
             {
@@ -81,13 +84,15 @@ namespace CompanionDisplayWinUI
                 item.Click += MenuFlyoutItem_Click;
                 FontSelectorActually.Items.Add(item);
             }
-            FontSelector.Content = ThemingAndColors.CurrentFont();
+            FontSelector.Content = ThemingAPI.CurrentFont();
             SoundsToggle.IsOn = Globals.enableUISounds;
             UseLessIntensiveUI.IsOn = Globals.useLessDemandingEffects;
             TwelveHourToggle.IsOn = Globals.use12HourClock;
             PromoToggle.IsOn = Globals.showPromo;
             UpdateNagToggle.IsOn = Globals.IgnoreUpdates;
             DiscordToggle.IsOn = Globals.disableDiscord;
+            ScaleSlider.Value = Globals.scale;
+            MusicPlayerSelectedCust.Text = Globals.MusicProvider.ToString();
             LoadFinish = true;
         }
         private void ProcessShit(NavigationView sender, object args)
@@ -97,9 +102,9 @@ namespace CompanionDisplayWinUI
         }
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            ThemingAndColors.SetFont(new Microsoft.UI.Xaml.Media.FontFamily((sender as MenuFlyoutItem).Text));
+            ThemingAPI.SetFont(new Microsoft.UI.Xaml.Media.FontFamily((sender as MenuFlyoutItem).Text));
             FontSelector.Content = (sender as MenuFlyoutItem).Text;
-            ConfigurationOperations.Save_Settings();
+            ConfigAPI.Save_Settings();
             (mainframe.Parent as NavigationView).PaneClosed += ProcessShit;
             (mainframe.Parent as NavigationView).PaneDisplayMode = NavigationViewPaneDisplayMode.LeftMinimal;
             mainframe.Navigate(typeof(BlankPage1));
@@ -114,18 +119,18 @@ namespace CompanionDisplayWinUI
                 switch (selection)
                 {
                     case 0:
-                        ThemingAndColors.SetAppTheme(ElementTheme.Default);
+                        ThemingAPI.SetAppTheme(ElementTheme.Default);
                         break;
                     case 1:
-                        ThemingAndColors.SetAppTheme(ElementTheme.Dark);
+                        ThemingAPI.SetAppTheme(ElementTheme.Dark);
                         break;
                     case 2:
-                        ThemingAndColors.SetAppTheme(ElementTheme.Light);
+                        ThemingAPI.SetAppTheme(ElementTheme.Light);
                         break;
                 }
                 Globals.ColorSchemeSelect = ColorSchemeSelect.SelectedIndex;
                 (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
             }
         }
         private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
@@ -137,16 +142,18 @@ namespace CompanionDisplayWinUI
                 switch (selection)
                 {
                     case 0:
-                        ThemingAndColors.RevertToSystemAccentColor();
+                        ThemingAPI.RevertToSystemAccentColor();
                         break;
                     case 1:
-                        ThemingAndColors.SetAccentColor(Color.FromArgb(255, (byte)Globals.ColorSchemeSelectAccentR, (byte)Globals.ColorSchemeSelectAccentG, (byte)Globals.ColorSchemeSelectAccentB));
+                        ThemingAPI.SetAccentColor(Color.FromArgb(255, (byte)Globals.ColorSchemeSelectAccentR, (byte)Globals.ColorSchemeSelectAccentG, (byte)Globals.ColorSchemeSelectAccentB));
                         break;
                 }
                 Globals.InjectCustomAccent = AccentSelect.SelectedIndex;
-                ConfigurationOperations.Save_Settings();
-                mainframe.Navigate(typeof(BlankPage1));
-                mainframe.Navigate(typeof(BlankPage3));
+                ElementTheme currentTheme = ThemingAPI.GetTheme();
+                ThemingAPI.SetAppTheme(ElementTheme.Light);
+                ThemingAPI.SetAppTheme(ElementTheme.Dark);
+                ThemingAPI.SetAppTheme(currentTheme);
+                ConfigAPI.Save_Settings();
             }
         }
 
@@ -164,9 +171,13 @@ namespace CompanionDisplayWinUI
                 Globals.ColorSchemeSelectAccentB = AccentColorPicker.Color.B;
                 if (Globals.InjectCustomAccent == 1)
                 {
-                    ThemingAndColors.SetAccentColor(Color.FromArgb(255, (byte)Globals.ColorSchemeSelectAccentR, (byte)Globals.ColorSchemeSelectAccentG, (byte)Globals.ColorSchemeSelectAccentB));
+                    ThemingAPI.SetAccentColor(Color.FromArgb(255, (byte)Globals.ColorSchemeSelectAccentR, (byte)Globals.ColorSchemeSelectAccentG, (byte)Globals.ColorSchemeSelectAccentB));
                 }
-                ConfigurationOperations.Save_Settings();
+                ElementTheme currentTheme = ThemingAPI.GetTheme();
+                ThemingAPI.SetAppTheme(ElementTheme.Light);
+                ThemingAPI.SetAppTheme(ElementTheme.Dark);
+                ThemingAPI.SetAppTheme(currentTheme);
+                ConfigAPI.Save_Settings();
             }
         }
 
@@ -177,7 +188,7 @@ namespace CompanionDisplayWinUI
                 string Theme = e.AddedItems[0].ToString();
                 Globals.Backdrop = BackdropSelect.SelectedIndex;
                 (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
             }
         }
 
@@ -185,12 +196,12 @@ namespace CompanionDisplayWinUI
         {
             if (LoadFinish)
             {
-                string btntag = FileFolderPicker.OpenFileDialog(false)[0];
+                string btntag = FileAPI.OpenFileDialog(false)[0];
                 if (btntag != null)
                 {
                     Globals.Wallpaper = btntag;
                 }
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
                 (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
             }
         }
@@ -200,7 +211,7 @@ namespace CompanionDisplayWinUI
             if (LoadFinish)
             {
                 Globals.StealFocus = FocusToggle.IsOn;
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
             }
         }
 
@@ -209,7 +220,7 @@ namespace CompanionDisplayWinUI
             if (LoadFinish)
             {
                 Globals.Blur = ImageBlurToggle.IsOn;
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
                 (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
             }
         }
@@ -217,7 +228,7 @@ namespace CompanionDisplayWinUI
         private void BackgroundLink_LostFocus(object sender, RoutedEventArgs e)
         {
             Globals.BackgroundLink = BackgroundLink.Text;
-            ConfigurationOperations.Save_Settings();
+            ConfigAPI.Save_Settings();
             (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
         }
 
@@ -231,7 +242,7 @@ namespace CompanionDisplayWinUI
             UpdateBtn.IsEnabled = false;
             UpdateLocalBtn.IsEnabled = false;
             UpdateBtn.Content = AppStrings.updateUpdating;
-            UpdateSystem.PerformUpdate(true);
+            MaintenanceAPI.PerformUpdate(true);
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -241,7 +252,7 @@ namespace CompanionDisplayWinUI
                 Globals.BackgroundColorR = BackgroundColorPicker.Color.R;
                 Globals.BackgroundColorG = BackgroundColorPicker.Color.G;
                 Globals.BackgroundColorB = BackgroundColorPicker.Color.B;
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
                 (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
             }
         }
@@ -251,7 +262,7 @@ namespace CompanionDisplayWinUI
             if (LoadFinish)
             {
                 Globals.IsBetaProgram = UpdateToggle.IsOn;
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
             }
         }
 
@@ -260,7 +271,7 @@ namespace CompanionDisplayWinUI
             if (LoadFinish)
             {
                 Globals.HideAddButton = AddButtonToggle.IsOn;
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
             }
         }
 
@@ -272,7 +283,7 @@ namespace CompanionDisplayWinUI
                 {
                     try
                     {
-                        ShortcutWorkings.CreateShortcut(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "Companion Display.lnk"), AppStrings.appShortcutDescription, System.IO.Path.Combine(System.IO.Path.GetFullPath(Environment.ProcessPath.ToString())), System.IO.Path.Combine(System.IO.Path.GetFullPath(Environment.CurrentDirectory.ToString())));
+                        ShortcutAPI.CreateShortcut(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "Companion Display.lnk"), AppStrings.appShortcutDescription, System.IO.Path.Combine(System.IO.Path.GetFullPath(Environment.ProcessPath.ToString())), System.IO.Path.Combine(System.IO.Path.GetFullPath(Environment.CurrentDirectory.ToString())));
                     }
                     catch
                     {
@@ -281,10 +292,10 @@ namespace CompanionDisplayWinUI
                 }
                 else
                 {
-                    FileOperations.DeleteFile(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "Companion Display.lnk"));
+                    FileAPI.DeleteFile(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "Companion Display.lnk"));
                 }
                 Globals.LaunchOnStartup = StartupToggle.IsOn;
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
             }
         }
 
@@ -293,7 +304,7 @@ namespace CompanionDisplayWinUI
             if (LoadFinish)
             {
                 Globals.LockLayout = LockToggle.IsOn;
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
             }
         }
 
@@ -309,14 +320,14 @@ namespace CompanionDisplayWinUI
                 Globals.SleepColorR = SleepModeColor.Color.R;
                 Globals.SleepColorG = SleepModeColor.Color.G;
                 Globals.SleepColorB = SleepModeColor.Color.B;
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
             }
         }
 
         private void Opacity_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
             Globals.sleepModeOpacity = (sender as Slider).Value;
-            ConfigurationOperations.Save_Settings();
+            ConfigAPI.Save_Settings();
         }
 
         private void SearchEngineCust_TextChanged(object sender, TextChangedEventArgs e)
@@ -331,7 +342,7 @@ namespace CompanionDisplayWinUI
                 {
                     Globals.SearchEngine = new Uri("https://www.google.com/");
                 }
-                ConfigurationOperations.Save_Settings();
+                ConfigAPI.Save_Settings();
             }
             catch
             {
@@ -342,12 +353,12 @@ namespace CompanionDisplayWinUI
         private void NewTabBehavior_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Globals.NewTabBehavior = (sender as ComboBox).SelectedIndex;
-            ConfigurationOperations.Save_Settings();
+            ConfigAPI.Save_Settings();
         }
 
         private async void ResetTwitch_Click(object sender, RoutedEventArgs e)
         {
-            await BrowserClass.CreateWebviewProperly(resetTwitch, new Uri("about:blank"));
+            await BrowserAPI.CreateWebviewProperly(resetTwitch, new Uri("about:blank"));
             resetTwitch.CoreWebView2Initialized += DeleteCookies;
         }
 
@@ -364,7 +375,7 @@ namespace CompanionDisplayWinUI
         private void Opacity_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Globals.sleepModeOpacity = (sender as Slider).Value;
-            ConfigurationOperations.Save_Settings();
+            ConfigAPI.Save_Settings();
         }
 
         private void OBSIP_TextChanged(object sender, TextChangedEventArgs e)
@@ -377,7 +388,7 @@ namespace CompanionDisplayWinUI
             {
                 Globals.obsIP = (sender as TextBox).Text;
             }
-            ConfigurationOperations.SaveOBSConfig();
+            ConfigAPI.SaveOBSConfig();
         }
 
         private void ReconnectOBS_Click(object sender, RoutedEventArgs e)
@@ -409,7 +420,7 @@ namespace CompanionDisplayWinUI
         private void OBSPass_PasswordChanged(object sender, RoutedEventArgs e)
         {
             Globals.obsPass = (sender as PasswordBox).Password;
-            Thread thread = new(ConfigurationOperations.SaveOBSConfig);
+            Thread thread = new(ConfigAPI.SaveOBSConfig);
             thread.Start();
         }
 
@@ -422,48 +433,48 @@ namespace CompanionDisplayWinUI
 
         private void BackupBtn_Click(object sender, RoutedEventArgs e)
         {
-            BackupOperations.BackupFinished += HidePane;
+            BackupAPI.BackupFinished += HidePane;
             BackupGrid.Visibility = Visibility.Visible;
-            BackupOperations.OpenDialog(this.XamlRoot, true);
+            BackupAPI.OpenDialog(this.XamlRoot, true);
         }
 
         private void HidePane()
         {
-            BackupOperations.BackupFinished -= HidePane;
+            BackupAPI.BackupFinished -= HidePane;
             BackupGrid.Visibility = Visibility.Collapsed;
         }
 
         private void OvrColorSleepMode_Toggled(object sender, RoutedEventArgs e)
         {
             Globals.OverrideColor = OvrColorSleepMode.IsOn;
-            ConfigurationOperations.Save_Settings();
+            ConfigAPI.Save_Settings();
         }
 
         private void SoundsToggle_Toggled(object sender, RoutedEventArgs e)
         {
             Globals.enableUISounds = SoundsToggle.IsOn;
             ElementSoundPlayer.State = (ElementSoundPlayerState)(Convert.ToByte(Globals.enableUISounds) + 1);
-            ConfigurationOperations.Save_Settings_Background();
+            ConfigAPI.Save_Settings_Background();
         }
 
         private void UseLessIntensiveUI_Toggled(object sender, RoutedEventArgs e)
         {
             Globals.useLessDemandingEffects = UseLessIntensiveUI.IsOn;
-            ThemingAndColors.ImageOptionalBlur_Loaded();
-            ConfigurationOperations.Save_Settings();
+            ThemingAPI.ImageOptionalBlur_Loaded();
+            ConfigAPI.Save_Settings();
         }
 
         private void TwelveHourToggle_Toggled(object sender, RoutedEventArgs e)
         {
             Globals.use12HourClock = TwelveHourToggle.IsOn;
-            ConfigurationOperations.Save_Settings();
+            ConfigAPI.Save_Settings();
         }
 
         private void Button_Click_6(object sender, RoutedEventArgs e)
         {
             UpdateBtn.IsEnabled = false;
             UpdateLocalBtn.IsEnabled = false;
-            UpdateSystem.PerformUpdate(false);
+            MaintenanceAPI.PerformUpdate(false);
             UpdateBtn.IsEnabled = Globals.IsUpdateAvailable;
             UpdateLocalBtn.IsEnabled = true;
         }
@@ -471,19 +482,19 @@ namespace CompanionDisplayWinUI
         private void PromoToggle_Toggled(object sender, RoutedEventArgs e)
         {
             Globals.showPromo = PromoToggle.IsOn;
-            ConfigurationOperations.Save_Settings_Background();
+            ConfigAPI.Save_Settings_Background();
         }
 
         private void UpdateNagToggle_Toggled(object sender, RoutedEventArgs e)
         {
             Globals.IgnoreUpdates = UpdateNagToggle.IsOn;
-            ConfigurationOperations.Save_Settings_Background();
+            ConfigAPI.Save_Settings_Background();
         }
 
         private void ResetBrowser_Click(object sender, RoutedEventArgs e)
         {
-            CMDOperations.PerformCMDCommand("taskkill /im msedgewebview2.exe");
-            FileOps.deleteDirectoryRecursive("CompanionDisplayWinUI.exe.WebView2");
+            CommandAPI.PerformCMDCommand("taskkill /im msedgewebview2.exe");
+            FileAPI.deleteDirectoryRecursive("CompanionDisplayWinUI.exe.WebView2");
         }
 
         private void DiscordToggle_Toggled(object sender, RoutedEventArgs e)
@@ -491,13 +502,62 @@ namespace CompanionDisplayWinUI
             Globals.disableDiscord = DiscordToggle.IsOn;
             if (Globals.disableDiscord)
             {
-               Globals.playerSpotify.client.Deinitialize();
+               DiscordAPI.discordRpcClient.Deinitialize();
             }
             else
             {
-                Globals.playerSpotify.LoadDiscordRPC();
+                DiscordAPI.discordRpcClient.Initialize();
             }
-            ConfigurationOperations.Save_Settings();
+            ConfigAPI.Save_Settings();
+        }
+
+        private void ScaleSlider_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            ChangeScale(sender);
+        }
+
+        private void ScaleSlider_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ChangeScale(sender);
+        }
+        private void ChangeScale(object sender)
+        {
+            float newScale = (float)(sender as Slider).Value;
+            Globals.scale = newScale;
+            var compositor = ElementCompositionPreview.GetElementVisual(CommonlyAccessedInstances.MainGrid).Compositor;
+            var rootVisual = ElementCompositionPreview.GetElementVisual(CommonlyAccessedInstances.ScalingGrid);
+            AppWindowControlAPI.SetScale(newScale, rootVisual, compositor);
+            ConfigAPI.Save_Settings();
+            if (!Globals.injectedSizeChangeEvent)
+            {
+                Globals.injectedSizeChangeEvent = true;
+                CommonlyAccessedInstances.ScalingGrid.SizeChanged += AppWindowControlAPI.UpdateScaling;
+            }
+        }
+
+        private void MusicPlayerSelectedCust_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                if ((sender as TextBox).Text != "")
+                {
+                    Globals.MusicProvider = new Uri("https://" + (sender as TextBox).Text.Replace("https://", "").Replace("http://", ""));
+                }
+                else
+                {
+                    Globals.MusicProvider = new Uri("https://open.spotify.com/");
+                }
+                ConfigAPI.SaveMusicConfig();
+                SpotifyPlayer currentPlayer = PageCacheHandler.mediaPlayer;
+                if(currentPlayer != null)
+                {
+                    PageCacheHandler.mediaPlayer.killThis();
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

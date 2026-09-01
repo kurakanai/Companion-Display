@@ -1,3 +1,4 @@
+using CompanionDisplayWinUI.API;
 using CompanionDisplayWinUI.ClassImplementations;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -52,7 +53,10 @@ namespace CompanionDisplayWinUI
         {
             if(!((e.ClickedItem as Frame).Content.ToString().Contains("WidgetStack") && targetFile != "Config/WidgetOrder.crlh"))
             {
-                Globals.ResetHome = true;
+                if(PageCacheHandler.homePage != null){
+                    PageCacheHandler.homePage.killThis();
+                    PageCacheHandler.homePage = null;
+                }
                 try
                 {
                     Globals.IsAllApps = false;

@@ -1,3 +1,5 @@
+using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.AppDesign.ArduinoElements;
 using Microsoft.UI.Xaml.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -17,9 +19,17 @@ namespace CompanionDisplayWinUI
             this.InitializeComponent();
         }
 
+        private ArduinoAPI arduinoFunctionality;
+
         private void Button_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            
+            arduinoFunctionality.connectAndStream();
+        }
+
+        private void Content_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            ContentAR.Navigate(typeof(ArduinoInterfaceHomePage));
+            arduinoFunctionality = new ArduinoAPI(ContentAR, "COM9");
         }
     }
 }

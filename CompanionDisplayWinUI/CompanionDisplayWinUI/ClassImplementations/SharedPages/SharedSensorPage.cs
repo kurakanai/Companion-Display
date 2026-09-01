@@ -1,4 +1,5 @@
-﻿using LibreHardwareMonitor.Hardware;
+﻿using CompanionDisplayWinUI.API;
+using LibreHardwareMonitor.Hardware;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Threading;
@@ -25,18 +26,18 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
                     sensor1 = parent.Tag as ISensor;
                 }
             }
-            HardwareSensorsFunction.UpdateSensorValue += UpdateUI;
+            HardwareMonitorAPI.UpdateSensorValueEvent += UpdateUI;
             Thread thread = new(UpdateUI);
             thread.Start();
         }
 
         public void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-            HardwareSensorsFunction.UpdateSensorValue -= UpdateUI;
+            HardwareMonitorAPI.UpdateSensorValueEvent -= UpdateUI;
         }
         private void UpdateUI()
         {
-            Sensors.UpdateSensorValue(sensor1, lastValue, sensorText, sensorRing, sensorSuffix, DispatcherQueue, needsExtraPrecision);
+            HardwareMonitorAPI.UpdateSensorValue(sensor1, lastValue, sensorText, sensorRing, sensorSuffix, DispatcherQueue, needsExtraPrecision);
         }
     }
 }
