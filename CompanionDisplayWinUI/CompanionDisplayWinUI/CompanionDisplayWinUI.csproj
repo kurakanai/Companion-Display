@@ -39,7 +39,6 @@
     <Compile Remove="ClassImplementations\AppSustainability.cs" />
     <Compile Remove="ClassImplementations\AudioManager.cs" />
     <Compile Remove="ClassImplementations\FancyPantsFX.xaml.cs" />
-    <Compile Remove="ClassImplementations\FileFolderPicker.cs" />
     <Compile Remove="ClassImplementations\GridViewStuff.cs" />
     <Compile Remove="ClassImplementations\Media.cs" />
     <Compile Remove="ClassImplementations\Sensors.cs" />
