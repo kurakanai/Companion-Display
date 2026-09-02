@@ -6,8 +6,8 @@
     xmlns:local="using:CompanionDisplayWinUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Height="300" Width="500" Loaded="Page_Loaded" Tag="UtilWidgets">
+    mc:Ignorable="d" Height="300" Width="500" Loaded="Page_Loaded" Tag="UtilWidgets" >
     <Grid>
-        <TextBox Style="{StaticResource CompanionDisplayTextBoxNotes}" x:Uid="NotesPlaceholder" Name="Notes" LostFocus="Notes_LostFocus" Tapped="Notes_Tapped"/>
+        <TextBox Style="{StaticResource CompanionDisplayTextBoxNotes}" x:Uid="NotesPlaceholder" Name="Notes" LostFocus="Notes_LostFocus" SelectionChanged="Notes_SelectionChanged" />
     </Grid>
 </Page>

@@ -1,3 +1,4 @@
+using CompanionDisplayWinUI.ClassImplementations;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -46,8 +47,12 @@ namespace CompanionDisplayWinUI
             catch { }
         }
 
-        private void Notes_Tapped(object sender, TappedRoutedEventArgs e)
+        private void Notes_SelectionChanged(object sender, RoutedEventArgs e)
         {
+            if(Globals.StealFocus){
+                ((MainWindow)(CommonlyAccessedInstances.m_window)).CallToForeground();
+            }
+
         }
     }
 }

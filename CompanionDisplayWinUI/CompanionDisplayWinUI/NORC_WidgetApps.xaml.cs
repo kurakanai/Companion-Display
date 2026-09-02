@@ -90,7 +90,7 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
             ];
             flyoutRC[0].Click += MenuFlyoutItem2_Click;
             flyoutRC[1].Click += MenuFlyoutItem4_Click;
-            triggerRightClick(flyoutRC, senderElement);
+            TriggerRightClick(flyoutRC, senderElement);
         }
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
@@ -259,7 +259,7 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
             flyoutRC[2].Click += RemoveAll;
             flyoutRC[3].Click += PinButton;
             flyoutRC[4].Click += PiPButton;
-            triggerRightClick(flyoutRC, senderElement);
+            TriggerRightClick(flyoutRC, senderElement);
         }
         private void RemoveAll(object sender, RoutedEventArgs e)
         {

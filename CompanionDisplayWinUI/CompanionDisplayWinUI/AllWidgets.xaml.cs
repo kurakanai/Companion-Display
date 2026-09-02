@@ -53,10 +53,8 @@ namespace CompanionDisplayWinUI
         {
             if(!((e.ClickedItem as Frame).Content.ToString().Contains("WidgetStack") && targetFile != "Config/WidgetOrder.crlh"))
             {
-                if(PageCacheHandler.homePage != null){
-                    PageCacheHandler.homePage.killThis();
-                    PageCacheHandler.homePage = null;
-                }
+                PageCacheHandler.homePage?.KillThis();
+                PageCacheHandler.homePage = null;
                 try
                 {
                     Globals.IsAllApps = false;

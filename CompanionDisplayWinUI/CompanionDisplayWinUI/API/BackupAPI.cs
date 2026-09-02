@@ -9,9 +9,9 @@ namespace CompanionDisplayWinUI.API
     static class BackupAPI
     {
         public static event CommonlyAccessedInstances.HandleEventsWithNoArgs BackupFinished;
-        private static string enableGeneralStringBackup = " copy GlobalSettings.crlh Backup &";
-        private static string enableWidgetLayoutStringBackup = " copy PinnedOrder.crlh Backup & copy WidgetOrder.crlh Backup & robocopy Stacks Backup/Stacks /mir & robocopy WidgetNotes Backup/WidgetNotes /mir &";
-        private static string enableWidgetSettingsStringBackup = " copy MacroThumbs.crlh Backup & copy MediaConfig.crlh Backup & copy OBSSettings.crlh Backup & copy PhotoConfig.crlh Backup & copy RefreshToken.crlh Backup & copy RefreshToken2.crlh Backup & copy TimeConfigQS.crlh Backup &";
+        private static readonly string enableGeneralStringBackup = " copy GlobalSettings.crlh Backup &";
+        private static readonly string enableWidgetLayoutStringBackup = " copy PinnedOrder.crlh Backup & copy WidgetOrder.crlh Backup & robocopy Stacks Backup/Stacks /mir & robocopy WidgetNotes Backup/WidgetNotes /mir &";
+        private static readonly string enableWidgetSettingsStringBackup = " copy MacroThumbs.crlh Backup & copy MediaConfig.crlh Backup & copy OBSSettings.crlh Backup & copy PhotoConfig.crlh Backup & copy RefreshToken.crlh Backup & copy RefreshToken2.crlh Backup & copy TimeConfigQS.crlh Backup &";
         static void BackupFinishedMethod()
         {
             BackupFinished?.Invoke();

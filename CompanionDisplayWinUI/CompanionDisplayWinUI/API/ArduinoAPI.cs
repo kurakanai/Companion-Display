@@ -1,11 +1,13 @@
 ﻿using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.UI;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -13,7 +15,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
-using Microsoft.UI;
 
 namespace CompanionDisplayWinUI.API
 {
@@ -21,21 +22,20 @@ namespace CompanionDisplayWinUI.API
     public class ArduinoAPI
     {
         private ContentControl captureTarget;
-        private CanvasDevice captureCanvas = new();
-        private int[] targetDimensions = { 128, 64 };
-        private string targetPort;
-        private int baudRate = 115200;
-        private int opTimeout = 1500;
-        private int opCooldown = 2;
-        private int chunkSize = 64;
+        private readonly CanvasDevice captureCanvas = new();
+        private int[] targetDimensions = [128, 64];
+        private readonly string targetPort;
+        private readonly int baudRate = 115200;
+        private readonly int opTimeout = 1500;
+        private readonly int opCooldown = 2;
+        private readonly int chunkSize = 64;
         private CanvasRenderTarget renderTarget;
-        private RenderTargetBitmap renderTargetBitmap;
         private SerialPort serialPort;
-        private BlockingCollection<byte[]> frameQueue;
+        private readonly BlockingCollection<byte[]> frameQueue;
         private int bufferSize;
-        private int queueSize = 2;
+        private readonly int queueSize = 2;
         private const byte achByte = 0x06;
-        DispatcherTimer timer = new() { Interval = TimeSpan.FromMilliseconds(33) };
+        readonly DispatcherTimer timer = new() { Interval = TimeSpan.FromMilliseconds(33) };
         public ArduinoAPI(ContentControl captureTarget, string targetPort)
         {
             this.targetPort = targetPort;
@@ -43,24 +43,24 @@ namespace CompanionDisplayWinUI.API
             serialPort = new SerialPort(targetPort, baudRate);
             bufferSize = targetDimensions[0] * targetDimensions[1] / 8;
             frameQueue = new BlockingCollection<byte[]>(queueSize);
-            timer.Tick += async (s, args) => await handleFrame();
+            timer.Tick += async (s, args) => await HandleFrame();
             timer.Start();
         }
-        public void setNewSize(int[] newSize)
+        public void SetNewSize(int[] newSize)
         {
             targetDimensions = newSize;
             bufferSize = newSize[0] * newSize[1] / 8;
         }
-        public void setCaptureElement(ContentControl newTarget)
+        public void SetCaptureElement(ContentControl newTarget)
         {
             captureTarget = newTarget;
         }
-        public void setFrameRate(int newFPS)
+        public void SetFrameRate(int newFPS)
         {
             timer.Stop();
             timer.Interval = TimeSpan.FromMilliseconds(1000 / newFPS);
         }
-        private byte[] resizeFrame(byte[] frameBytes)
+        private byte[] ResizeFrame(byte[] frameBytes)
         {
             if (renderTarget == null)
             {
@@ -69,7 +69,7 @@ namespace CompanionDisplayWinUI.API
             using (CanvasBitmap canvasBitmap = CanvasBitmap.CreateFromBytes(captureCanvas, frameBytes, (int)captureTarget.ActualWidth, (int)captureTarget.ActualHeight, Windows.Graphics.DirectX.DirectXPixelFormat.B8G8R8A8UIntNormalized))
             using (CanvasDrawingSession drawingSession = renderTarget.CreateDrawingSession())
             {
-                ScaleEffect scaleEffect = new ScaleEffect
+                ScaleEffect scaleEffect = new()
                 {
                     Source = canvasBitmap,
                     Scale = new Vector2(targetDimensions[0] / (float)canvasBitmap.Size.Width, targetDimensions[1] / (float)canvasBitmap.Size.Height),
@@ -83,7 +83,7 @@ namespace CompanionDisplayWinUI.API
             }
             return renderTarget.GetPixelBytes();
         }
-        private byte[] getMonochromeArduinoReady(byte[] frameBytes)
+        private byte[] GetMonochromeArduinoReady(byte[] frameBytes)
         {
             bool[,] isWhite = new bool[targetDimensions[0], targetDimensions[1]];
             int pixelIndex = 0;
@@ -139,7 +139,7 @@ namespace CompanionDisplayWinUI.API
             }
             return oledBuffer;
         }
-        private void addFrameToQueue(byte[] frame)
+        private void AddFrameToQueue(byte[] frame)
         {
             if (!frameQueue.IsAddingCompleted)
             {
@@ -150,23 +150,23 @@ namespace CompanionDisplayWinUI.API
                 frameQueue.TryAdd(frame);
             }
         }
-        private async Task handleFrame()
+        private async Task HandleFrame()
         {
             try
             {
                 RenderTargetBitmap targetBitmap = new();
                 await targetBitmap.RenderAsync(captureTarget);
                 IBuffer controlPixels = await targetBitmap.GetPixelsAsync();
-                byte[] resizedFrame = resizeFrame(controlPixels.ToArray());
-                byte[] arduinoReadyBytes = getMonochromeArduinoReady(resizedFrame);
-                addFrameToQueue(arduinoReadyBytes);
+                byte[] resizedFrame = ResizeFrame(controlPixels.ToArray());
+                byte[] arduinoReadyBytes = GetMonochromeArduinoReady(resizedFrame);
+                AddFrameToQueue(arduinoReadyBytes);
             }
-            catch (Exception e)
+            catch
             {
 
             }
         }
-        private void initCOM()
+        private void InitCOM()
         {
             serialPort = new SerialPort(targetPort, baudRate)
             {
@@ -174,7 +174,7 @@ namespace CompanionDisplayWinUI.API
                 ReadTimeout = opTimeout,
             };
         }
-        private void sendLoop()
+        private void SendLoop()
         {
             while (serialPort.IsOpen)
             {
@@ -195,24 +195,24 @@ namespace CompanionDisplayWinUI.API
                     {
                         try { serialPort.DiscardInBuffer(); } catch { }
                     }
-                } catch (Exception e) { }
+                } catch { }
             }
         }
-        public void connectAndStream()
+        public void ConnectAndStream()
         {
             try
             {
                 if (!serialPort.IsOpen)
                 {
-                    initCOM();
+                    InitCOM();
                     serialPort.Open();
-                    Thread thread = new Thread(sendLoop);
+                    Thread thread = new(SendLoop);
                     thread.Start();
                 }
             }
             catch { }
         }
-        public void disconnectAndStopStream()
+        public void DisconnectAndStopStream()
         {
             if (serialPort.IsOpen)
             {

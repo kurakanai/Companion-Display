@@ -56,19 +56,17 @@ public partial class MainWindow : Window
             InstallOptions.Items.Remove(ProgramFilesOption);
         }
         string uninstallRegPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\CompanionDisplay";
-        using (RegistryKey key = Registry.LocalMachine.OpenSubKey(uninstallRegPath))
+        using RegistryKey? key = Registry.LocalMachine.OpenSubKey(uninstallRegPath);
+        if (key != null)
         {
-            if (key != null)
-            {
-                InstallPath = key.GetValue("InstallLocation") as string;
-                Intro.Text = "Companion Display is already installed. Here you can repair your install, which will also clear your configuration files, or you can uninstall Companion Display.";
-                InstallOptions.Visibility = Visibility.Collapsed;
-                InstallBtn.Content = "Repair";
-            }
-            else
-            {
-                UninstallBtn.Visibility = Visibility.Collapsed;
-            }
+            InstallPath = key.GetValue("InstallLocation") as string;
+            Intro.Text = "Companion Display is already installed. Here you can repair your install, which will also clear your configuration files, or you can uninstall Companion Display.";
+            InstallOptions.Visibility = Visibility.Collapsed;
+            InstallBtn.Content = "Repair";
+        }
+        else
+        {
+            UninstallBtn.Visibility = Visibility.Collapsed;
         }
     }
 
@@ -107,20 +105,18 @@ public partial class MainWindow : Window
                 await s.CopyToAsync(fs);
                 await s2.CopyToAsync(fs2);
                 string w10 = " & tar -xf Segoe-Fluent-Icons.zip & copy \"Segoe Fluent Icons.ttf\" \"%WINDIR%\\Fonts\" & reg add \"HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts\" /v \"Segoe Fluent Icons (TrueType)\" /t REG_SZ /d \"Segoe Fluent Icons.ttf\" /f &  & del /f /q \"Segoe Fluent Icons.ttf\" & del /f /q Segoe-Fluent-Icons.zip & del /f /q EULA.txt";
-                using (Process cmd = new())
+                using Process cmd = new();
+                cmd.StartInfo.FileName = "cmd.exe";
+                cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                cmd.StartInfo.CreateNoWindow = true;
+                cmd.StartInfo.Arguments = "/C cd \"" + installDir + "\" & tar -xf release.zip & del /f /q release.zip";
+                if (Windows10Warning.Visibility == Visibility.Visible)
                 {
-                    cmd.StartInfo.FileName = "cmd.exe";
-                    cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    cmd.StartInfo.CreateNoWindow = true;
-                    cmd.StartInfo.Arguments = "/C cd \"" + installDir + "\" & tar -xf release.zip & del /f /q release.zip";
-                    if(Windows10Warning.Visibility == Visibility.Visible)
-                    {
-                        await s2.CopyToAsync(fs2);
-                        cmd.StartInfo.Arguments += w10;
-                    }
-                    cmd.Start();
-                    cmd.WaitForExit();
+                    await s2.CopyToAsync(fs2);
+                    cmd.StartInfo.Arguments += w10;
                 }
+                cmd.Start();
+                cmd.WaitForExit();
             }
             string uninstallRegPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\CompanionDisplay";
             RegistryKey key = Registry.LocalMachine.CreateSubKey(uninstallRegPath);
@@ -131,7 +127,7 @@ public partial class MainWindow : Window
             key.Close();
             string shortcutPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonPrograms), "Companion Display.lnk");
             string shortcutPathDesktop = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Companion Display.lnk");
-            WshShell shell = new WshShell();
+            WshShell shell = new();
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutPath);
             IWshShortcut shortcutDesktop = (IWshShortcut)shell.CreateShortcut(shortcutPathDesktop);
             shortcut.TargetPath = installDir + "CompanionDisplayWinUI.exe";
@@ -153,14 +149,12 @@ public partial class MainWindow : Window
             }
             if(LaunchAfterInstall.IsChecked == true)
             {
-                using (Process cmd = new())
-                {
-                    cmd.StartInfo.FileName = "cmd.exe";
-                    cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                    cmd.StartInfo.CreateNoWindow = true;
-                    cmd.StartInfo.Arguments = "/C cd \"" + installDir + "\" & CompanionDisplayWinUI.exe\"";
-                    cmd.Start();
-                }
+                using Process cmd = new();
+                cmd.StartInfo.FileName = "cmd.exe";
+                cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                cmd.StartInfo.CreateNoWindow = true;
+                cmd.StartInfo.Arguments = "/C cd \"" + installDir + "\" & CompanionDisplayWinUI.exe\"";
+                cmd.Start();
             }
             this.Close();
         }
@@ -180,30 +174,26 @@ public partial class MainWindow : Window
     }
     static void SetShortcutToRunAsAdmin(string shortcutPath)
     {
-        FileInfo lnkFile = new FileInfo(shortcutPath);
+        FileInfo lnkFile = new(shortcutPath);
         System.IO.File.SetAttributes(lnkFile.FullName, FileAttributes.Normal);
 
         // Open shortcut file for modification
-        using (FileStream fs = new FileStream(lnkFile.FullName, FileMode.Open, FileAccess.ReadWrite))
-        {
-            byte[] data = new byte[fs.Length];
-            fs.Read(data, 0, data.Length);
+        using FileStream fs = new(lnkFile.FullName, FileMode.Open, FileAccess.ReadWrite);
+        byte[] data = new byte[fs.Length];
+        fs.ReadExactly(data);
 
-            // Enable "Run as Administrator" (0x20 = RunAs flag)
-            data[0x15] |= 0x20;
+        // Enable "Run as Administrator" (0x20 = RunAs flag)
+        data[0x15] |= 0x20;
 
-            fs.Position = 0;
-            fs.Write(data, 0, data.Length);
-        }
+        fs.Position = 0;
+        fs.Write(data, 0, data.Length);
     }
     private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        using (HttpClient client = new())
+        using HttpClient client = new();
+        if (CurrentVersion != await client.GetStringAsync(RemoteVersion))
         {
-            if (CurrentVersion != await client.GetStringAsync(RemoteVersion))
-            {
-                UpdateInstaller.Visibility = Visibility.Visible;
-            }
+            UpdateInstaller.Visibility = Visibility.Visible;
         }
     }
 
@@ -211,11 +201,11 @@ public partial class MainWindow : Window
     {
         string uninstallRegPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\CompanionDisplay";
 
-        using (RegistryKey key = Registry.LocalMachine.OpenSubKey(uninstallRegPath))
+        using (RegistryKey? key = Registry.LocalMachine.OpenSubKey(uninstallRegPath))
         {
             if (key != null)
             {
-                string installPath = key.GetValue("InstallLocation") as string;
+                string? installPath = key.GetValue("InstallLocation") as string;
                 if (!string.IsNullOrEmpty(installPath))
                 {
                     try
@@ -232,7 +222,7 @@ public partial class MainWindow : Window
                         if (System.IO.File.Exists(desktopPath)) System.IO.File.Delete(desktopPath);
                         Directory.Delete(installPath, true);
                     }
-                    catch (Exception ex)
+                    catch
                     {
                     }
                 }
@@ -243,13 +233,11 @@ public partial class MainWindow : Window
 
     private async void UpdateInstaller_Click(object sender, RoutedEventArgs e)
     {
-        using (Process cmd = new())
-        {
-            cmd.StartInfo.FileName = "cmd.exe";
-            cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            cmd.StartInfo.CreateNoWindow = true;
-            cmd.StartInfo.Arguments = "/C start https://www.dropbox.com/scl/fi/txml7xdncejg63pq5b80v/CompanionDisplayInstaller.exe?rlkey=4afy2supy5gj6iry1gw0r2rpq&st=9se29hw1&dl=1";
-            cmd.Start();
-        }
+        using Process cmd = new();
+        cmd.StartInfo.FileName = "cmd.exe";
+        cmd.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+        cmd.StartInfo.CreateNoWindow = true;
+        cmd.StartInfo.Arguments = "/C start https://www.dropbox.com/scl/fi/txml7xdncejg63pq5b80v/CompanionDisplayInstaller.exe?rlkey=4afy2supy5gj6iry1gw0r2rpq&st=9se29hw1&dl=1";
+        cmd.Start();
     }
 }

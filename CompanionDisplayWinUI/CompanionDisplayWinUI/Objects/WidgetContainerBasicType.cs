@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CompanionDisplayWinUI.Objects
 {
-    internal interface WidgetContainerBasicType
+    internal interface IWidgetContainerBasicType
     {
-        public void triggerRightClick();
+        public void TriggerRightClick();
     }
 }

@@ -4,10 +4,10 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
 {
-    public class EmbeddedRCWidget : CommonWidget
+    public partial class EmbeddedRCWidget : CommonWidget
     {
         public bool selfRC = true;
-        internal void triggerRightClick(MenuFlyoutItem[] items, FrameworkElement senderElement)
+        internal static void TriggerRightClick(MenuFlyoutItem[] items, FrameworkElement senderElement)
         {
             MenuFlyout myFlyout = new();
             for (int i = 0; i < items.Length; i++)

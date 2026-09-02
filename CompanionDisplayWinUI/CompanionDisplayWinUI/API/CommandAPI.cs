@@ -4,9 +4,9 @@ namespace CompanionDisplayWinUI.API
 {
     static class CommandAPI
     {
-        private static ProcessStartInfo generateProcessStartInfo(string executable)
+        private static ProcessStartInfo GenerateProcessStartInfo(string executable)
         {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo()
+            ProcessStartInfo processStartInfo = new()
             {
                 FileName = executable,
                 WindowStyle = ProcessWindowStyle.Hidden,
@@ -17,11 +17,11 @@ namespace CompanionDisplayWinUI.API
         }
         private static readonly Process cmd = new()
         {
-            StartInfo = generateProcessStartInfo("cmd.exe"),
+            StartInfo = GenerateProcessStartInfo("cmd.exe"),
         };
         private static readonly Process ps = new()
         {
-            StartInfo = generateProcessStartInfo("powershell.exe"),
+            StartInfo = GenerateProcessStartInfo("powershell.exe"),
         };
         public static void PerformCMDCommand(string command)
         {

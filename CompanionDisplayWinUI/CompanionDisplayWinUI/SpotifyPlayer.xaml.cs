@@ -29,7 +29,7 @@ namespace CompanionDisplayWinUI
                 FTU = !FTU;
             }
         }
-        public void killThis()
+        public void KillThis()
         {
             this.NavigationCacheMode = NavigationCacheMode.Disabled;
             PageCacheHandler.mediaPlayer = null;

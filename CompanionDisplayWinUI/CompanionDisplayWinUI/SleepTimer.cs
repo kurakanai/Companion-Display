@@ -12,7 +12,7 @@ namespace CompanionDisplayWinUI
         public event HandleSleepModeStartStop CallUpdate;
         public bool isEnabled = false;
         private System.Timers.Timer timer = new();
-        private MMDeviceEnumerator DevEnum = new();
+        private readonly MMDeviceEnumerator DevEnum = new();
         private MMDevice device;
         private float initialVolume = 0;
         public void StartTimer(int duration)

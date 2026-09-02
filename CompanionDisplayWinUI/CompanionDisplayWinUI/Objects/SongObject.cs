@@ -15,14 +15,14 @@ namespace CompanionDisplayWinUI.Objects
 {
     class SongObject
     {
-        public string title, artist, album, albumCoverUrl, releaseDate, nonTimedLyrics, internationalID, spotifyID;
+        public string title, artist, album, albumCoverUrl, releaseDate, nonTimedLyrics;
         public bool hasAlbumUrl = false;
         public bool hasReleaseDate = false;
         public string[] timedLyricsText;
         public double[] timedLyricsTimestamps;
         public int lyricsType = 0;
         public ImageSource albumCover;
-        private GlobalSystemMediaTransportControlsSessionMediaProperties internalAudioProperties = MusicAPI.sessionMediaProperties;
+        private readonly GlobalSystemMediaTransportControlsSessionMediaProperties internalAudioProperties = MusicAPI.sessionMediaProperties;
         private static readonly SemaphoreSlim semaphore = new(1);
         public SongObject()
         {
@@ -31,11 +31,11 @@ namespace CompanionDisplayWinUI.Objects
                 title = internalAudioProperties.Title;
                 artist = internalAudioProperties.Artist;
                 album = internalAudioProperties.AlbumTitle;
-                setAlbumCover("");
+                SetAlbumCover("");
             }
             catch { }
         }
-        public void setReleaseDate (string releaseDate)
+        public void SetReleaseDate(string releaseDate)
         {
             if(releaseDate != null && releaseDate != "")
             {
@@ -43,7 +43,7 @@ namespace CompanionDisplayWinUI.Objects
                 hasReleaseDate = true;
             }
         }
-        public void setAlbumCover(string albumCoverUrl)
+        public void SetAlbumCover(string albumCoverUrl)
         {
             CommonlyAccessedInstances.mainDispatcher.TryEnqueue(() =>
             {
@@ -66,12 +66,12 @@ namespace CompanionDisplayWinUI.Objects
                 }
             });
         }
-        public bool checkIfSame(SongObject other)
+        public bool CheckIfSame(SongObject other)
         {
             return other.title == this.title && other.album == this.album;
         }
-        public bool checkIfSameSimple(string title, string album) => title == this.title && album == this.album;
-        public void setLyricsType()
+        public bool CheckIfSameSimple(string title, string album) => title == this.title && album == this.album;
+        public void SetLyricsType()
         {
             if(timedLyricsText != null)
             {

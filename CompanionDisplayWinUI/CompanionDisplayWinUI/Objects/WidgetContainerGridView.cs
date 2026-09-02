@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CompanionDisplayWinUI.Objects
 {
-    internal class WidgetContainerGridView : GridView, WidgetContainerBasicType
+    internal partial class WidgetContainerGridView : GridView, IWidgetContainerBasicType
     {
-        public void triggerRightClick()
+        public void TriggerRightClick()
         {
 
         }

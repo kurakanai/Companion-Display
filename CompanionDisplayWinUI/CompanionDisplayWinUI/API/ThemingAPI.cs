@@ -16,7 +16,7 @@ namespace CompanionDisplayWinUI.API
         {
             if (_customAccentDictionary == null)
             {
-                _customAccentDictionary = new ResourceDictionary();
+                _customAccentDictionary = [];
                 Application.Current.Resources.MergedDictionaries.Add(_customAccentDictionary);
             }
             _customAccentDictionary["SystemAccentColor"] = color;
@@ -31,7 +31,7 @@ namespace CompanionDisplayWinUI.API
         {
             if (_customAccentDictionary == null)
             {
-                _customAccentDictionary = new ResourceDictionary();
+                _customAccentDictionary = [];
                 Application.Current.Resources.MergedDictionaries.Add(_customAccentDictionary);
             }
             _customAccentDictionary["SystemAccentColor"] = uiSettings.GetColorValue(UIColorType.Accent);

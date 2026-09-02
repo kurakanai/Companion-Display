@@ -23,7 +23,7 @@ namespace CompanionDisplayWinUI
 
         private void Button_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            arduinoFunctionality.connectAndStream();
+            arduinoFunctionality.ConnectAndStream();
         }
 
         private void Content_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)

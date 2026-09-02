@@ -11,7 +11,7 @@ namespace CompanionDisplayWinUI.API
     {
         public static MMDeviceEnumerator DevEnum = new();
         public static MMDevice mmDevices = DevEnum.GetDefaultAudioEndpoint(EDataFlow.eRender, ERole.eMultimedia);
-        private static MMDeviceCollection audioEndpointCollection = DevEnum.EnumerateAudioEndPoints(EDataFlow.eRender, DEVICE_STATE.DEVICE_STATE_ACTIVE);
-        public static MMDevice[] getAllEndpoints = audioEndpointCollection.ToArray();
+        private static readonly MMDeviceCollection audioEndpointCollection = DevEnum.EnumerateAudioEndPoints(EDataFlow.eRender, DEVICE_STATE.DEVICE_STATE_ACTIVE);
+        public static MMDevice[] getAllEndpoints = [.. audioEndpointCollection];
     }
 }

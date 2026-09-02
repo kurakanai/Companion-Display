@@ -183,7 +183,7 @@ namespace CompanionDisplayWinUI
             addBtn.IsEnabled = false;
         }
 
-        public void Pin_Click_NC(object sender, RoutedEventArgs e)
+        public void Pin_Click_NC(object sender, RoutedEventArgs _1)
         {
             if ((sender as Frame).Parent == BasicGridView)
             {
@@ -286,7 +286,7 @@ namespace CompanionDisplayWinUI
                 Directory.CreateDirectory("Config");
                 File.WriteAllText("Config/WidgetOrder.crlh", "");
             }
-            WidgetAPI.addWidgets(BasicGridView, WidgetOrder);
+            WidgetAPI.AddWidgets(BasicGridView, WidgetOrder);
             try
             {
                 WidgetOrder = File.ReadAllText("Config/PinnedOrder.crlh");
@@ -297,7 +297,7 @@ namespace CompanionDisplayWinUI
                 Directory.CreateDirectory("Config");
                 File.WriteAllText("Config/PinnedOrder.crlh", "");
             }
-            WidgetAPI.addWidgets(PinnedView, WidgetOrder);
+            WidgetAPI.AddWidgets(PinnedView, WidgetOrder);
             if (!Globals.HideAddButton)
             {
                 DispatcherQueue.TryEnqueue(() =>
@@ -353,7 +353,7 @@ namespace CompanionDisplayWinUI
                 catch { }
             }
         }
-        private void Frame_IsEnabledChanged2(object sender, DependencyPropertyChangedEventArgs e)
+        private void Frame_IsEnabledChanged2(object sender, DependencyPropertyChangedEventArgs _1)
         {
             var frame2 = (Frame)sender;
             if(frame2 != null && frame2.IsEnabled)
@@ -397,7 +397,7 @@ namespace CompanionDisplayWinUI
             Workarounds.ForceBugcheckFrames(BasicGridView);
             Workarounds.ForceBugcheckFrames(PinnedView);
         }
-        public void killThis()
+        public void KillThis()
         {
             this.NavigationCacheMode = NavigationCacheMode.Disabled;
         }

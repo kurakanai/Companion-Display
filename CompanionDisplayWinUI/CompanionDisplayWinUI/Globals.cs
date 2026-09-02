@@ -26,12 +26,11 @@ namespace CompanionDisplayWinUI
         public static string SongID = "";
         public static bool ClearTab = false;
         public static bool StartedPlayer = false;
-        public static int currenttimestamp;
         public static bool IsAllApps = false;
         public static bool InjectedCustomAccent = false;
         public static bool ImageFailed = false;
         public static IHardware CurrentHW;
-        public static TimeAPI publicTimeViewModel = new TimeAPI();
+        public static TimeAPI publicTimeViewModel = new();
         public static int PiPAmount = 0;
         public static bool injectedSizeChangeEvent = false;
 

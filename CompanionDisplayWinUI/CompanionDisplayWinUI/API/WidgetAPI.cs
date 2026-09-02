@@ -19,18 +19,18 @@ namespace CompanionDisplayWinUI.API
 {
     static class WidgetAPI
     {
-        public static void addWidgets(Selector target, string configFile)
+        public static void AddWidgets(Selector target, string configFile)
         {
             CommonlyAccessedInstances.mainDispatcher.TryEnqueue(() =>
             {
-                StringReader stringReader = new StringReader(configFile);
+                StringReader stringReader = new(configFile);
                 string buffer = stringReader.ReadLine();
                 while (buffer != null)
                 {
                     try
                     {
                         buffer = buffer.Replace("\r", "");
-                        CommonWidgetContainer widgetToAdd = attributeApplier(patcher(buffer));
+                        CommonWidgetContainer widgetToAdd = AttributeApplier(Patcher(buffer));
                         target.Items.Add(widgetToAdd);
                     }
                     catch { }
@@ -38,7 +38,7 @@ namespace CompanionDisplayWinUI.API
                 }
             });
         }
-        public static object[] patcher(string lineToParse)
+        public static object[] Patcher(string lineToParse)
         {
             object[] parameters = new object[3];
             switch (lineToParse)
@@ -65,7 +65,7 @@ namespace CompanionDisplayWinUI.API
             }
             return parameters;
         }
-        public static CommonWidgetContainer attributeApplier(object[] patched)
+        public static CommonWidgetContainer AttributeApplier(object[] patched)
         {
             Type type = Type.GetType((string)patched[0]);
             CommonWidgetContainer commonWidget = new(type)

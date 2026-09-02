@@ -4,13 +4,11 @@ namespace WinFormsHelper
 {
     public class Class1
     {
-        public bool isAdmin()
+        public static bool IsAdmin()
         {
-            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
-            {
-                WindowsPrincipal principal = new(identity);
-                return principal.IsInRole(WindowsBuiltInRole.Administrator);
-            }
+            using WindowsIdentity identity = WindowsIdentity.GetCurrent();
+            WindowsPrincipal principal = new(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
 }

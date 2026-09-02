@@ -318,8 +318,8 @@ namespace CompanionDisplayWinUI
             sender.ConnectionStatusChanged -= BLRefresh;
             UpdateBL();
         }
-        private List<BluetoothDevice> bluetoothDevices = [];
-        private List<BluetoothLEDevice> bluetoothDevicesLE = [];
+        private readonly List<BluetoothDevice> bluetoothDevices = [];
+        private readonly List<BluetoothLEDevice> bluetoothDevicesLE = [];
         private void BLERefresh(BluetoothLEDevice sender, object args)
         {
             sender.ConnectionStatusChanged -= BLERefresh;

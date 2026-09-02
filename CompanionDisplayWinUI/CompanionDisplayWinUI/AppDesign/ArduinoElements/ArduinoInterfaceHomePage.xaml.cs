@@ -42,13 +42,12 @@ namespace CompanionDisplayWinUI.AppDesign.ArduinoElements
             DispatcherQueue.TryEnqueue(() =>
             {
                 SongName.Text = songObject.title;
-                SongDetails.Text = MusicAPI.buildDetails();
+                SongDetails.Text = MusicAPI.BuildDetails();
             });
         }
         private async void SongName_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            semaphore.WaitAsync();
-            TextBlock senderBlock = sender as TextBlock;
+            await semaphore.WaitAsync();
             AnimateSideways((sender as TextBlock).RenderTransform as TranslateTransform, sender as TextBlock);
             semaphore.Release();
         }

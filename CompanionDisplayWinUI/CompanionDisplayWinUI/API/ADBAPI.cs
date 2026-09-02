@@ -4,29 +4,29 @@ namespace CompanionDisplayWinUI.API
 {
     static class ADBAPI
     {
-        public static string executeADBCommand(string command, string devID)
+        public static string ExecuteADBCommand(string command, string devID)
         {
             return CommandAPI.GetCMDLog("runtimes\\adb.exe - s " + devID + " " + command);
         }
-        public static string executeShellCommand(string command, string devID)
+        public static string ExecuteShellCommand(string command, string devID)
         {
-            return executeADBCommand("shell " + command, devID);
+            return ExecuteADBCommand("shell " + command, devID);
         }
-        public static string getBatteryProperty(string property, string devID)
+        public static string GetBatteryProperty(string property, string devID)
         {
-            return executeShellCommand("dumpsys battery | findstr " + property, devID);
+            return ExecuteShellCommand("dumpsys battery | findstr " + property, devID);
         }
-        public static string getDeviceName(string devID)
+        public static string GetDeviceName(string devID)
         {
-            return executeADBCommand("getprop ro.product.model", devID);
+            return ExecuteADBCommand("getprop ro.product.model", devID);
         }
-        public static int getDeviceBatteryLevel(string devID)
+        public static int GetDeviceBatteryLevel(string devID)
         {
-            return int.Parse(getBatteryProperty("level", devID).Replace(getBatteryProperty("Capacity", devID), "")[9..]);
+            return int.Parse(GetBatteryProperty("level", devID).Replace(GetBatteryProperty("Capacity", devID), "")[9..]);
         }
-        public static double getDeviceBrightness(string devID)
+        public static double GetDeviceBrightness(string devID)
         {
-            return Double.Parse(executeShellCommand("settings get system screen_brightness", devID));
+            return Double.Parse(ExecuteShellCommand("settings get system screen_brightness", devID));
         }
     }
 }

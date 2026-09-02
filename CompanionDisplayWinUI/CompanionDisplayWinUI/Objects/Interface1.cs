@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CompanionDisplayWinUI.Objects
 {
-    internal interface Interface1
+    internal interface IInterface1
     {
     }
 }

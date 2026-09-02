@@ -108,7 +108,7 @@ namespace CompanionDisplayWinUI
 
         private void AllMonitors_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            NoMonitors.Visibility = VariableQuirks.getVisibilityFromBool(!(AllMonitors.Items.Count > 0));
+            NoMonitors.Visibility = VariableQuirks.GetVisibilityFromBool(!(AllMonitors.Items.Count > 0));
         }
     }
 }

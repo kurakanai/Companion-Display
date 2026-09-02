@@ -63,7 +63,7 @@ namespace CompanionDisplayWinUI
         }
         private void PlayPauseBtn_Click(object sender, RoutedEventArgs e)
         {
-            KeyPressAPI.callKeys(int.Parse((string)(sender as HyperlinkButton).Tag), -1);
+            KeyPressAPI.CallKeys(int.Parse((string)(sender as HyperlinkButton).Tag), -1);
         }
         public bool CleanUp = false, IsDragging = false;
         private async void SongProgressBar_Tapped(object sender, TappedRoutedEventArgs e)
@@ -127,9 +127,9 @@ namespace CompanionDisplayWinUI
                 LyricsList.Children.Clear();
                 try
                 {
-                    this.Title = songObject.artist + " · " + MusicAPI.buildDetails();
+                    this.Title = songObject.artist + " · " + MusicAPI.BuildDetails();
                     titleSong.Text = songObject.title;
-                    detailsSong.Text = MusicAPI.buildDetails();
+                    detailsSong.Text = MusicAPI.BuildDetails();
                     EndTime.Text = MusicAPI.songEndFormatted;
                     AlbumCoverImg.Source = songObject.albumCover;
                     BackgroundImage.Source = AlbumCoverImg.Source;

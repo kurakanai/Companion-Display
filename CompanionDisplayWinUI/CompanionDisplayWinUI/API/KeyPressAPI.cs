@@ -9,7 +9,7 @@ namespace CompanionDisplayWinUI.API
     public static class KeyPressAPI
     {
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+        private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
         public static void PressKey(VirtualKey key, bool up)
         {
             const int KEYEVENTF_EXTENDEDKEY = 0x1;
@@ -19,21 +19,21 @@ namespace CompanionDisplayWinUI.API
             else
                 keybd_event((byte)key, 0x45, KEYEVENTF_EXTENDEDKEY, (UIntPtr)0);
         }
-        public static void callKeys(int desiredKey, int secondaryKey)
+        public static void CallKeys(int desiredKey, int secondaryKey)
         {
             PressKey((VirtualKey)secondaryKey, up: false);
             PressKey((VirtualKey)desiredKey, up: false);
             PressKey((VirtualKey)desiredKey, up: true);
             PressKey((VirtualKey)secondaryKey, up: true);
         }
-        public static void PressKeyCTRL(object sender, TappedRoutedEventArgs e)
+        public static void PressKeyCTRL(object sender, TappedRoutedEventArgs _1)
         {
-            callKeys(int.Parse((string)(sender as Button).Tag), 17);
+            CallKeys(int.Parse((string)(sender as Button).Tag), 17);
         }
 
-        public static void PressKeyNoModifiers(object sender, TappedRoutedEventArgs e)
+        public static void PressKeyNoModifiers(object sender, TappedRoutedEventArgs _1)
         {
-            callKeys(int.Parse((string)(sender as Button).Tag), -1);
+            CallKeys(int.Parse((string)(sender as Button).Tag), -1);
         }
     }
 }

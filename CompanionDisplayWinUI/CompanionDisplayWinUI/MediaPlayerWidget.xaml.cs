@@ -173,7 +173,7 @@ namespace CompanionDisplayWinUI
         }
         private void PressKey(object sender, RoutedEventArgs e)
         {
-            KeyPressAPI.callKeys(int.Parse((string)(sender as HyperlinkButton).Tag), -1);
+            KeyPressAPI.CallKeys(int.Parse((string)(sender as HyperlinkButton).Tag), -1);
         }
         private void VolumeBar_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
@@ -394,7 +394,7 @@ namespace CompanionDisplayWinUI
                 {
                     SongTitle.Text = songObject.title;
                     AlbumName.Text = songObject.album;
-                    SongInfo.Text = MusicAPI.buildDetails();
+                    SongInfo.Text = MusicAPI.BuildDetails();
                 }
                 catch { }
             });
@@ -445,8 +445,7 @@ namespace CompanionDisplayWinUI
 
         private async void SongProgressBar_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            semaphore.WaitAsync();
-            TextBlock senderBlock = sender as TextBlock;
+            await semaphore.WaitAsync();
             AnimateSideways((sender as TextBlock).RenderTransform as TranslateTransform, sender as TextBlock);
             semaphore.Release();
         }

@@ -13,7 +13,7 @@ namespace CompanionDisplayWinUI.API
 {
     public static class DiscordAPI
     {
-        public static DiscordRpcClient discordRpcClient;
+        public readonly static DiscordRpcClient discordRpcClient;
         static DiscordAPI()
         {
             try
@@ -48,7 +48,7 @@ namespace CompanionDisplayWinUI.API
             RichPresence presence = new()
             {
                 Details = details,
-                State = MusicAPI.buildDetails(),
+                State = MusicAPI.BuildDetails(),
                 Timestamps = new Timestamps
                 {
                     Start = dt,
@@ -57,7 +57,7 @@ namespace CompanionDisplayWinUI.API
                 Assets = new Assets
                 {
                     LargeImageKey = MusicAPI.currentSong.albumCoverUrl,
-                    LargeImageText = MusicAPI.buildDetails(),
+                    LargeImageText = MusicAPI.BuildDetails(),
                     SmallImageText = MusicAPI.currentSong.album,
                     SmallImageKey = "mini_logo"
                 },
@@ -111,11 +111,11 @@ namespace CompanionDisplayWinUI.API
                 });
             }
 
-            presence.Buttons = buttons.ToArray();
+            presence.Buttons = [.. buttons];
             presence.Type = ActivityType.Listening;
             return presence;
         }
-        private static RichPresence comparisonPresence = new();
+        private readonly static RichPresence comparisonPresence = new();
         public static void PushPresenceDiscord(RichPresence presence)
         {
             try

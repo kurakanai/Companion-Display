@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace CompanionDisplayWinUI.Objects
 {
-    internal class WidgetContainerFlipView : FlipView, WidgetContainerBasicType
+    internal partial class WidgetContainerFlipView : FlipView, IWidgetContainerBasicType
     {
-        public void triggerRightClick()
+        public void TriggerRightClick()
         {
 
         }

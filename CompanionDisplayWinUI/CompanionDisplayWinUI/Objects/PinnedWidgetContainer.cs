@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CompanionDisplayWinUI.Objects
 {
-    public class PinnedWidgetContainer : GridView
+    public partial class PinnedWidgetContainer : GridView
     {
 
     }

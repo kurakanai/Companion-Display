@@ -6,12 +6,12 @@ using System;
 
 namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
 {
-    public class SharedTwitch : CommonWidget
+    public partial class SharedTwitch : CommonWidget
     {
         public WebView2 pageWebView;
         public string destinationUrl;
         public bool FTU = true;
-        public async void Page_Loaded(object sender, RoutedEventArgs e)
+        public async void Page_Loaded(object _1, RoutedEventArgs _2)
         {
             if (FTU)
             {
@@ -19,12 +19,12 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
                 FTU = !FTU;
             }
         }
-        public void Button_Click(object sender, RoutedEventArgs e)
+        public void Button_Click(object _1, RoutedEventArgs _2)
         {
             PopOutPlayer m_window = new(pageWebView.Source);
             m_window.Activate();
         }
-        public void HyperlinkButton_Click(object sender, RoutedEventArgs e)
+        public void HyperlinkButton_Click(object _1, RoutedEventArgs _2)
         {
             pageWebView.CoreWebView2.Reload();
         }

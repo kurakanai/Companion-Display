@@ -15,14 +15,14 @@ namespace CompanionDisplayWinUI.API
             GridView gridView = currentWidget.Parent as GridView;
             gridView.Items.Remove(currentWidget);
         }
-        public static void SetScale(float scale, Visual rootVisual, Compositor compositor)
+        public static void SetScale(float scale, Visual rootVisual)
         {
             CommonlyAccessedInstances.MainGrid.HorizontalAlignment = HorizontalAlignment.Left;
             CommonlyAccessedInstances.MainGrid.VerticalAlignment = VerticalAlignment.Top;
             rootVisual.Scale = new System.Numerics.Vector3(scale, scale, 1.0f);
             UpdateScalingNoArgs();
         }
-        public static void UpdateScaling(object sender, SizeChangedEventArgs e)
+        public static void UpdateScaling()
         {
             if(Globals.scale != 1.0f)
             {
@@ -38,7 +38,7 @@ namespace CompanionDisplayWinUI.API
 
         internal static void UpdateScalingNoArgs()
         {
-            UpdateScaling(null, null);
+            UpdateScaling();
         }
     }
 }

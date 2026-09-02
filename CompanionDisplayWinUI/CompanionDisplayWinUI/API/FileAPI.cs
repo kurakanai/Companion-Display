@@ -74,7 +74,7 @@ namespace CompanionDisplayWinUI.API
             }
         }
         // Yes, the native function exists but it shits itself when one of the files can't be deleted.
-        public static void deleteDirectoryRecursive(string path)
+        public static void DeleteDirectoryRecursive(string path)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace CompanionDisplayWinUI.API
                 }
                 foreach (string dir in Directory.GetDirectories(path))
                 {
-                    deleteDirectoryRecursive(dir);
+                    DeleteDirectoryRecursive(dir);
                 }
             }
             catch { }

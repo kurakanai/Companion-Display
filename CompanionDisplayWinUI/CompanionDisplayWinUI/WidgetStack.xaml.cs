@@ -28,7 +28,7 @@ namespace CompanionDisplayWinUI
 
         private void UpdateUI()
         {
-            WidgetAPI.addWidgets(WidgetStackView, WidgetOrder);
+            WidgetAPI.AddWidgets(WidgetStackView, WidgetOrder);
             DispatcherQueue.TryEnqueue(() =>
             {
                 Frame grid = new()
@@ -126,7 +126,7 @@ namespace CompanionDisplayWinUI
             frame.IsEnabled = false;
             frame.IsEnabled = true;
         }
-        private void Frame_RightTappedActions(object sender, RightTappedRoutedEventArgs e)
+        private void Frame_RightTappedActions(object sender, RightTappedRoutedEventArgs _1)
         {
             if ((sender as Frame).Parent as FlipView != null)
             {
@@ -220,11 +220,11 @@ namespace CompanionDisplayWinUI
             Frame_RightTappedActions(menuFlyoutItem.Tag as Frame, null);
         }
 
-        private void BugcheckAcrylic(object sender, RoutedEventArgs e)
+        private void BugcheckAcrylic(object _1, RoutedEventArgs _2)
         {
             
         }
-        private void Frame_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void Frame_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs _1)
         {
             switch ((sender as Frame).Tag)
             {
@@ -237,7 +237,7 @@ namespace CompanionDisplayWinUI
         }
 
 
-        private void Frame_IsEnabledChanged2(object sender, DependencyPropertyChangedEventArgs e)
+        private void Frame_IsEnabledChanged2(object _1, DependencyPropertyChangedEventArgs _2)
         {
             
         }

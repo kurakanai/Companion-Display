@@ -5,7 +5,7 @@ using Microsoft.UI.Xaml.Controls;
 using System.Threading;
 namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
 {
-    public class SharedSensorPage : Page
+    public partial class SharedSensorPage : Page
     {
         public TextBlock sensorText, sensorName;
         public ProgressRing sensorRing;
@@ -14,7 +14,7 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
         public string sensorSuffix;
         ISensor sensor1;
         public bool FTU = true;
-        public void Page_Loaded(object sender, RoutedEventArgs e)
+        public void Page_Loaded(object _1, RoutedEventArgs _2)
         {
             if (FTU)
             {
@@ -31,7 +31,7 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
             thread.Start();
         }
 
-        public void Page_Unloaded(object sender, RoutedEventArgs e)
+        public void Page_Unloaded(object _1, RoutedEventArgs _2)
         {
             HardwareMonitorAPI.UpdateSensorValueEvent -= UpdateUI;
         }

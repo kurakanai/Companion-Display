@@ -5,7 +5,7 @@ using System.Windows.Threading;
 
 namespace CompanionDisplayWinUI.API
 {
-    public class TimeAPI : INotifyPropertyChanged
+    public partial class TimeAPI : INotifyPropertyChanged
     {
         private string _currentTime;
         public string CurrentTime

@@ -31,9 +31,9 @@ namespace CompanionDisplayWinUI
         }
         private void UpdateUI()
         {
-            string DevName = ADBAPI.getDeviceName(ID);
-            int DevBattery = ADBAPI.getDeviceBatteryLevel(ID);
-            double DevBrightness = ADBAPI.getDeviceBrightness(ID);
+            string DevName = ADBAPI.GetDeviceName(ID);
+            int DevBattery = ADBAPI.GetDeviceBatteryLevel(ID);
+            double DevBrightness = ADBAPI.GetDeviceBrightness(ID);
             string DevBatteryIcon = BatteryAPI.GetBatteryIcon(DevBattery);
             if (DevBattery != LastLvl)
             {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CompanionDisplayWinUI.Objects
 {
-    public class CommonWidget : Page
+    public partial class CommonWidget : Page
     {
 
     }

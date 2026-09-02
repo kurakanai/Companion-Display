@@ -81,7 +81,7 @@ namespace CompanionDisplayWinUI
                         bool showMedia = MusicAPI.playbackInfo != null && MusicAPI.playbackInfo.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing;
                         if (showMedia)
                         {
-                            SongTitle.Text = songObject.title + " · " + MusicAPI.buildDetails();
+                            SongTitle.Text = songObject.title + " · " + MusicAPI.BuildDetails();
                             Lyrics.Text = MusicAPI.currentLyric;
                         }
                         SongTitle.Visibility = (Visibility)Convert.ToSByte(!showMedia);

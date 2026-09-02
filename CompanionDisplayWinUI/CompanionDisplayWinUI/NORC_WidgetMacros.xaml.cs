@@ -37,7 +37,7 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
             ];
             flyoutRC[0].Click += ReplaceImageClick;
             flyoutRC[1].Click += RemoveImageClick;
-            triggerRightClick(flyoutRC, senderElement);
+            TriggerRightClick(flyoutRC, senderElement);
 
         }
         private void MainGrid_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -52,7 +52,7 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
             flyoutRC[0].Click += MenuFlyoutItem_Click;
             flyoutRC[1].Click += PinButton;
             flyoutRC[2].Click += PiPButton;
-            triggerRightClick(flyoutRC, senderElement);
+            TriggerRightClick(flyoutRC, senderElement);
         }
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {

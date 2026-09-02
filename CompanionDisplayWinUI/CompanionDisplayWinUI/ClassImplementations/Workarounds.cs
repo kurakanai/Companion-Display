@@ -6,7 +6,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
 {
     public static class Workarounds
     {
-        public static void BugcheckAcrylic(object sender, RoutedEventArgs e)
+        public static void BugcheckAcrylic(object sender, RoutedEventArgs _1)
         {
             if (Globals.Backdrop <= 1 || Globals.useLessDemandingEffects)
             {

@@ -22,14 +22,12 @@ namespace CompanionDisplayWinUI
         private void Button_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var frame = Parent as Frame;
-            var navviewparent = frame.Parent as NavigationView;
             frame.GoBack();
         }
 
         private void Button_Tapped_1(object sender, TappedRoutedEventArgs e)
         {
             var frame = Parent as Frame;
-            var navviewparent = frame.Parent as NavigationView;
             frame.Navigate(typeof(SetupStep4), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
 
@@ -61,7 +59,6 @@ namespace CompanionDisplayWinUI
         private void HyperlinkButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             var frame = this.Parent as Frame;
-            var navviewparent = frame.Parent as NavigationView;
             frame.Navigate(typeof(SetupStep4), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
         }
     }

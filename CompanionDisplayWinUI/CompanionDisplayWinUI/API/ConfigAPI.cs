@@ -9,10 +9,8 @@ namespace CompanionDisplayWinUI.API
     {
         public static void Save_Settings()
         {
-            if(PageCacheHandler.homePage != null){
-                PageCacheHandler.homePage.killThis();
-                PageCacheHandler.homePage = null;
-            }
+            PageCacheHandler.homePage?.KillThis();
+            PageCacheHandler.homePage = null;
             string settingsfile = Globals.ColorSchemeSelect + "\n" + Globals.InjectCustomAccent + "\n" + Globals.ColorSchemeSelectAccentR + "\n" + Globals.ColorSchemeSelectAccentG + "\n" + Globals.ColorSchemeSelectAccentB + "\n" + Globals.Backdrop + "\n" + Globals.BackgroundLink + "\n" + Globals.Wallpaper + "\n" + Globals.Blur + "\n" + Globals.StealFocus + "\n" + Globals.BackgroundColorR + "\n" + Globals.BackgroundColorG + "\n" + Globals.BackgroundColorB + "\n" + Globals.IsBetaProgram + "\n" + Globals.HideAddButton + "\n" + Globals.LaunchOnStartup + "\n" + Globals.LockLayout + "\n" + ThemingAPI.CurrentFont() + "\n" + Globals.sleepModeOpacity + "\n" + Globals.OverrideColor + "\n" + Globals.SleepColorR + "\n" + Globals.SleepColorG + "\n" + Globals.SleepColorB + "\n" + Globals.SearchEngine + "\n" + Globals.NewTabBehavior + "\n" + Globals.triggerSetup + "\n" + Globals.useLessDemandingEffects + "\n" + Globals.use12HourClock + "\n" + Globals.disableDiscord + "\n" + Globals.scale;
             File.WriteAllText("Config/GlobalSettings.crlh", settingsfile);
         }

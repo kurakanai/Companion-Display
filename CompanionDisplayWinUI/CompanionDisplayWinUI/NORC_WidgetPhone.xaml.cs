@@ -36,7 +36,7 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
             flyoutRC[1].Click += MenuFlyoutEdit_Click;
             flyoutRC[2].Click += PinButton;
             flyoutRC[3].Click += PiPButton;
-            triggerRightClick(flyoutRC, senderElement);
+            TriggerRightClick(flyoutRC, senderElement);
         }
 
         private void PiPButton(object sender, RoutedEventArgs e)

@@ -21,15 +21,15 @@ namespace CompanionDisplayWinUI
             this.InitializeComponent();
         }
         public bool CleanUp = false;
-        private CoreVirtualKeyStates LastNumKeyState = Windows.UI.Core.CoreVirtualKeyStates.None;
-        private Windows.UI.Core.CoreVirtualKeyStates numkey;
+        private CoreVirtualKeyStates LastNumKeyState = CoreVirtualKeyStates.None;
+        private CoreVirtualKeyStates numkey;
         private void UpdateUI()
         {
-            numkey = Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(Windows.System.VirtualKey.NumberKeyLock);
+            numkey = Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.NumberKeyLock);
             if(numkey != LastNumKeyState)
             {
                 LastNumKeyState = numkey;
-                if (numkey != Windows.UI.Core.CoreVirtualKeyStates.Locked)
+                if (numkey != CoreVirtualKeyStates.Locked)
                 {
                     DispatcherQueue.TryEnqueue(() =>
                     {
@@ -75,10 +75,10 @@ namespace CompanionDisplayWinUI
         }
         private void PressKey(object sender, RoutedEventArgs e)
         {
-            Windows.UI.Core.CoreVirtualKeyStates numkey = Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(Windows.System.VirtualKey.NumberKeyLock);
+            CoreVirtualKeyStates numkey = Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(Windows.System.VirtualKey.NumberKeyLock);
             try
             {
-                if (numkey != Windows.UI.Core.CoreVirtualKeyStates.Locked)
+                if (numkey != CoreVirtualKeyStates.Locked)
                 {
                     KeyPressAPI.PressKey((VirtualKey)int.Parse(((RepeatButton)sender).DataContext.ToString()), up: false);
                     KeyPressAPI.PressKey((VirtualKey)int.Parse(((RepeatButton)sender).DataContext.ToString()), up: true);

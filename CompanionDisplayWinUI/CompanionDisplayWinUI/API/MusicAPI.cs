@@ -28,8 +28,6 @@ namespace CompanionDisplayWinUI.API
         public static SongObject currentSong = new();
         private static TimeSpan songElapsed, songEnd;
         public static string currentLyric;
-        private static bool enableConstantDetection = false;
-        private static bool runningConstantDetection = false;
         private static double songEndMs;
         public static string songElapsedFormatted, songEndFormatted;
         public static double songProgress;
@@ -46,21 +44,21 @@ namespace CompanionDisplayWinUI.API
         {
             httpWrapper = new(new SocketsHttpHandler() { ConnectTimeout = TimeSpan.FromSeconds(2.0), KeepAlivePingTimeout = TimeSpan.FromSeconds(5.0), EnableMultipleHttp2Connections = false });
             httpWrapper.DefaultRequestHeaders.Add("User-Agent", "Companion Display " + Globals.Version + " (https://github.com/kurakanai/Companion-Display)");
-            initializeLocalMedia();
+            InitializeLocalMedia();
         }
-        private async static void initializeLocalMedia()
+        private async static void InitializeLocalMedia()
         {
             progressSmoother.Start();
-            callerTimer.Elapsed += callTimeUpdate;
+            callerTimer.Elapsed += CallTimeUpdate;
             callerTimer.Start();
             sessionManager = await GlobalSystemMediaTransportControlsSessionManager.RequestAsync();
             sessionManager.SessionsChanged += UpdateSessions;
             UpdateSessions(sessionManager, null);
         }
 
-        private static void callTimeUpdate(object sender, ElapsedEventArgs e)
+        private static void CallTimeUpdate(object sender, ElapsedEventArgs e)
         {
-            actuallyUpdateTiming();
+            ActuallyUpdateTiming();
         }
 
         private static async void UpdateSessions(GlobalSystemMediaTransportControlsSessionManager sender, SessionsChangedEventArgs args)
@@ -72,22 +70,22 @@ namespace CompanionDisplayWinUI.API
                 currentSession.MediaPropertiesChanged += UpdateInfo;
                 currentSession.TimelinePropertiesChanged -= UpdateTiming;
                 currentSession.TimelinePropertiesChanged += UpdateTiming;
-                currentSession.PlaybackInfoChanged -= checkStatus;
-                currentSession.PlaybackInfoChanged += checkStatus;
+                currentSession.PlaybackInfoChanged -= CheckStatus;
+                currentSession.PlaybackInfoChanged += CheckStatus;
                 playbackInfo = currentSession.GetPlaybackInfo();
                 currentSong = new();
             }
             catch { }
-            Thread thread = new Thread(async () =>
+            Thread thread = new(async () =>
             {
                 UpdateInfo(currentSession, null);
                 UpdateTiming(currentSession, null);
             });
             thread.Start();
         }
-        private static Stopwatch progressSmoother = new();
+        private static readonly Stopwatch progressSmoother = new();
         private static double syncOffset = 0;
-        public static double songElapsedMs()
+        public static double SongElapsedMs()
         {
             return progressSmoother.Elapsed.TotalMilliseconds + syncOffset;
         }
@@ -99,11 +97,11 @@ namespace CompanionDisplayWinUI.API
                 sessionMediaProperties = await sender.TryGetMediaPropertiesAsync();
                     string newTitle = sessionMediaProperties.Title;
                     string newAlbum = sessionMediaProperties.AlbumTitle;
-                    if (currentSong == null || !currentSong.checkIfSameSimple(newTitle, newAlbum))
+                    if (currentSong == null || !currentSong.CheckIfSameSimple(newTitle, newAlbum))
                     {
                         currentSong = new SongObject();
                         UpdateTiming(sender, null);
-                        actuallyUpdateTiming();
+                        ActuallyUpdateTiming();
                     }
                     RequestSongID();
                     SetLyrics(-1, "");
@@ -120,11 +118,11 @@ namespace CompanionDisplayWinUI.API
             songEndMs = timelineProperties.EndTime.TotalMilliseconds;
             songEnd = TimeSpan.FromMilliseconds(songEndMs);
         }
-        private static void actuallyUpdateTiming()
+        private static void ActuallyUpdateTiming()
         {
             try
             {
-                songElapsed = TimeSpan.FromMilliseconds(songElapsedMs());
+                songElapsed = TimeSpan.FromMilliseconds(SongElapsedMs());
                 SetTime(songElapsed.ToString(@"m\:ss"), songEnd.ToString(@"m\:ss"), timelineProperties.Position.TotalMilliseconds / timelineProperties.EndTime.TotalMilliseconds * 100.0);
                 GetExactLyric();
                 DiscordAPI.PushPresenceDiscord(DiscordAPI.PresenceBuilder(songElapsed, songEnd));
@@ -134,7 +132,7 @@ namespace CompanionDisplayWinUI.API
 
             }
         }
-        private static System.Timers.Timer callerTimer = new()
+        private static readonly System.Timers.Timer callerTimer = new()
         {
             AutoReset = true,
             Interval = 1000,
@@ -175,9 +173,9 @@ namespace CompanionDisplayWinUI.API
                     i++;
                 }
                 currentSong.artist = array[i]["artist-credit"][0]["name"].ToString();
-                currentSong.setReleaseDate(array[i]["first-release-date"].ToString());
+                currentSong.SetReleaseDate(array[i]["first-release-date"].ToString());
                 currentSong.album = array[i]["releases"][0]["title"].ToString();
-                currentSong.setAlbumCover("https://coverartarchive.org/release/" + array[i]["releases"][0]["id"] + "/front");
+                currentSong.SetAlbumCover("https://coverartarchive.org/release/" + array[i]["releases"][0]["id"] + "/front");
             }
             catch { }
         }
@@ -230,7 +228,7 @@ namespace CompanionDisplayWinUI.API
                 {
                     throw new Exception();
                 }
-                currentSong.setLyricsType();
+                currentSong.SetLyricsType();
             }
             catch
             {
@@ -242,7 +240,7 @@ namespace CompanionDisplayWinUI.API
             try
             {
                 int i = 0;
-                double songElapsed = songElapsedMs();
+                double songElapsed = SongElapsedMs();
                 while (songElapsed > currentSong.timedLyricsTimestamps[i])
                 {
                     i++;
@@ -253,7 +251,7 @@ namespace CompanionDisplayWinUI.API
             }
             catch { }
         }
-        public static string buildDetails()
+        public static string BuildDetails()
         {
             string details = currentSong.artist; 
             if(currentSong.hasReleaseDate)
@@ -262,7 +260,7 @@ namespace CompanionDisplayWinUI.API
             }
             return details;
         }
-        private static void checkStatus(GlobalSystemMediaTransportControlsSession sender, PlaybackInfoChangedEventArgs args)
+        private static void CheckStatus(GlobalSystemMediaTransportControlsSession sender, PlaybackInfoChangedEventArgs args)
         {
             playbackInfo = currentSession.GetPlaybackInfo();
         }

@@ -5,17 +5,17 @@ namespace CompanionDisplayWinUI.ClassImplementations
 {
     internal class VariableQuirks
     {
-        public static int getIntFromBool(bool value, int ifTrue, int ifFalse)
+        public static int GetIntFromBool(bool value, int ifTrue, int ifFalse)
         {
             return value ? ifTrue : ifFalse;
         }
-        public static Visibility getVisibilityFromBool(bool value)
+        public static Visibility GetVisibilityFromBool(bool value)
         {
-            return (Visibility)getIntFromBool(value, 0, 1);
+            return (Visibility)GetIntFromBool(value, 0, 1);
         }
-        public static AppWindowPresenterKind getPresenterKindFromBool(bool value)
+        public static AppWindowPresenterKind GetPresenterKindFromBool(bool value)
         {
-            return (AppWindowPresenterKind)getIntFromBool(value, 0, 2);
+            return (AppWindowPresenterKind)GetIntFromBool(value, 0, 2);
         }
     }
 }

@@ -138,7 +138,6 @@ namespace CompanionDisplayWinUI
             if (LoadFinish)
             {
                 int selection = (sender as ComboBox).SelectedIndex;
-                var Parent = MainScroll.Parent as BlankPage3;
                 switch (selection)
                 {
                     case 0:
@@ -185,7 +184,6 @@ namespace CompanionDisplayWinUI
         {
             if(LoadFinish)
             {
-                string Theme = e.AddedItems[0].ToString();
                 Globals.Backdrop = BackdropSelect.SelectedIndex;
                 (CommonlyAccessedInstances.m_window as MainWindow).CallUpdate();
                 ConfigAPI.Save_Settings();
@@ -494,7 +492,7 @@ namespace CompanionDisplayWinUI
         private void ResetBrowser_Click(object sender, RoutedEventArgs e)
         {
             CommandAPI.PerformCMDCommand("taskkill /im msedgewebview2.exe");
-            FileAPI.deleteDirectoryRecursive("CompanionDisplayWinUI.exe.WebView2");
+            FileAPI.DeleteDirectoryRecursive("CompanionDisplayWinUI.exe.WebView2");
         }
 
         private void DiscordToggle_Toggled(object sender, RoutedEventArgs e)
@@ -524,15 +522,19 @@ namespace CompanionDisplayWinUI
         {
             float newScale = (float)(sender as Slider).Value;
             Globals.scale = newScale;
-            var compositor = ElementCompositionPreview.GetElementVisual(CommonlyAccessedInstances.MainGrid).Compositor;
             var rootVisual = ElementCompositionPreview.GetElementVisual(CommonlyAccessedInstances.ScalingGrid);
-            AppWindowControlAPI.SetScale(newScale, rootVisual, compositor);
+            AppWindowControlAPI.SetScale(newScale, rootVisual);
             ConfigAPI.Save_Settings();
             if (!Globals.injectedSizeChangeEvent)
             {
                 Globals.injectedSizeChangeEvent = true;
-                CommonlyAccessedInstances.ScalingGrid.SizeChanged += AppWindowControlAPI.UpdateScaling;
+                CommonlyAccessedInstances.ScalingGrid.SizeChanged += UpdateScaling;
             }
+        }
+
+        private void UpdateScaling(object sender, SizeChangedEventArgs e)
+        {
+            AppWindowControlAPI.UpdateScaling();
         }
 
         private void MusicPlayerSelectedCust_TextChanged(object sender, TextChangedEventArgs e)
@@ -551,7 +553,7 @@ namespace CompanionDisplayWinUI
                 SpotifyPlayer currentPlayer = PageCacheHandler.mediaPlayer;
                 if(currentPlayer != null)
                 {
-                    PageCacheHandler.mediaPlayer.killThis();
+                    PageCacheHandler.mediaPlayer.KillThis();
                 }
             }
             catch

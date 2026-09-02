@@ -203,7 +203,9 @@ namespace CompanionDisplayWinUI
             sender.TabItems.Add(tab);
             sender.SelectedItem = tab;
         }
+#pragma warning disable CA1822 // This suggestion would break compilation
         private void Tabs_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
+#pragma warning restore CA1822 // This suggestion would break compilation
         {
             try
             {

@@ -34,8 +34,8 @@ namespace CompanionDisplayWinUI
         public MainWindow()
         {
             this.InitializeComponent();
-            var hwnd = WindowNative.GetWindowHandle(this);
-            var id = Win32Interop.GetWindowIdFromWindow(hwnd);
+            hWnd = WindowNative.GetWindowHandle(this);
+            var id = Win32Interop.GetWindowIdFromWindow(hWnd);
             var appWindow = AppWindow.GetFromWindowId(id);
             CommonlyAccessedInstances.mainDispatcher = DispatcherQueue;
             CommonlyAccessedInstances.nvSample = nvSample;
@@ -52,6 +52,22 @@ namespace CompanionDisplayWinUI
             WindowId myWndId = Win32Interop.GetWindowIdFromWindow(hWnd);
             return AppWindow.GetFromWindowId(myWndId);
         }
+        readonly IntPtr hWnd;
+        public void SetFocusOff()
+        {
+            SetWindowLong(hWnd, -20, GetWindowLong(hWnd, -20) | 134480128);
+        }
+        public void SetFocusOn()
+        {
+            SetWindowLong(hWnd, -20, 256);
+        }
+        public void CallToForeground()
+        {
+            SetForegroundWindow(hWnd);
+        }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
         private void NavigationView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
             if (sender.IsPaneToggleButtonVisible && sender.PaneDisplayMode == NavigationViewPaneDisplayMode.Auto || sender.PaneDisplayMode == NavigationViewPaneDisplayMode.LeftMinimal && !sender.IsPaneToggleButtonVisible)
@@ -60,7 +76,6 @@ namespace CompanionDisplayWinUI
                 {
                     GC.Collect();
                     Globals.IsAllApps = false;
-                    IntPtr hWnd = WindowNative.GetWindowHandle(this);
                     sender.PaneClosed -= ProcessShit;
                     switch (args.SelectedItemContainer.Tag.ToString())
                     {
@@ -74,20 +89,20 @@ namespace CompanionDisplayWinUI
                             contentFrame.Navigate(typeof(BlankPage1), null, args.RecommendedNavigationTransitionInfo);
                             if (Globals.StealFocus)
                             {
-                                SetWindowLong(hWnd, -20, GetWindowLong(hWnd, -20) | 134480128);
+                                SetFocusOff();
                             }
                             sender.PaneClosed += ProcessShit;
                             break;
                         case "SamplePage2":
                             SleepReptangle.Visibility = Visibility.Collapsed;
                             contentFrame.Navigate(typeof(BrowserTab), null, args.RecommendedNavigationTransitionInfo);
-                            SetWindowLong(hWnd, -20, 256);
+                            SetFocusOn();
                             sender.PaneClosed += ProcessShit;
                             break;
                         case "SamplePage3":
                             SleepReptangle.Visibility = Visibility.Collapsed;
                             contentFrame.Navigate(typeof(SpotifyPlayer), args.RecommendedNavigationTransitionInfo);
-                            SetWindowLong(hWnd, -20, 256);
+                            SetFocusOn();
                             sender.PaneClosed += ProcessShit;
                             break;
                         case "SleepMode":
@@ -95,7 +110,7 @@ namespace CompanionDisplayWinUI
                             contentFrame.Navigate(typeof(SleepPage), null, args.RecommendedNavigationTransitionInfo);
                             if (Globals.StealFocus)
                             {
-                                SetWindowLong(hWnd, -20, GetWindowLong(hWnd, -20) | 134480128);
+                                SetFocusOff();
                             }
                             break;
                         case "Settings":
@@ -198,7 +213,7 @@ namespace CompanionDisplayWinUI
                         DispatcherQueue.TryEnqueue(() =>
                         {
                             BackgroundImage.Visibility = Visibility.Visible;
-                            ImageOptionalBlur.Visibility = VariableQuirks.getVisibilityFromBool(Globals.Blur);
+                            ImageOptionalBlur.Visibility = VariableQuirks.GetVisibilityFromBool(Globals.Blur);
                         });
                         Thread thread2 = new(SongCoverBackground);
                         thread2.Start();
@@ -240,9 +255,9 @@ namespace CompanionDisplayWinUI
         {
             bool fullscreen = _appWindow.Presenter.Kind == AppWindowPresenterKind.FullScreen;
             ExtendsContentIntoTitleBar = fullscreen;
-            AppTitleBar.Visibility = VariableQuirks.getVisibilityFromBool(fullscreen);
+            AppTitleBar.Visibility = VariableQuirks.GetVisibilityFromBool(fullscreen);
             CornerMask.Visibility = AppTitleBar.Visibility;
-            _appWindow.SetPresenter(VariableQuirks.getPresenterKindFromBool(fullscreen));
+            _appWindow.SetPresenter(VariableQuirks.GetPresenterKindFromBool(fullscreen));
             if (fullscreen)
             {
                 DebugPage.Content = AppStrings.fullscrenEnter;
@@ -272,9 +287,14 @@ namespace CompanionDisplayWinUI
             CommonlyAccessedInstances.WindowControls = CornerMask;
             if (Globals.scale != 1.0f)
             {
-                AppWindowControlAPI.SetScale(Globals.scale, rootVisual, compositor);
-                Scaling.SizeChanged += AppWindowControlAPI.UpdateScaling;
+                AppWindowControlAPI.SetScale(Globals.scale, rootVisual);
+                Scaling.SizeChanged += UpdateScaling;
             }
+        }
+
+        private void UpdateScaling(object sender, SizeChangedEventArgs e)
+        {
+            AppWindowControlAPI.UpdateScaling();
         }
     }
 }

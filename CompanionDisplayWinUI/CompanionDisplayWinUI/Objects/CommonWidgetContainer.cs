@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CompanionDisplayWinUI.Objects
 {
-    public class CommonWidgetContainer : Frame
+    public partial class CommonWidgetContainer : Frame
     {
         public CommonWidgetContainer(Type targetWidget)
         {
