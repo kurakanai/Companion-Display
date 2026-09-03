@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Formats.Tar;
 using System.IO;
-using System.IO.Compression;
 using System.Windows.Forms;
 
 namespace CompanionDisplayWinUI.API

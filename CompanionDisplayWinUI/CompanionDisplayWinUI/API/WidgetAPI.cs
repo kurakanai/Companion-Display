@@ -1,19 +1,10 @@
 ﻿using CompanionDisplayWinUI.ClassImplementations;
-using CompanionDisplayWinUI.ClassImplementations.SharedPages;
 using CompanionDisplayWinUI.Objects;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CompanionDisplayWinUI.API
 {

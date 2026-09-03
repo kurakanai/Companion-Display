@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace CompanionDisplayWinUI.ClassImplementations
+﻿namespace CompanionDisplayWinUI.ClassImplementations
 {
     static class FileFolderPicker
     {

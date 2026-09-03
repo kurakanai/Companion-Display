@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CompanionDisplayWinUI.API
+﻿namespace CompanionDisplayWinUI.API
 {
     static class ADBAPI
     {
@@ -26,7 +24,7 @@ namespace CompanionDisplayWinUI.API
         }
         public static double GetDeviceBrightness(string devID)
         {
-            return Double.Parse(ExecuteShellCommand("settings get system screen_brightness", devID));
+            return double.Parse(ExecuteShellCommand("settings get system screen_brightness", devID));
         }
     }
 }
