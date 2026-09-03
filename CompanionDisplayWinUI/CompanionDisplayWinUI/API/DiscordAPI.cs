@@ -1,5 +1,4 @@
-﻿using CompanionDisplayWinUI.ClassImplementations;
-using DiscordRPC;
+﻿using DiscordRPC;
 using DiscordRPC.Message;
 using System;
 using System.Collections.Generic;
@@ -15,14 +14,6 @@ namespace CompanionDisplayWinUI.API
             try
             {
                 discordRpcClient = new DiscordRpcClient(Globals.DiscordID);
-                discordRpcClient.OnReady += delegate (object sender, ReadyMessage e)
-                {
-                    Console.WriteLine("Received Ready from user {0}", e.User.Username);
-                };
-                discordRpcClient.OnPresenceUpdate += delegate (object sender, PresenceMessage e)
-                {
-                    Console.WriteLine("Received Update! {0}", e.Presence);
-                };
                 if (!Globals.disableDiscord)
                 {
                     discordRpcClient.Initialize();
@@ -34,104 +25,67 @@ namespace CompanionDisplayWinUI.API
         }
         public static RichPresence PresenceBuilder(TimeSpan songElapsed, TimeSpan songEnd)
         {
-            DateTime dt = DateTime.Now.ToUniversalTime().Add(-songElapsed);
-            DateTime dt2 = DateTime.Now.ToUniversalTime().Add(-songElapsed + songEnd);
-            string details = MusicAPI.currentSong.title;
-            if (details.Length > 128)
-            {
-                details = details[..125] + "...";
-            }
-            RichPresence presence = new()
+            var now = DateTime.UtcNow;
+            var currentSong = MusicAPI.currentSong;
+            string details = Truncate(currentSong?.title, 128);
+            string state = MusicAPI.currentLyric != null ? Truncate(MusicAPI.currentLyric, 128)  : MusicAPI.BuildDetails();
+            return new RichPresence
             {
                 Details = details,
-                State = MusicAPI.BuildDetails(),
+                State = state,
                 Timestamps = new Timestamps
                 {
-                    Start = dt,
-                    End = dt2
+                    Start = now - songElapsed,
+                    End = now - songElapsed + songEnd
                 },
                 Assets = new Assets
                 {
-                    LargeImageKey = MusicAPI.currentSong.albumCoverUrl,
+                    LargeImageKey = currentSong?.albumCoverUrl,
                     LargeImageText = MusicAPI.BuildDetails(),
-                    SmallImageText = MusicAPI.currentSong.album,
+                    SmallImageText = currentSong?.album,
                     SmallImageKey = "mini_logo"
                 },
+                Buttons = Globals.showPromo ? [
+                    new Button
+            {
+                Label = "Get Companion Display",
+                Url = "https://github.com/kurakanai/Companion-Display/releases"
+            }
+                ] : null,
+                Type = ActivityType.Listening
             };
-            if (MusicAPI.currentLyric != null)
-            {
-                if (details.Length >= 128)
-                {
-                    details = details[..124] + "...";
-                }
-                if (MusicAPI.currentSong.title != null && MusicAPI.currentSong.title.Length >= 128)
-                {
-                    MusicAPI.currentSong.title = MusicAPI.currentSong.title[..124] + "...";
-                }
-                try
-                {
-                    presence.Details = details + "";
-                }
-                catch
-                {
-                    try
-                    {
-                        presence.Details = details[..50] + "...";
-                    }
-                    catch { }
-                }
-                try
-                {
-                    presence.State = MusicAPI.currentLyric;
-                }
-                catch
-                {
-                    if (details != null && details.Length >= 50)
-                    {
-                        presence.State = MusicAPI.currentLyric.Remove(50, details.Length - 50) + "...";
-                    }
-                    else
-                    {
-                        presence.State = "";
-                    }
-                }
-            }
-            var buttons = new List<Button>();
-
-            if (Globals.showPromo)
-            {
-                buttons.Add(new Button
-                {
-                    Label = "Get Companion Display",
-                    Url = "https://github.com/kurakanai/Companion-Display/releases"
-                });
-            }
-
-            presence.Buttons = [.. buttons];
-            presence.Type = ActivityType.Listening;
-            return presence;
         }
-        private readonly static RichPresence comparisonPresence = new();
+
+        private static string Truncate(string value, int maxLength)
+        {
+            if (string.IsNullOrEmpty(value)) return string.Empty;
+            return value.Length <= maxLength ? value : string.Concat(value.AsSpan(0, maxLength - 3), "...");
+        }
+        private static RichPresence comparisonPresence = new();
         public static void PushPresenceDiscord(RichPresence presence)
         {
-            try
+            if (discordRpcClient == null || presence == null)
+                return;
+
+            bool isPlaying = MusicAPI.playbackInfo?.PlaybackStatus == GlobalSystemMediaTransportControlsSessionPlaybackStatus.Playing;
+
+            if (isPlaying)
             {
-                bool checkPlaybackInfo = (MusicAPI.playbackInfo != null && (MusicAPI.playbackInfo.PlaybackStatus == (GlobalSystemMediaTransportControlsSessionPlaybackStatus)4));
-                if (discordRpcClient != null)
+                bool hasChanged = presence.State != comparisonPresence?.State || presence.Details != comparisonPresence?.Details;
+                if (hasChanged)
                 {
-                    if (presence.State != comparisonPresence.State || presence.Details != comparisonPresence.Details)
+                    comparisonPresence = new RichPresence
                     {
-                        comparisonPresence.State = presence.State;
-                        comparisonPresence.Details = presence.Details;
-                        discordRpcClient.SetPresence(presence);
-                    }
-                }
-                else
-                {
-                    discordRpcClient?.ClearPresence();
+                        State = presence.State,
+                        Details = presence.Details
+                    };
+                    discordRpcClient.SetPresence(presence);
                 }
             }
-            catch { }
+            else
+            {
+                discordRpcClient.ClearPresence();
+            }
         }
     }
 }

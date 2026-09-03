@@ -25,7 +25,7 @@ namespace CompanionDisplayWinUI.API
         };
         public static void PerformCMDCommand(string command)
         {
-            cmd.StartInfo.Arguments = "/C " + command;
+            cmd.StartInfo.Arguments = $"/C {command}";
             cmd.Start();
             cmd.WaitForExit();
         }

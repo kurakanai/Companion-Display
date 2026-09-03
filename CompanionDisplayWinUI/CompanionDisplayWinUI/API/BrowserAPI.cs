@@ -15,35 +15,37 @@ namespace CompanionDisplayWinUI.API
         private static readonly SemaphoreSlim semaphore = new(1);
         public static Uri ParseLink(string input)
         {
-            if (input.Length > 3 && input[1..].Contains("://"))
+            if (string.IsNullOrWhiteSpace(input))
             {
-                return(new Uri(input));
+                return BuildSearchUri(string.Empty);
             }
-            else if (input.Length > 3 && input[1..].Contains('.') && input[..^2].Contains('.') && !input.Contains(' '))
+            input = input.Trim();
+            if (Uri.TryCreate(input, UriKind.Absolute, out var directUri))
             {
-                try
-                {
-                    return(new Uri("https://" + input));
-                }
-                catch
-                {
-                    return(new Uri(Globals.SearchEngine + "/search?q=" + HttpUtility.UrlEncode(input)));
-                }
+                return directUri;
             }
-            else
+            if (!input.Contains(' ') && Uri.TryCreate($"https://{input}", UriKind.Absolute, out var httpsUri) && httpsUri.Host.Contains('.'))
             {
-                return(new Uri(Globals.SearchEngine + "/search?q=" + HttpUtility.UrlEncode(input)));
+                return httpsUri;
             }
+            return BuildSearchUri(input);
         }
+        private static Uri BuildSearchUri(string query)
+            => new($"{Globals.SearchEngine}search?q={HttpUtility.UrlEncode(query)}");
         public static void NavigateSpecialUrl(WebView2 webView2, string url)
         {
-            if (webView2.Source != new Uri("edge://" + url))
+            var targetUri = new Uri($"edge://{url}");
+
+            if (webView2.Source == targetUri)
             {
-                webView2.Source = new Uri("edge://" + url);
+                if (webView2.CanGoBack)
+                {
+                    webView2.GoBack();
+                }
             }
             else
             {
-                webView2.GoBack();
+                webView2.Source = targetUri;
             }
         }
         public static Button CreateLaunchPadButton(object content, FontFamily font, string name)
@@ -64,7 +66,7 @@ namespace CompanionDisplayWinUI.API
         {
             BitmapImage bitmapImage = new()
             {
-                UriSource = new Uri("https://www.google.com/s2/favicons?domain=" + uri.Host + "&sz=256")
+                UriSource = new Uri($"https://www.google.com/s2/favicons?domain={uri.Host}&sz=256")
             };
             Image image = new()
             {
@@ -80,7 +82,7 @@ namespace CompanionDisplayWinUI.API
             {
                 if (sharedEnvironment == null)
                 {
-                    sharedEnvironment = await CoreWebView2Environment.CreateWithOptionsAsync("", "", new() { AreBrowserExtensionsEnabled = true });
+                    sharedEnvironment = await CoreWebView2Environment.CreateWithOptionsAsync(string.Empty, string.Empty, new() { AreBrowserExtensionsEnabled = true });
                 }
                 await webView2.EnsureCoreWebView2Async(sharedEnvironment);
                 await webView2.CoreWebView2.Profile.AddBrowserExtensionAsync(Path.GetFullPath("Assets\\1.59.0_0"));

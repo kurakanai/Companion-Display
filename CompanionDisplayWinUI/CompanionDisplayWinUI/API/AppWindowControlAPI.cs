@@ -21,14 +21,7 @@ namespace CompanionDisplayWinUI.API
         }
         public static void UpdateScaling()
         {
-            if(Globals.scale != 1.0f)
-            {
-                CommonlyAccessedInstances.WindowControls.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                CommonlyAccessedInstances.WindowControls.Visibility = Visibility.Visible;
-            }
+            CommonlyAccessedInstances.WindowControls.Visibility = (Globals.scale == 1.0f) ? Visibility.Visible : Visibility.Collapsed;
             CommonlyAccessedInstances.MainGrid.Width = CommonlyAccessedInstances.ScalingGrid.ActualWidth / Globals.scale;
             CommonlyAccessedInstances.MainGrid.Height = CommonlyAccessedInstances.ScalingGrid.ActualHeight / Globals.scale;
         }

@@ -22,15 +22,11 @@ namespace CompanionDisplayWinUI.API
         private readonly CanvasDevice captureCanvas = new();
         private int[] targetDimensions = [128, 64];
         private readonly string targetPort;
-        private readonly int baudRate = 115200;
-        private readonly int opTimeout = 1500;
-        private readonly int opCooldown = 2;
-        private readonly int chunkSize = 64;
+        private readonly int baudRate = 115200, opTimeout = 1500, opCooldown = 2, chunkSize = 64, queueSize = 2;
         private CanvasRenderTarget renderTarget;
         private SerialPort serialPort;
         private readonly BlockingCollection<byte[]> frameQueue;
         private int bufferSize;
-        private readonly int queueSize = 2;
         private const byte achByte = 0x06;
         readonly DispatcherTimer timer = new() { Interval = TimeSpan.FromMilliseconds(33) };
         public ArduinoAPI(ContentControl captureTarget, string targetPort)

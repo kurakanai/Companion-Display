@@ -61,34 +61,31 @@ namespace CompanionDisplayWinUI.API
             Thread thread = new(UpdateSensor);
             thread.Start();
         }
-        public static void UpdateSensorValue(ISensor sensor1, double lastValue, TextBlock textBlock, ProgressRing ring, string termination, DispatcherQueue dispatcher, bool extraPrecision)
+        public static void UpdateSensorValue(ISensor sensor, double lastValue, TextBlock textBlock, ProgressRing ring, string termination, DispatcherQueue dispatcher, bool extraPrecision)
         {
-            try
+            if (sensor == null) return;
+            double? rawValue = sensor.Value;
+            if (!rawValue.HasValue) return;
+            int decimals = extraPrecision ? 2 : 0;
+            double value = Math.Round(rawValue.Value, decimals);
+            if (value == lastValue || lastValue == -2) return;
+            var currentHW = Globals.CurrentHW;
+            if (currentHW != sensor.Hardware && currentHW != sensor.Hardware?.Parent) return;
+            double? maxVal = sensor.Max;
+            string displayText = $"{value}{termination}";
+            dispatcher.TryEnqueue(() =>
             {
-                int mult = 1;
-                if (extraPrecision)
-                {
-                    mult = 100;
-                }
-                double value = (Math.Round((float)(sensor1.Value) * mult)) / mult;
-                if (value != lastValue && (Globals.CurrentHW == sensor1.Hardware || Globals.CurrentHW == sensor1.Hardware.Parent) && lastValue != -2 && Math.Round((float)sensor1.Value) != lastValue)
-                {
-                    dispatcher.TryEnqueue(() =>
-                    {
-                        textBlock.Text = value + termination;
-                        if (ring != null)
-                        {
-                            ring.Value = value;
-                            if (ring.Maximum != 100)
-                            {
-                                ring.Maximum = sensor1.Max.Value;
-                            }
-                        }
-                    });
-                }
-            }
-            catch { }
-        }
+                textBlock.Text = displayText;
 
+                if (ring != null)
+                {
+                    ring.Value = value;
+                    if (maxVal.HasValue && Math.Abs(ring.Maximum - maxVal.Value) > 0.001)
+                    {
+                        ring.Maximum = maxVal.Value;
+                    }
+                }
+            });
+        }
     }
 }

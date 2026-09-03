@@ -18,8 +18,7 @@ namespace CompanionDisplayWinUI.API
         }
         public static void MoveToTopFileOvr(string file)
         {
-            string parentDir = Directory.GetParent(file).FullName;
-            string parentParentDir = Directory.GetParent(parentDir).FullName;
+            string parentDir = Directory.GetParent(file).FullName, parentParentDir = Directory.GetParent(parentDir).FullName;
             MoveOverwrite(file, Path.Combine(parentParentDir, Path.GetFileName(file)));
         }
         public static void MoveToCurFileOvr(string file)
@@ -28,8 +27,7 @@ namespace CompanionDisplayWinUI.API
         }
         public static void MoveToTopDirOvr(string folder)
         {
-            string parentDir = Directory.GetParent(folder).FullName;
-            string parentParentDir = Directory.GetParent(parentDir).FullName;
+            string parentDir = Directory.GetParent(folder).FullName, parentParentDir = Directory.GetParent(parentDir).FullName;
             MoveDirectoryOverwrite(folder, Path.Combine(parentParentDir, Path.GetRelativePath(parentDir, folder)));
         }
         public static void MoveToCurDirOvr(string folder)

@@ -9,7 +9,7 @@ namespace CompanionDisplayWinUI.API
     {
         public async static void PerformUpdate(bool downloadUpdate)
         {
-            string updatePath = "";
+            string updatePath = string.Empty;
             if (downloadUpdate)
             {
                 updatePath = "release.zip";
@@ -32,17 +32,13 @@ namespace CompanionDisplayWinUI.API
             }
             if(updatePath != "")
             {
-                CommandAPI.PerformCMDCommand("taskkill /f /im CompanionDisplayWinUI.exe & mkdir Update & MOVE * Update/ & cd Update & move CompanionDisplayWinUI.exe.WebView2 ../ & move Config ../ & move \"" + updatePath + "\" ../release.zip & move setup.exe ../ & cd .. & tar -xf release.zip & del /f /q release.zip & rmdir /s /q Update & CompanionDisplayWinUI.exe");
+                CommandAPI.PerformCMDCommand($"taskkill /f /im CompanionDisplayWinUI.exe & mkdir Update & MOVE * Update/ & cd Update & move CompanionDisplayWinUI.exe.WebView2 ../ & move Config ../ & move \"{updatePath}\" ../release.zip & move setup.exe ../ & cd .. & tar -xf release.zip & del /f /q release.zip & rmdir /s /q Update & CompanionDisplayWinUI.exe");
             }
         }
         public static async Task CheckUpdate()
         {
             using HttpClient client = new();
-            string reply = await client.GetStringAsync(Globals.UpdateString);
-            if (Globals.IsBetaProgram)
-            {
-                reply = await client.GetStringAsync(Globals.UpdateStringBeta);
-            }
+            string reply = Globals.IsBetaProgram ? await client.GetStringAsync(Globals.UpdateStringBeta) : await client.GetStringAsync(Globals.UpdateString);
             Globals.IsUpdateAvailable = !(reply == Globals.Version);
         }
     }

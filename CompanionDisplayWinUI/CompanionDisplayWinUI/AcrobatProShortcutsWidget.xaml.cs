@@ -1,4 +1,6 @@
-﻿namespace CompanionDisplayWinUI.ClassImplementations
+﻿using CompanionDisplayWinUI.ClassImplementations.SharedPages;
+
+namespace CompanionDisplayWinUI.ClassImplementations
 {
     public sealed partial class AcrobatProShortcutsWidget : SharedAdobePage
     {

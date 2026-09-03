@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Web;
 using Windows.Media.Control;
@@ -21,7 +22,6 @@ namespace CompanionDisplayWinUI.API
         public static event CommonlyAccessedInstances.HandleEventsWithNoArgs CallInfoUpdate, CallTimingUpdate, CallLyricUpdate, CallCoverUpdate;
         private static GlobalSystemMediaTransportControlsSessionManager sessionManager;
         public static GlobalSystemMediaTransportControlsSessionPlaybackInfo playbackInfo;
-        public static GlobalSystemMediaTransportControlsSession currentSession;
         public static GlobalSystemMediaTransportControlsSessionMediaProperties sessionMediaProperties;
         public static GlobalSystemMediaTransportControlsSessionTimelineProperties timelineProperties;
         public static SongObject currentSong = new();
@@ -33,6 +33,9 @@ namespace CompanionDisplayWinUI.API
         public static int currentLyricIndex;
         private static HttpClient httpWrapper;
         private static readonly SemaphoreSlim semaphore = new(1);
+        #nullable enable
+        public static GlobalSystemMediaTransportControlsSession? currentSession;
+        #nullable disable
         static MusicAPI()
         {
             // Pass onto second thread
@@ -42,7 +45,7 @@ namespace CompanionDisplayWinUI.API
         private static void StartThread()
         {
             httpWrapper = new(new SocketsHttpHandler() { ConnectTimeout = TimeSpan.FromSeconds(2.0), KeepAlivePingTimeout = TimeSpan.FromSeconds(5.0), EnableMultipleHttp2Connections = false });
-            httpWrapper.DefaultRequestHeaders.Add("User-Agent", "Companion Display " + Globals.Version + " (https://github.com/kurakanai/Companion-Display)");
+            httpWrapper.DefaultRequestHeaders.Add("User-Agent", $"Companion Display {Globals.Version} (https://github.com/kurakanai/Companion-Display)");
             InitializeLocalMedia();
         }
         private async static void InitializeLocalMedia()
@@ -64,23 +67,36 @@ namespace CompanionDisplayWinUI.API
         {
             try
             {
-                currentSession = sender.GetCurrentSession();
-                currentSession.MediaPropertiesChanged -= UpdateInfo;
-                currentSession.MediaPropertiesChanged += UpdateInfo;
-                currentSession.TimelinePropertiesChanged -= UpdateTiming;
-                currentSession.TimelinePropertiesChanged += UpdateTiming;
-                currentSession.PlaybackInfoChanged -= CheckStatus;
-                currentSession.PlaybackInfoChanged += CheckStatus;
-                playbackInfo = currentSession.GetPlaybackInfo();
-                currentSong = new();
+                var newSession = sender.GetCurrentSession();
+                if (Equals(currentSession, newSession))
+                    return;
+
+                if (currentSession != null)
+                {
+                    currentSession.MediaPropertiesChanged -= UpdateInfo;
+                    currentSession.TimelinePropertiesChanged -= UpdateTiming;
+                    currentSession.PlaybackInfoChanged -= CheckStatus;
+                }
+
+                currentSession = newSession;
+
+                if (currentSession != null)
+                {
+                    currentSession.MediaPropertiesChanged += UpdateInfo;
+                    currentSession.TimelinePropertiesChanged += UpdateTiming;
+                    currentSession.PlaybackInfoChanged += CheckStatus;
+                    playbackInfo = currentSession.GetPlaybackInfo();
+                    currentSong = new();
+                    await Task.Run(() =>
+                    {
+                        UpdateInfo(currentSession, null);
+                        UpdateTiming(currentSession, null);
+                    });
+                }
             }
-            catch { }
-            Thread thread = new(async () =>
+            catch
             {
-                UpdateInfo(currentSession, null);
-                UpdateTiming(currentSession, null);
-            });
-            thread.Start();
+            }
         }
         private static readonly Stopwatch progressSmoother = new();
         private static double syncOffset = 0;
@@ -90,25 +106,31 @@ namespace CompanionDisplayWinUI.API
         }
         private static async void UpdateInfo(GlobalSystemMediaTransportControlsSession sender, MediaPropertiesChangedEventArgs args)
         {
+            if (sender == null) return;
             await semaphore.WaitAsync();
             try
             {
-                sessionMediaProperties = await sender.TryGetMediaPropertiesAsync();
-                    string newTitle = sessionMediaProperties.Title;
-                    string newAlbum = sessionMediaProperties.AlbumTitle;
-                    if (currentSong == null || !currentSong.CheckIfSameSimple(newTitle, newAlbum))
-                    {
-                        currentSong = new SongObject();
-                        UpdateTiming(sender, null);
-                        ActuallyUpdateTiming();
-                    }
-                    RequestSongID();
-                    SetLyrics(-1, "");
-                    GetLyrics();
+                var mediaProps = await sender.TryGetMediaPropertiesAsync();
+                if (mediaProps == null) return;
+                sessionMediaProperties = mediaProps;
+                string newTitle = mediaProps.Title;
+                string newAlbum = mediaProps.AlbumTitle;
+                if (currentSong == null || !currentSong.CheckIfSameSimple(newTitle, newAlbum))
+                {
+                    currentSong = new SongObject();
+                    ActuallyUpdateTiming();
+                }
+                SetLyrics(-1, string.Empty);
+                await Task.WhenAll(TaskAPI.IgnoreExceptionsAsync(RequestSongID()), TaskAPI.IgnoreExceptionsAsync(GetLyrics()));
+                SongChanged();
             }
-            catch{ }
-            SongChanged();
-            semaphore.Release();
+            catch
+            {
+            }
+            finally
+            {
+                semaphore.Release();
+            }
         }
         private static void UpdateTiming(GlobalSystemMediaTransportControlsSession sender, TimelinePropertiesChangedEventArgs args)
         {
@@ -119,17 +141,32 @@ namespace CompanionDisplayWinUI.API
         }
         private static void ActuallyUpdateTiming()
         {
+            songElapsed = TimeSpan.FromMilliseconds(SongElapsedMs());
+            double progressPercent = 0.0;
+            if (timelineProperties != null && timelineProperties.EndTime.TotalMilliseconds > 0)
+            {
+                progressPercent = (timelineProperties.Position.TotalMilliseconds / timelineProperties.EndTime.TotalMilliseconds) * 100.0;
+                progressPercent = Math.Clamp(progressPercent, 0.0, 100.0);
+            }
+            string elapsedStr = FormatTimeSpan(songElapsed);
+            string endStr = FormatTimeSpan(songEnd);
+            SetTime(elapsedStr, endStr, progressPercent);
             try
             {
-                songElapsed = TimeSpan.FromMilliseconds(SongElapsedMs());
-                SetTime(songElapsed.ToString(@"m\:ss"), songEnd.ToString(@"m\:ss"), timelineProperties.Position.TotalMilliseconds / timelineProperties.EndTime.TotalMilliseconds * 100.0);
                 GetExactLyric();
+            }
+            catch { }
+            try
+            {
                 DiscordAPI.PushPresenceDiscord(DiscordAPI.PresenceBuilder(songElapsed, songEnd));
             }
-            catch
-            {
+            catch { }
+        }
 
-            }
+        private static string FormatTimeSpan(TimeSpan ts)
+        {
+            int totalMinutes = (int)ts.TotalMinutes;
+            return $"{totalMinutes}:{ts.Seconds:D2}";
         }
         private static readonly System.Timers.Timer callerTimer = new()
         {
@@ -149,7 +186,7 @@ namespace CompanionDisplayWinUI.API
             currentLyric = lyrics;
             SongLyricChanged();
         }
-        private static void RequestSongID()
+        public static async Task RequestSongID()
         {
             try
             {
@@ -158,9 +195,9 @@ namespace CompanionDisplayWinUI.API
                 string queryAlbumName = currentSong.album;
                 if (queryAlbumName != "")
                 {
-                    queryAlbumName = "+AND+release:" + HttpUtility.UrlEncode(queryAlbumName);
+                    queryAlbumName += $"+AND+release:{HttpUtility.UrlEncode(queryAlbumName)}";
                 }
-                string queryURL = "https://musicbrainz.org/ws/2/recording/?query=" + HttpUtility.UrlEncode(Regex.Replace(querySongName, @"[^\w\s]", "")) + queryAlbumName + "+AND+artist:" + HttpUtility.UrlEncode(queryArtistName.Replace(" - Topic", "")) +"+AND+status:official" + "&release-group-type=album,single,ep,lp&fmt=json";
+                string queryURL = $"https://musicbrainz.org/ws/2/recording/?query={HttpUtility.UrlEncode(Regex.Replace(querySongName, @"[^\w\s]", ""))}{queryAlbumName}+AND+artist:{HttpUtility.UrlEncode(queryArtistName.Replace(" - Topic", ""))}+AND+status:official&release-group-type=album,single,ep,lp&fmt=json";
                 var queryResponse = httpWrapper.GetStringAsync(queryURL);
                 StringReader readerlyric0 = new(queryResponse.Result);
                 JToken array = JToken.Parse(queryResponse.Result)["recordings"];
@@ -178,13 +215,13 @@ namespace CompanionDisplayWinUI.API
             }
             catch { }
         }
-        private static void GetLyrics()
+        public static async Task GetLyrics()
         {
             try
             {
                 if (currentSong.title != "")
                 {
-                    string url2 = "https://lrclib.net/api/search?q=" + HttpUtility.UrlEncode(currentSong.title + " " + currentSong.artist.Replace(" - Topic", "") + " " + currentSong.album);
+                    string url2 = $"https://lrclib.net/api/search?q={HttpUtility.UrlEncode($"{currentSong.title} {currentSong.artist.Replace(" - Topic", "")} {currentSong.album}")}";
                     var response2 = httpWrapper.GetStringAsync(url2);
                     StringReader readerlyric0 = new(response2.Result);
                     JToken array = JArray.Parse(response2.Result);
@@ -263,7 +300,6 @@ namespace CompanionDisplayWinUI.API
         {
             playbackInfo = currentSession.GetPlaybackInfo();
         }
-        // Triggers
         public static void SongChanged()
         {
             CallInfoUpdate?.Invoke();
