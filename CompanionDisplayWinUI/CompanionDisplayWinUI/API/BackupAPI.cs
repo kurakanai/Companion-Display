@@ -65,6 +65,9 @@ namespace CompanionDisplayWinUI.API
             }
             CommandAPI.PerformCMDCommand("cd Config & rmdir /S /Q Backup & mkdir Backup " + options + " cd Backup & tar -a -c -f " + backupFile + " * & cd .. & rmdir /S /Q Backup");
         }
+        public static void EraseConfig(){
+            CommandAPI.PerformCMDCommand("rmdir /S /Q Config");
+        }
         public async static void OpenDialog(XamlRoot xamlRoot, bool isBackup)
         {
             ContentDialog dialog = new()

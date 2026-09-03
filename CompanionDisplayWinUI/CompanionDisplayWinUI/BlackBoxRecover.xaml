@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="CompanionDisplayWinUI.BlackBoxRecover"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CompanionDisplayWinUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="BlackBoxRecover">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Name="MainStackPanel">
+            <TextBlock Text="Companion Display has experienced a crash and has entered safe mode." FontSize="20" HorizontalAlignment="Center"/>
+            <TextBlock Text="O Companion Display fechou inesperadamente e entrou em modo de segurança." Opacity="0.7" FontSize="15" HorizontalAlignment="Center"/>
+            <TextBlock Name="Error" IsTextSelectionEnabled="True" FontSize="15" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+            <Button Content="Reset Config" HorizontalAlignment="Center" Width="500" Tapped="Button_Tapped_4"/>
+            <Button Content="Backup Menu" HorizontalAlignment="Center" Width="500" Tapped="Button_Tapped_3"/>
+            <Button Content="Attempt Online Reinstall" HorizontalAlignment="Center" Width="500" Tapped="Button_Tapped_1"/>
+            <Button Content="Attempt Local Reinstall" HorizontalAlignment="Center" Width="500" Tapped="Button_Tapped_2"/>
+            <Button Content="Continue" HorizontalAlignment="Center" Width="500" Tapped="Button_Tapped"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

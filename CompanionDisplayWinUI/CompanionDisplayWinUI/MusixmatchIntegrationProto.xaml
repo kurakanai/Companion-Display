@@ -10,5 +10,6 @@
     <StackPanel>
         <Button Content="Start Connect" Click="Button_Click"/>
         <Frame Name="ContentAR" Loaded="Content_Loaded" Width="128" Height="64"/>
+        <Button Content="Crash app!" Click="Button_Click_1"/>
     </StackPanel>
 </Page>

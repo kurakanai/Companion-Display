@@ -77,6 +77,7 @@
     <None Remove="AppDesign\Elements\Widgets.xaml" />
     <None Remove="AppDesign\FancyPantsFX.xaml" />
     <None Remove="AudioDevice.xaml" />
+    <None Remove="BlackBoxRecover.xaml" />
     <None Remove="BlankPage1.xaml" />
     <None Remove="BlankPage2.xaml" />
     <None Remove="BlankPage3.xaml" />
@@ -697,5 +698,10 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Remove="Assets\1.57.2_0\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="BlackBoxRecover.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

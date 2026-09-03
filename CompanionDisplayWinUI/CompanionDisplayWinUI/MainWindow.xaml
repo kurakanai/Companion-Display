@@ -28,7 +28,7 @@
                     <NavigationViewItem Icon="Home" x:Uid="Home" Tag="SamplePage1" x:Name="HomeItem"/>
                     <NavigationViewItem Icon="Globe" x:Uid="Internet" Tag="SamplePage2" x:Name="BrowserPage"/>
                     <NavigationViewItem Icon="MusicInfo" x:Uid="Spotify" Tag="SamplePage3" x:Name="SpotifyBuiltInPage"/>
-                    <!--<NavigationViewItem Icon="ReportHacked" Content="Secret Stuff" Tag="SecretStuff" x:Name="SecretStuff"/>-->
+                    <NavigationViewItem Icon="ReportHacked" Content="Secret Stuff" Tag="SecretStuff" x:Name="SecretStuff"/>
                 </NavigationView.MenuItems>
                 <NavigationView.FooterMenuItems>
                     <NavigationViewItem Icon="Clock" x:Uid="SleepMode" Tag="SleepMode" x:Name="SleepPage"/>

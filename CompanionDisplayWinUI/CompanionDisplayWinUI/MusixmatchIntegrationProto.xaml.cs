@@ -31,5 +31,10 @@ namespace CompanionDisplayWinUI
             ContentAR.Navigate(typeof(ArduinoInterfaceHomePage));
             arduinoFunctionality = new ArduinoAPI(ContentAR, "COM9");
         }
+
+        private void Button_Click_1(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            throw new System.Exception();
+        }
     }
 }

@@ -3,6 +3,7 @@ using CompanionDisplayWinUI.ClassImplementations;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,6 +23,7 @@ namespace CompanionDisplayWinUI
         /// </summary>
         public App()
         {
+            this.UnhandledException += LogCrash;
             System.Runtime.GCSettings.LargeObjectHeapCompactionMode = System.Runtime.GCLargeObjectHeapCompactionMode.CompactOnce;
             WindowsStuff.SetAdmin();
             ConfigAPI.LoadGeneralConfigs();
@@ -34,6 +36,13 @@ namespace CompanionDisplayWinUI
             thread2.Start();
             ConfigAPI.LoadSecConfig(DispatcherQueue.GetForCurrentThread());
 
+        }
+
+        private void LogCrash(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            try{
+                File.WriteAllText(Globals.BlackBoxFile, e.Message + "\n" + e.Exception.StackTrace);
+            } catch { }
         }
 
         private void InitializeOBS()
@@ -51,29 +60,40 @@ namespace CompanionDisplayWinUI
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            CommonlyAccessedInstances.m_window = new MainWindow();
-            CommonlyAccessedInstances.m_window.Activate();
-            try
+            StartApp();
+        }
+        public static void StartApp(){
+            if (File.Exists(Globals.BlackBoxFile))
             {
-                switch (Globals.ColorSchemeSelect)
-                {
-                    case (0):
-                        break;
-                    case (1):
-                        ThemingAPI.SetAppTheme(ElementTheme.Dark);
-                        break;
-                    case (2):
-                        ThemingAPI.SetAppTheme(ElementTheme.Light);
-                        break;
-                }
-                ThemingAPI.OverrideAccent();
-                if (Globals.FontFamily != "")
-                {
-                    ThemingAPI.SetFont(new Microsoft.UI.Xaml.Media.FontFamily(Globals.FontFamily));
-                }
+                BlackBoxRecover safeWindow = new();
+                safeWindow.Activate();
             }
-            catch
+            else
             {
+                CommonlyAccessedInstances.m_window = new MainWindow();
+                CommonlyAccessedInstances.m_window.Activate();
+                try
+                {
+                    switch (Globals.ColorSchemeSelect)
+                    {
+                        case (0):
+                            break;
+                        case (1):
+                            ThemingAPI.SetAppTheme(ElementTheme.Dark);
+                            break;
+                        case (2):
+                            ThemingAPI.SetAppTheme(ElementTheme.Light);
+                            break;
+                    }
+                    ThemingAPI.OverrideAccent();
+                    if (Globals.FontFamily != "")
+                    {
+                        ThemingAPI.SetFont(new Microsoft.UI.Xaml.Media.FontFamily(Globals.FontFamily));
+                    }
+                }
+                catch
+                {
+                }
             }
         }
     }

@@ -44,6 +44,7 @@ namespace CompanionDisplayWinUI
         public static string OBSConfigFile = "Config/OBSSettings.crlh";
         public static string MusicSettingsFile = "Config/PlayerSettings.crlh";
         public static string WidgetOrderFile = "Config/WidgetOrder.crlh";
+        public static string BlackBoxFile = "Config/BlackBox.crlh";
 
         // Loaded Configs
         public static int ColorSchemeSelect = 0;
