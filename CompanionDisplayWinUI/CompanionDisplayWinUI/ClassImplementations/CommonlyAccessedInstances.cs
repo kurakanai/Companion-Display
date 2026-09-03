@@ -3,7 +3,6 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Shapes;
 using System.Net.Http;
-using System.Windows.Threading;
 
 namespace CompanionDisplayWinUI.ClassImplementations
 {

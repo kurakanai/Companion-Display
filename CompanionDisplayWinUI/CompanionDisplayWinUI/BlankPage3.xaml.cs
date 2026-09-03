@@ -9,8 +9,6 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Drawing.Text;
-using System.IO;
-using System.Printing;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.System;

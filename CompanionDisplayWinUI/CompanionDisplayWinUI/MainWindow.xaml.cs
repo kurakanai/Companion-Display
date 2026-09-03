@@ -12,7 +12,6 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Windows.Graphics;
 using Windows.UI;
 using WinRT.Interop;
 

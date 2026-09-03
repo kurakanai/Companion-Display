@@ -1,7 +1,6 @@
 using System.IO;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using CompanionDisplayWinUI.ClassImplementations;
 using CompanionDisplayWinUI.API;
 
 // To learn more about WinUI, the WinUI project structure,

@@ -2,7 +2,6 @@ using CompanionDisplayWinUI.API;
 using CompanionDisplayWinUI.ClassImplementations;
 using CompanionDisplayWinUI.Objects;
 using CoreAudio;
-using Microsoft.UI.Composition;
 using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -12,14 +11,10 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
-using System.ComponentModel;
 using System.Threading;
-using System.Threading.Tasks;
 using Windows.Media.Control;
 using Windows.Storage.Streams;
 using Windows.System;
-using Windows.UI.Composition;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CompanionDisplayWinUI
 {

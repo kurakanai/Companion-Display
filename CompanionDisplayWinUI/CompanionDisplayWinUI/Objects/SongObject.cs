@@ -3,11 +3,7 @@ using CompanionDisplayWinUI.ClassImplementations;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Windows.Media.Control;
 using static CompanionDisplayWinUI.MediaPlayerWidget;
 

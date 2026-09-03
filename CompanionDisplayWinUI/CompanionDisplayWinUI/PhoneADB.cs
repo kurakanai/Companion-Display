@@ -1,7 +1,4 @@
-﻿using CompanionDisplayWinUI.ClassImplementations;
-using System;
-
-namespace CompanionDisplayWinUI
+﻿namespace CompanionDisplayWinUI
 {
     internal class PhoneADB
     {

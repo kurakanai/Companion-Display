@@ -1,8 +1,6 @@
 using CompanionDisplayWinUI.API;
 using Microsoft.UI.Xaml;
-using Microsoft.Web.WebView2.Core;
 using System;
-using System.IO;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
