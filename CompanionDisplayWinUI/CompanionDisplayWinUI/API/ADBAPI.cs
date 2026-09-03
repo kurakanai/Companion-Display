@@ -4,15 +4,15 @@
     {
         public static string ExecuteADBCommand(string command, string devID)
         {
-            return CommandAPI.GetCMDLog("runtimes\\adb.exe - s " + devID + " " + command);
+            return CommandAPI.GetCMDLog($"runtimes\\adb.exe - s {devID} {command})");
         }
         public static string ExecuteShellCommand(string command, string devID)
         {
-            return ExecuteADBCommand("shell " + command, devID);
+            return ExecuteADBCommand($"shell {command}", devID);
         }
         public static string GetBatteryProperty(string property, string devID)
         {
-            return ExecuteShellCommand("dumpsys battery | findstr " + property, devID);
+            return ExecuteShellCommand($"dumpsys battery | findstr {property}", devID);
         }
         public static string GetDeviceName(string devID)
         {
