@@ -9,25 +9,25 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="AppDesign/ThemeOverrides.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomButtons.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomGrids.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomTextBlocks.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomImageStyles.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomRectangles.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomStackPanels.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomGridViews.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomNavigationViews.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomScrollViewers.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomTextBoxes.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomComboBox.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomFrames.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomSliders.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomToggleSwitch.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomExpanders.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomDropDowns.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomWebView.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomTabViews.xaml" />
-                <ResourceDictionary Source="AppDesign/CustomProgressRings.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomButtons.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomGrids.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomTextBlocks.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomImageStyles.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomRectangles.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomStackPanels.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomGridViews.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomNavigationViews.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomScrollViewers.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomTextBoxes.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomComboBox.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomFrames.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomSliders.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomToggleSwitch.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomExpanders.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomDropDowns.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomWebView.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomTabViews.xaml" />
+                <ResourceDictionary Source="AppDesign/CustomControls/CustomProgressRings.xaml" />
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->

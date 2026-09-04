@@ -10,7 +10,7 @@ namespace CompanionDisplayWinUI
     {
         // Runtime variables
         public static bool IsAdmin = false;
-        public static string Version = "26.9";
+        public static string Version = "26.10_prerelease_04092026";
         public static bool isConfidential = false; // this is nothing too special, just disables update warnings for developer builds for sanity purposes :p
         public static ObsControls obsControls = new();
         public static SleepTimer sleepTimer = new();

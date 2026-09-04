@@ -21,13 +21,21 @@
 	<ItemGroup>
 	  <Compile Remove="Assets\1.57.2_0\**" />
 	  <Compile Remove="Objects\NewFolder\**" />
+	  <Compile Remove="Pages\Widgets\Controls\NewFolder\**" />
+	  <Compile Remove="Pages\Widgets\Controls\TimeWidget\**" />
 	  <Content Remove="Assets\1.57.2_0\**" />
 	  <EmbeddedResource Remove="Assets\1.57.2_0\**" />
 	  <EmbeddedResource Remove="Objects\NewFolder\**" />
+	  <EmbeddedResource Remove="Pages\Widgets\Controls\NewFolder\**" />
+	  <EmbeddedResource Remove="Pages\Widgets\Controls\TimeWidget\**" />
 	  <None Remove="Assets\1.57.2_0\**" />
 	  <None Remove="Objects\NewFolder\**" />
+	  <None Remove="Pages\Widgets\Controls\NewFolder\**" />
+	  <None Remove="Pages\Widgets\Controls\TimeWidget\**" />
 	  <Page Remove="Assets\1.57.2_0\**" />
 	  <Page Remove="Objects\NewFolder\**" />
+	  <Page Remove="Pages\Widgets\Controls\NewFolder\**" />
+	  <Page Remove="Pages\Widgets\Controls\TimeWidget\**" />
 	</ItemGroup>
 
   <ItemGroup>
@@ -35,6 +43,7 @@
     <Compile Remove="API\SoundAPI.cs" />
     <Compile Remove="API\SpotifyAPI.cs" />
     <Compile Remove="AppPicker.cs" />
+    <Compile Remove="Assets\StyledElements\CompanionDisplayButton.xaml.cs" />
     <Compile Remove="AudioManager.cs" />
     <Compile Remove="BTLEIndividual.xaml.cs" />
     <Compile Remove="ClassImplementations\AppSustainability.cs" />
@@ -77,6 +86,7 @@
     <None Remove="AppDesign\CustomWebView.xaml" />
     <None Remove="AppDesign\Elements\Widgets.xaml" />
     <None Remove="AppDesign\FancyPantsFX.xaml" />
+    <None Remove="Assets\StyledElements\CompanionDisplayButton.xaml" />
     <None Remove="AudioDevice.xaml" />
     <None Remove="BlackBoxRecover.xaml" />
     <None Remove="BlankPage1.xaml" />
@@ -151,6 +161,7 @@
   <ItemGroup>
     <Page Remove="AppDesign\CustomProgressBars.xaml" />
     <Page Remove="AppDesign\FancyPantsFX.xaml" />
+    <Page Remove="Assets\StyledElements\CompanionDisplayButton.xaml" />
     <Page Remove="BTLEIndividual.xaml" />
     <Page Remove="ClassImplementations\FancyPantsFX.xaml" />
     <Page Remove="ClassImplementations\SharedPages\UserControl1.xaml" />
@@ -552,7 +563,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AppDesign\CustomControls\" />
+    <Folder Include="Assets\StyledElements\" />
     <Folder Include="ClassImplementations\Interfaces\" />
+    <Folder Include="Pages\Setup\" />
+    <Folder Include="Pages\Widgets\Controls\PhoneControl\" />
+    <Folder Include="Pages\Widgets\Customization\WidgetPhotos\" />
+    <Folder Include="Pages\Widgets\OBS\" />
+    <Folder Include="Pages\Widgets\Twitch\" />
+    <Folder Include="Windows\" />
+    <Folder Include="Pages\Browser\" />
+    <Folder Include="Pages\Widgets\Adobe\" />
+    <Folder Include="Pages\Widgets\Controls\MonitorBrightness\" />
+    <Folder Include="Pages\Widgets\Utilities\Audio\" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="AppDesign\Elements\Widgets.xaml">
@@ -701,8 +724,18 @@
     <PRIResource Remove="Assets\1.57.2_0\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Assets\StyledElements\CompanionDisplayButton.xaml" />
+    <Content Remove="Assets\StyledElements\CompanionDisplayButton.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="BlackBoxRecover.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Remove="Pages\Widgets\Controls\TimeWidget\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Remove="Pages\Widgets\Controls\NewFolder\**" />
   </ItemGroup>
 </Project>
