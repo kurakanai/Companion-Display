@@ -30,6 +30,7 @@
     </Style>
     <Style x:Key="CompanionDisplayStackPanelHorizontal" TargetType="StackPanel" BasedOn="{StaticResource CompanionDisplayStackPanelHorizontalBase}">
         <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Padding" Value="0,0,0,5"/>
     </Style>
     
     <Style x:Key="CompanionDisplayStackPanelPadding10Stretch" TargetType="StackPanel" BasedOn="{StaticResource CompanionDisplayStackPanelPadding10}">

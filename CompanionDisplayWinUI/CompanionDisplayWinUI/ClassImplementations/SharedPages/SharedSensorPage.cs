@@ -23,7 +23,6 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
                 {
                     FTU = false;
                     sensorName.Text = parent.Name;
-                    sensor1 = parent.Tag as ISensor;
                 }
             }
             HardwareMonitorAPI.UpdateSensorValueEvent += UpdateUI;

@@ -1,4 +1,5 @@
 using CompanionDisplayWinUI.ClassImplementations.SharedPages;
+using CompanionDisplayWinUI.Pages.Widgets.Sensors.SharedAssets;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Hardware.Motherboard;
 using Microsoft.UI.Xaml;
@@ -69,42 +70,8 @@ namespace CompanionDisplayWinUI
         }
         private void AddSensors(ISensor sensor, Frame frame)
         {
-            switch (sensor.SensorType)
-            {
-                case SensorType.Load:
-                    ComponentSensorStack.Children.Add(frame);
-                    frame.Navigate(typeof(LoadSensors));
-                    break;
-                case SensorType.Clock:
-                    ComponentSensorStack.Children.Add(frame);
-                    frame.Navigate(typeof(ClockSensor));
-                    break;
-                case SensorType.Power:
-                    ComponentSensorStack.Children.Add(frame);
-                    frame.Navigate(typeof(PowerSensor));
-                    break;
-                case SensorType.SmallData:
-                    ComponentSensorStack.Children.Add(frame);
-                    frame.Navigate(typeof(SmallDataSensor));
-                    break;
-                case SensorType.Factor:
-                    ComponentSensorStack.Children.Add(frame);
-                    frame.Navigate(typeof(FactorSensor));
-                    break;
-                case SensorType.Fan:
-                    ComponentSensorStack.Children.Add(frame);
-                    frame.Navigate(typeof(FanSensor));
-                    break;
-                case SensorType.Temperature:
-                    ComponentSensorStack.Children.Add(frame);
-                    frame.Navigate(typeof(TemperatureSensor));
-                    break;
-                case SensorType.Voltage:
-                    ComponentSensorStack.Children.Add(frame);
-                    frame.Navigate(typeof(VoltageSensor));
-                    break;
-
-            }
+            SharedSensorLayout sharedSensorLayout = new SharedSensorLayout(sensor);
+            ComponentSensorStack.Children.Add(sharedSensorLayout);
         }
     }
 }

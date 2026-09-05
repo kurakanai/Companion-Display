@@ -8,13 +8,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Height="300" Width="500" Loaded="Page_Loaded">
 
-    <Grid Margin="10,10,0,0">
+    <Grid Margin="0,10,0,0">
         <ScrollViewer Margin="0,0,0,0">
-            <StackPanel Name="ComponentSensorStack" Spacing="2" Margin="0,45,0,10">
+            <StackPanel Name="ComponentSensorStack" Spacing="5" Margin="10,45,10,10">
                 <TextBlock Name="NoSensorsWarning" x:Uid="NoSensors" Foreground="{StaticResource SystemBaseMediumColor}" TextWrapping="Wrap" HorizontalAlignment="Center" HorizontalTextAlignment="Center" FontSize="30" Height="150" VerticalAlignment="Top" Visibility="Collapsed"/>
             </StackPanel>
         </ScrollViewer>
         <Rectangle Name="ImageOptionalBlur" Fill="{ThemeResource CustomAcrylicInAppLuminosity}" Grid.RowSpan="1" Margin="-10,-10,-10,0" Height="55" VerticalAlignment="Top" Visibility="Visible" Grid.Row="0"  RadiusX="8" RadiusY="8"/>
-        <TextBlock Name="ComponentType" Text="-" FontSize="30" Height="55" VerticalAlignment="Top"/>
+        <TextBlock Name="ComponentType" Text="-" Margin="10,0,0,0" FontSize="30" Height="55" VerticalAlignment="Top"/>
     </Grid>
 </Page>

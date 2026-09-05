@@ -15,6 +15,9 @@
     <None Update="App.xaml">
       <SubType>Designer</SubType>
     </None>
+    <Page Update="Pages\Widgets\Sensors\SharedAssets\SharedSensorLayout.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Pages\Widgets\OBS\SharedAssets\OBSUnavailableOverlay.xaml">
       <SubType>Designer</SubType>
     </Page>
