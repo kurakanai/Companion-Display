@@ -101,8 +101,8 @@ $Message
                         device = (this.Parent as Frame).Tag as BluetoothLEDevice;
                         DevName.Text = device.Name;
                         GattDeviceServicesResult batteryService = await device.GetGattServicesForUuidAsync(GattServiceUuids.Battery);
-                        GattCharacteristicsResult service = await batteryService.Services.FirstOrDefault().GetCharacteristicsForUuidAsync(GattCharacteristicUuids.BatteryLevel);
-                        batteryLevelCharacteristic = service.Characteristics.FirstOrDefault();
+                        GattCharacteristicsResult service = await batteryService.Services[0].GetCharacteristicsForUuidAsync(GattCharacteristicUuids.BatteryLevel);
+                        batteryLevelCharacteristic = service.Characteristics[0];
                         var result = await batteryLevelCharacteristic.ReadValueAsync();
                         batteryLevelCharacteristic.ValueChanged -= PercentageChanged;
                         batteryLevelCharacteristic.ValueChanged += PercentageChanged;

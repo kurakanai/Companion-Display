@@ -6,6 +6,7 @@
     xmlns:local="using:CompanionDisplayWinUI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:obsassets="using:CompanionDisplayWinUI.Pages.Widgets.OBS.SharedAssets"
     mc:Ignorable="d" Tag="OBSWidgets" Width="500" Height="300" CanDrag="False" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
 
     <Grid>
@@ -25,12 +26,6 @@
             </StackPanel>
             <ToggleButton Content="&#xe722;" FontFamily="Segoe Fluent Icons" x:Name="CameraButton" Tag="OBS Virtual Camera" Grid.Column="1" Width="480" Height="68" HorizontalAlignment="Stretch" Tapped="CameraButton_Tapped"/>
         </StackPanel>
-        <Grid Visibility="Collapsed" HorizontalAlignment="Stretch" x:Name="OBSError" VerticalAlignment="Stretch">
-            <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosity}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <StackPanel VerticalAlignment="Center" Spacing="10">
-                <TextBlock x:Uid="OBSDisconnected" HorizontalAlignment="Center" FontSize="36" Opacity="0.5"/>
-                <Button x:Name="ReconnectBtn" x:Uid="ReconnectOBS1" HorizontalAlignment="Center" Tapped="Button_Tapped"/>
-            </StackPanel>
-        </Grid>
+        <obsassets:OBSUnavailableOverlay x:Name="OBSError"/>
     </Grid>
 </Page>

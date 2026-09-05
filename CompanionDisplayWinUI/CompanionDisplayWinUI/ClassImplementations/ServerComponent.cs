@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-namespace CompanionDisplayWinUI
+namespace CompanionDisplayWinUI.ClassImplementations
 {
     // This will likely be on 25.2's source code, so pretend you didn't see anything :P (18/1/2025)
     class ServerComponent

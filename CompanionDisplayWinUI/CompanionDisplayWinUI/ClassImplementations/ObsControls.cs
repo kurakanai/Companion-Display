@@ -5,7 +5,7 @@ using OBSWebsocketDotNet.Types.Events;
 using System;
 using System.Threading;
 
-namespace CompanionDisplayWinUI
+namespace CompanionDisplayWinUI.ClassImplementations
 {
     internal class ObsControls
     {

@@ -37,25 +37,6 @@ namespace CompanionDisplayWinUI
                 OBSError.Visibility = Visibility.Visible;
             });
         }
-        private void Button_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Thread thread = new(Globals.obsControls.ManualConnectReq);
-            thread.Start();
-            System.Timers.Timer timer = new(3000) { Enabled = true };
-            (sender as Button).IsEnabled = false;
-            timer.Elapsed += (sender, args) =>
-            {
-                if (!Globals.obsControls.connectionSuccessful)
-                {
-                    DispatcherQueue.TryEnqueue(() =>
-                    {
-                        ReconnectBtn.IsEnabled = true;
-                        ReconnectBtn.Content = AppStrings.obsConnectionFailed;
-                        timer.Dispose();
-                    });
-                }
-            };
-        }
 
         private void RevertLayout()
         {

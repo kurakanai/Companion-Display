@@ -1,4 +1,5 @@
-﻿using CompanionDisplayWinUI.ClassImplementations;
+﻿using CompanionDisplayWinUI.API.PerformanceHelpers;
+using CompanionDisplayWinUI.ClassImplementations;
 using CompanionDisplayWinUI.Objects;
 using Newtonsoft.Json.Linq;
 using System;
@@ -17,7 +18,7 @@ using Windows.Media.Control;
 
 namespace CompanionDisplayWinUI.API
 {
-    static class MusicAPI
+    static partial class MusicAPI
     {
         public static event CommonlyAccessedInstances.HandleEventsWithNoArgs CallInfoUpdate, CallTimingUpdate, CallLyricUpdate, CallCoverUpdate;
         private static GlobalSystemMediaTransportControlsSessionManager sessionManager;
@@ -197,7 +198,9 @@ namespace CompanionDisplayWinUI.API
                 {
                     queryAlbumName += $"+AND+release:{HttpUtility.UrlEncode(queryAlbumName)}";
                 }
-                string queryURL = $"https://musicbrainz.org/ws/2/recording/?query={HttpUtility.UrlEncode(Regex.Replace(querySongName, @"[^\w\s]", ""))}{queryAlbumName}+AND+artist:{HttpUtility.UrlEncode(queryArtistName.Replace(" - Topic", ""))}+AND+status:official&release-group-type=album,single,ep,lp&fmt=json";
+                string cleanSongName = RegexHelper.StripSpecialCharsRegex().Replace(querySongName, "");
+                string queryURL = $"https://musicbrainz.org/ws/2/recording/?query={HttpUtility.UrlEncode(cleanSongName)}{queryAlbumName}+AND+artist:{HttpUtility.UrlEncode(queryArtistName.Replace(" - Topic", ""))}+AND+status:official&release-group-type=album,single,ep,lp&fmt=json";
+
                 var queryResponse = httpWrapper.GetStringAsync(queryURL);
                 StringReader readerlyric0 = new(queryResponse.Result);
                 JToken array = JToken.Parse(queryResponse.Result)["recordings"];
@@ -243,7 +246,7 @@ namespace CompanionDisplayWinUI.API
                     List<string> lyricsList = [];
                     foreach (string line in lyrics.Split("\n"))
                     {
-                        Match match = Regex.Match(line, @"^\[(\d{2}:\d{2}\.\d{2})\](.*)?");
+                        Match match = RegexHelper.TimestampRegex().Match(line);
 
                         if (match.Success)
                         {

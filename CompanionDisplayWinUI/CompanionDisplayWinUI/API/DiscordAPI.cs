@@ -1,4 +1,5 @@
-﻿using DiscordRPC;
+﻿using CompanionDisplayWinUI.ClassImplementations;
+using DiscordRPC;
 using DiscordRPC.Message;
 using System;
 using System.Collections.Generic;

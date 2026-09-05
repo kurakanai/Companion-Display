@@ -1,4 +1,5 @@
 using CompanionDisplayWinUI.API;
+using CompanionDisplayWinUI.ClassImplementations;
 using CompanionDisplayWinUI.Objects;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;

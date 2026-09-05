@@ -4,18 +4,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CompanionDisplayWinUI"
+    xmlns:obsassets="using:CompanionDisplayWinUI.Pages.Widgets.OBS.SharedAssets"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Tag="OBSWidgets" Width="500" Height="300" CanDrag="False" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
 
     <Grid>
         <GridView Name="TotalScenes" SelectionChanged="TotalScenes_SelectionChanged" Padding="5,10,0,0" Background="Transparent"/>
-        <Grid Visibility="Collapsed" HorizontalAlignment="Stretch" x:Name="OBSError" VerticalAlignment="Stretch">
-            <Rectangle Fill="{ThemeResource CustomAcrylicInAppLuminosity}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="10">
-                <TextBlock x:Uid="OBSDisconnected" HorizontalAlignment="Center" FontSize="36" Opacity="0.5"/>
-                <Button x:Name="ReconnectBtn" x:Uid="ReconnectOBS1" HorizontalAlignment="Center" Tapped="Button_Tapped"/>
-            </StackPanel>
-        </Grid>
+        <obsassets:OBSUnavailableOverlay x:Name="OBSError"/>
     </Grid>
 </Page>

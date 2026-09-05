@@ -2,9 +2,8 @@
 using LibreHardwareMonitor.Hardware;
 using Microsoft.Web.WebView2.Core;
 using System;
-using Windows.Media.Control;
 
-namespace CompanionDisplayWinUI
+namespace CompanionDisplayWinUI.ClassImplementations
 {
     static class Globals
     {

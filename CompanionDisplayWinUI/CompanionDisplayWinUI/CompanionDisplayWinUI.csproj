@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <Compile Remove="API\FileAPITest.cs" />
+    <Compile Remove="API\PerformanceHelpers\RegexHelpers.cs" />
     <Compile Remove="API\SoundAPI.cs" />
     <Compile Remove="API\SpotifyAPI.cs" />
     <Compile Remove="AppPicker.cs" />
@@ -121,6 +122,7 @@
     <None Remove="NumPadWidget.xaml" />
     <None Remove="ObsStreamControlsWidget.xaml" />
     <None Remove="OBSStreamInfoWidget.xaml" />
+    <None Remove="Pages\Widgets\OBS\SharedAssets\OBSUnavailableOverlay.xaml" />
     <None Remove="PopOutPlayer.xaml" />
     <None Remove="PopupWidget.xaml" />
     <None Remove="PowerSensor.xaml" />
@@ -569,7 +571,6 @@
     <Folder Include="Pages\Setup\" />
     <Folder Include="Pages\Widgets\Controls\PhoneControl\" />
     <Folder Include="Pages\Widgets\Customization\WidgetPhotos\" />
-    <Folder Include="Pages\Widgets\OBS\" />
     <Folder Include="Pages\Widgets\Twitch\" />
     <Folder Include="Windows\" />
     <Folder Include="Pages\Browser\" />
@@ -737,5 +738,10 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Remove="Pages\Widgets\Controls\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Widgets\OBS\SharedAssets\OBSUnavailableOverlay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>
