@@ -111,7 +111,9 @@
     <None Remove="ClassImplementations\SharedPages\UserControl1.xaml" />
     <None Remove="ClassImplementations\WidgetBrowserView.xaml" />
     <None Remove="ClockSensor.xaml" />
+    <None Remove="CompanionDisplay.ico" />
     <None Remove="CompanionDisplay.png" />
+    <None Remove="CompanionDisplay2024.ico" />
     <None Remove="FactorSensor.xaml" />
     <None Remove="FanSensor.xaml" />
     <None Remove="IllustratorShortcutsWidget.xaml" />
@@ -211,12 +213,6 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Icon25Small.ico" />
-    <Resource Include="CompanionDisplay.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="CompanionDisplay2024.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
 
   <ItemGroup>
