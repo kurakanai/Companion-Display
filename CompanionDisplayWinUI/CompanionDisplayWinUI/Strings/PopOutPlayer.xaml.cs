@@ -24,7 +24,7 @@ namespace CompanionDisplayWinUI
         {
             if (FTU)
             {
-                await BrowserAPI.CreateWebviewProperly(Player, link);
+                await BrowserAPI.CreateWebviewProperly(Player, link, true);
                 FTU = false;
             }
             Player.Source = link;

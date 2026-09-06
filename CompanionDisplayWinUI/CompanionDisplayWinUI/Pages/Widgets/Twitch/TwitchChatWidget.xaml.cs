@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitchChatWidget : SharedTwitch
+    public sealed partial class TwitchChatWidget : Page
     {
         public TwitchChatWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/chat";
-            pageWebView = Player;
         }
     }
 }

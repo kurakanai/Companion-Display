@@ -25,7 +25,7 @@ namespace CompanionDisplayWinUI
         {
             if (FTU)
             {
-                await BrowserAPI.CreateWebviewProperly(SpotifyBuiltin, Globals.MusicProvider);
+                await BrowserAPI.CreateWebviewProperly(SpotifyBuiltin, Globals.MusicProvider, true);
                 FTU = !FTU;
             }
         }

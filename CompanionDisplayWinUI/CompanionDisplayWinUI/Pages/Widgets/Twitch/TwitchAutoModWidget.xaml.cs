@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitchAutoModWidget : SharedTwitch
+    public sealed partial class TwitchAutoModWidget : Page
     {
         public TwitchAutoModWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/auto-mod-queue";
-            pageWebView = Player;
         }
     }
 }

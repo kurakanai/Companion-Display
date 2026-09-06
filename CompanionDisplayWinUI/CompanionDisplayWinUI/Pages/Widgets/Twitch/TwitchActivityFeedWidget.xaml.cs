@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitchActivityFeedWidget : SharedTwitch
+    public sealed partial class TwitchActivityFeedWidget : Page
     {
         public TwitchActivityFeedWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/activity-feed";
-            pageWebView = Player;
         }
     }
 }

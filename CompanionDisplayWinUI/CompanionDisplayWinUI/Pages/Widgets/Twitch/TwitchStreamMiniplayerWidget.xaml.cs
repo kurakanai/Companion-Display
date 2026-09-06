@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitichStreamMiniplayerWidget : SharedTwitch
+    public sealed partial class TwitichStreamMiniplayerWidget : Page
     {
         public TwitichStreamMiniplayerWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/stream-preview";
-            pageWebView = Player;
         }
     }
 }

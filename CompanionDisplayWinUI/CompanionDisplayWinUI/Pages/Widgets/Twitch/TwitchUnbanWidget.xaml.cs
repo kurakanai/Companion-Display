@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitchUnbanWidget : SharedTwitch
+    public sealed partial class TwitchUnbanWidget : Page
     {
         public TwitchUnbanWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/unban-requests";
-            pageWebView = Player;
         }
     }
 }

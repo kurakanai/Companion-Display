@@ -156,7 +156,7 @@ namespace CompanionDisplayWinUI
                         uri = Globals.SearchEngine;
                     }
                 }
-                await BrowserAPI.CreateWebviewProperly(WebView, uri);
+                await BrowserAPI.CreateWebviewProperly(WebView, uri, true);
                 FTU = false;
             }
         }

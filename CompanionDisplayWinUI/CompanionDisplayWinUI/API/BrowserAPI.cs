@@ -76,7 +76,7 @@ namespace CompanionDisplayWinUI.API
             return image;
         }
         public static CoreWebView2Environment sharedEnvironment;
-        public async static Task CreateWebviewProperly(WebView2 webView2, Uri uri)
+        public async static Task CreateWebviewProperly(WebView2 webView2, Uri uri, bool needsAdBlock)
         {
             await semaphore.WaitAsync();
             try
@@ -86,7 +86,9 @@ namespace CompanionDisplayWinUI.API
                     sharedEnvironment = await CoreWebView2Environment.CreateWithOptionsAsync(string.Empty, string.Empty, new() { AreBrowserExtensionsEnabled = true });
                 }
                 await webView2.EnsureCoreWebView2Async(sharedEnvironment);
-                await webView2.CoreWebView2.Profile.AddBrowserExtensionAsync(Path.GetFullPath("Assets\\1.59.0_0"));
+                if (needsAdBlock){
+                    await webView2.CoreWebView2.Profile.AddBrowserExtensionAsync(Path.GetFullPath("Assets\\1.59.0_0"));
+                }
                 webView2.Source = uri;
             }
             finally

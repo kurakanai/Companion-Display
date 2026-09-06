@@ -354,7 +354,7 @@ namespace CompanionDisplayWinUI
 
         private async void ResetTwitch_Click(object sender, RoutedEventArgs e)
         {
-            await BrowserAPI.CreateWebviewProperly(resetTwitch, new Uri("about:blank"));
+            await BrowserAPI.CreateWebviewProperly(resetTwitch, new Uri("about:blank"), false);
             resetTwitch.CoreWebView2Initialized += DeleteCookies;
         }
 

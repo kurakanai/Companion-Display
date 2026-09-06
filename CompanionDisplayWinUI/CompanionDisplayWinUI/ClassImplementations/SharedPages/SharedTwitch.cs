@@ -15,7 +15,7 @@ namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
         {
             if (FTU)
             {
-                await BrowserAPI.CreateWebviewProperly(pageWebView, new Uri(destinationUrl));
+                await BrowserAPI.CreateWebviewProperly(pageWebView, new Uri(destinationUrl), false);
                 FTU = !FTU;
             }
         }

@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitchStreamInfoWidget : SharedTwitch
+    public sealed partial class TwitchStreamInfoWidget : Page
     {
         public TwitchStreamInfoWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/edit-stream-info";
-            pageWebView = Player;
         }
     }
 }

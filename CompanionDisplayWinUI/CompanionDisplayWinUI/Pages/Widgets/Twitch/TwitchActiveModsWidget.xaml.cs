@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitchActiveModsWidget : SharedTwitch
+    public sealed partial class TwitchActiveModsWidget : Page
     {
         public TwitchActiveModsWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/active-mods";
-            pageWebView = Player;
         }
     }
 }

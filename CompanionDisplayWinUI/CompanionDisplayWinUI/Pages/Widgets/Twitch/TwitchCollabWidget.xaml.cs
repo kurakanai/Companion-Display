@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitchCollabWidget : SharedTwitch
+    public sealed partial class TwitchCollabWidget : Page
     {
         public TwitchCollabWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/guest-star-stream-together";
-            pageWebView = Player;
         }
     }
 }

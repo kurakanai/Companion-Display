@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitchStreamHealthWidget : SharedTwitch
+    public sealed partial class TwitchStreamHealthWidget : Page
     {
         public TwitchStreamHealthWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/stream-health";
-            pageWebView = Player;
         }
     }
 }

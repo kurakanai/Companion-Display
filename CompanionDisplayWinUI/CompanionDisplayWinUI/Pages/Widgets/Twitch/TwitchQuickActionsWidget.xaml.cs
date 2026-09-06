@@ -1,12 +1,12 @@
-namespace CompanionDisplayWinUI.ClassImplementations.SharedPages
+using Microsoft.UI.Xaml.Controls;
+
+namespace CompanionDisplayWinUI.Pages.Widgets.Twitch
 {
-    public sealed partial class TwitchQuickActionsWidget : SharedTwitch
+    public sealed partial class TwitchQuickActionsWidget : Page
     {
         public TwitchQuickActionsWidget()
         {
             this.InitializeComponent();
-            destinationUrl = "https://dashboard.twitch.tv/popout/stream-manager/quick-actions";
-            pageWebView = Player;
         }
     }
 }

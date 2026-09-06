@@ -74,7 +74,7 @@ namespace CompanionDisplayWinUI
         }
         private async void WebView_Loaded(object sender, RoutedEventArgs e)
         {
-            await BrowserAPI.CreateWebviewProperly(WebView, Globals.SearchEngine);
+            await BrowserAPI.CreateWebviewProperly(WebView, Globals.SearchEngine, true);
         }
     }
 }
