@@ -54,6 +54,7 @@
     <Compile Remove="ClassImplementations\Media.cs" />
     <Compile Remove="ClassImplementations\Sensors.cs" />
     <Compile Remove="ClassImplementations\SharedPages\SharedSensorPage.cs" />
+    <Compile Remove="ClassImplementations\SharedPages\SharedTwitch.cs" />
     <Compile Remove="ClassImplementations\SharedPages\UserControl1.xaml.cs" />
     <Compile Remove="MediaPlayerWidgetWidgetSettings.xaml.cs" />
     <Compile Remove="MonitorBrightness.xaml.cs" />
@@ -141,6 +142,7 @@
     <None Remove="Pages\Widgets\Sensors\SmallDataSensor.xaml" />
     <None Remove="Pages\Widgets\Sensors\TemperatureSensor.xaml" />
     <None Remove="Pages\Widgets\Sensors\VoltageSensor.xaml" />
+    <None Remove="Pages\Widgets\Twitch\SharedAssets\BaseTwitchWrapper.xaml" />
     <None Remove="PopOutPlayer.xaml" />
     <None Remove="PopupWidget.xaml" />
     <None Remove="PowerSensor.xaml" />
@@ -597,12 +599,10 @@
     <Folder Include="Pages\Setup\" />
     <Folder Include="Pages\Widgets\Controls\PhoneControl\" />
     <Folder Include="Pages\Widgets\Customization\WidgetPhotos\" />
-    <Folder Include="Pages\Widgets\Twitch\" />
     <Folder Include="Windows\" />
     <Folder Include="Pages\Browser\" />
     <Folder Include="Pages\Widgets\Adobe\" />
     <Folder Include="Pages\Widgets\Controls\MonitorBrightness\" />
-    <Folder Include="Pages\Widgets\Utilities\Audio\" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="AppDesign\Elements\Widgets.xaml">
@@ -764,6 +764,11 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Remove="Pages\Widgets\Controls\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\Widgets\Twitch\SharedAssets\BaseTwitchWrapper.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\Widgets\Sensors\SharedAssets\SharedSensorLayout.xaml">

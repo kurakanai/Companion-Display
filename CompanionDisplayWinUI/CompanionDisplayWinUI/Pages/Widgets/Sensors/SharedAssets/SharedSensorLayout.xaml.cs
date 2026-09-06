@@ -69,8 +69,6 @@ public sealed partial class SharedSensorLayout : UserControl
     private void UserControl_Loaded(object sender, RoutedEventArgs e)
     {
         HardwareMonitorAPI.UpdateSensorValueEvent += UpdateUI;
-        Thread thread = new(UpdateUI);
-        thread.Start();
     }
     public void Page_Unloaded(object _1, RoutedEventArgs _2)
     {
