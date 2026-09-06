@@ -5,9 +5,11 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.Web.WebView2.Core;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Windows.Storage;
 
 namespace CompanionDisplayWinUI.API
 {
@@ -83,13 +85,41 @@ namespace CompanionDisplayWinUI.API
             {
                 if (sharedEnvironment == null)
                 {
-                    sharedEnvironment = await CoreWebView2Environment.CreateWithOptionsAsync(string.Empty, string.Empty, new() { AreBrowserExtensionsEnabled = true });
+                    // Note: Use full absolute pathing for the user data folder right away
+                    string permanentUserDataFolder = Path.GetFullPath("Browser\\BrowserData");
+                    if (!Directory.Exists(permanentUserDataFolder))
+                    {
+                        Directory.CreateDirectory(permanentUserDataFolder);
+                    }
+
+                    sharedEnvironment = await CoreWebView2Environment.CreateWithOptionsAsync(
+                        string.Empty,
+                        permanentUserDataFolder,
+                        new() { AreBrowserExtensionsEnabled = true }
+                    );
                 }
+
                 await webView2.EnsureCoreWebView2Async(sharedEnvironment);
-                if (needsAdBlock){
-                    await webView2.CoreWebView2.Profile.AddBrowserExtensionAsync(Path.GetFullPath("Assets\\1.59.0_0"));
+
+                if (needsAdBlock)
+                {
+                    string path = Path.GetFullPath("Assets\\uBlock");
+                    var installedExtensions = await webView2.CoreWebView2.Profile.GetBrowserExtensionsAsync();
+                    bool isAlreadyInstalled = installedExtensions.Any(ext => ext.Name.Contains("uBlock", StringComparison.OrdinalIgnoreCase));
+                    if (!isAlreadyInstalled)
+                    {
+                        if (Directory.Exists(path) && File.Exists(Path.Combine(path, "manifest.json")))
+                        {
+                            await webView2.CoreWebView2.Profile.AddBrowserExtensionAsync(path);
+                        }
+                    }
                 }
+
                 webView2.Source = uri;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[WebView2 Exception] {ex.Message}");
             }
             finally
             {
