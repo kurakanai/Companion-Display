@@ -123,13 +123,13 @@ namespace CompanionDisplayWinUI.API
                 }
                 SetLyrics(-1, string.Empty);
                 await Task.WhenAll(TaskAPI.IgnoreExceptionsAsync(RequestSongID()), TaskAPI.IgnoreExceptionsAsync(GetLyrics()));
-                SongChanged();
             }
             catch
             {
             }
             finally
             {
+                SongChanged();
                 semaphore.Release();
             }
         }

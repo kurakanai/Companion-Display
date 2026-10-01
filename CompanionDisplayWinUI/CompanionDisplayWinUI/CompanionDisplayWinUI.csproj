@@ -21,19 +21,23 @@
 	<ItemGroup>
 	  <Compile Remove="Assets\1.57.2_0\**" />
 	  <Compile Remove="Objects\NewFolder\**" />
+	  <Compile Remove="Pages\Widgets\Adobe\SharedAssets\**" />
 	  <Compile Remove="Pages\Widgets\Controls\NewFolder\**" />
 	  <Compile Remove="Pages\Widgets\Controls\TimeWidget\**" />
 	  <Content Remove="Assets\1.57.2_0\**" />
 	  <EmbeddedResource Remove="Assets\1.57.2_0\**" />
 	  <EmbeddedResource Remove="Objects\NewFolder\**" />
+	  <EmbeddedResource Remove="Pages\Widgets\Adobe\SharedAssets\**" />
 	  <EmbeddedResource Remove="Pages\Widgets\Controls\NewFolder\**" />
 	  <EmbeddedResource Remove="Pages\Widgets\Controls\TimeWidget\**" />
 	  <None Remove="Assets\1.57.2_0\**" />
 	  <None Remove="Objects\NewFolder\**" />
+	  <None Remove="Pages\Widgets\Adobe\SharedAssets\**" />
 	  <None Remove="Pages\Widgets\Controls\NewFolder\**" />
 	  <None Remove="Pages\Widgets\Controls\TimeWidget\**" />
 	  <Page Remove="Assets\1.57.2_0\**" />
 	  <Page Remove="Objects\NewFolder\**" />
+	  <Page Remove="Pages\Widgets\Adobe\SharedAssets\**" />
 	  <Page Remove="Pages\Widgets\Controls\NewFolder\**" />
 	  <Page Remove="Pages\Widgets\Controls\TimeWidget\**" />
 	</ItemGroup>
@@ -597,7 +601,6 @@
     <Folder Include="Pages\Widgets\Customization\WidgetPhotos\" />
     <Folder Include="Windows\" />
     <Folder Include="Pages\Browser\" />
-    <Folder Include="Pages\Widgets\Adobe\" />
     <Folder Include="Pages\Widgets\Controls\MonitorBrightness\" />
   </ItemGroup>
   <ItemGroup>
@@ -775,5 +778,8 @@
     <Page Update="Pages\Widgets\OBS\SharedAssets\OBSUnavailableOverlay.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Remove="Pages\Widgets\Adobe\SharedAssets\**" />
   </ItemGroup>
 </Project>

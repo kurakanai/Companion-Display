@@ -19,7 +19,6 @@ namespace CompanionDisplayWinUI.Objects
         public int lyricsType = 0;
         public ImageSource albumCover;
         private readonly GlobalSystemMediaTransportControlsSessionMediaProperties internalAudioProperties = MusicAPI.sessionMediaProperties;
-        private static readonly SemaphoreSlim semaphore = new(1);
         public SongObject()
         {
             try
@@ -57,9 +56,8 @@ namespace CompanionDisplayWinUI.Objects
                     {
                         albumCover = Helper.GetThumbnail(MusicAPI.sessionMediaProperties.Thumbnail);
                     }
-                    semaphore.Release();
                     MusicAPI.SongCoverChanged();
-                }
+                    }
             });
         }
         public bool CheckIfSame(SongObject other)
