@@ -42,7 +42,8 @@ $BatteryLevels = foreach ($Device in $BTHDevices)
             $BatteryProperty
         }
     }
-$Message = ""$BatteryLevels%""
+$FirstLevel = $BatteryLevels[0]
+$Message = ""$FirstLevel%""
 $Message
 ";
             try
