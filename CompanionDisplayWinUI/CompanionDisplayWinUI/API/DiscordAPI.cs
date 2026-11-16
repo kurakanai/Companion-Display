@@ -1,8 +1,6 @@
 ﻿using CompanionDisplayWinUI.ClassImplementations;
 using DiscordRPC;
-using DiscordRPC.Message;
 using System;
-using System.Collections.Generic;
 using Windows.Media.Control;
 
 namespace CompanionDisplayWinUI.API

@@ -117,7 +117,7 @@ namespace CompanionDisplayWinUI.API
 
                 webView2.Source = uri;
             }
-            catch (Exception ex) { }
+            catch { }
             finally
             {
                 semaphore.Release();

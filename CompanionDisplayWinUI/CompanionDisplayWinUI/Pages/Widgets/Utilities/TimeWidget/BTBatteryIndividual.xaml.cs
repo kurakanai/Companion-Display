@@ -3,7 +3,6 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Management.Automation;
 using System.Threading;
 using Windows.Devices.Bluetooth;
@@ -67,7 +66,7 @@ $Message
             catch {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    ((this.Parent as Frame).Parent as StackPanel).Children.Remove((this.Parent) as Frame);
+                    ((Parent as Frame).Parent as StackPanel).Children.Remove((Parent) as Frame);
                 });
             }
         }
@@ -113,7 +112,7 @@ $Message
                         }
                         else
                         {
-                            ((this.Parent as Frame).Parent as StackPanel).Children.Remove((this.Parent) as Frame);
+                            ((Parent as Frame).Parent as StackPanel).Children.Remove((Parent) as Frame);
                         }
                     }
                     else

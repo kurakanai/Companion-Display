@@ -76,7 +76,6 @@ namespace CompanionDisplayWinUI.API
             dispatcher.TryEnqueue(() =>
             {
                 textBlock.Text = displayText;
-
                 if (ring != null)
                 {
                     ring.Value = value;

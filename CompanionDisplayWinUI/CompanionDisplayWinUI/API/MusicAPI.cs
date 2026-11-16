@@ -33,7 +33,7 @@ namespace CompanionDisplayWinUI.API
         public static double songProgress;
         public static int currentLyricIndex;
         private static HttpClient httpWrapper;
-        private static readonly SemaphoreSlim semaphore = new(1);
+        private static readonly SemaphoreSlim semaphore = new(0);
         #nullable enable
         public static GlobalSystemMediaTransportControlsSession? currentSession;
         #nullable disable
@@ -124,9 +124,7 @@ namespace CompanionDisplayWinUI.API
                 SetLyrics(-1, string.Empty);
                 await Task.WhenAll(TaskAPI.IgnoreExceptionsAsync(RequestSongID()), TaskAPI.IgnoreExceptionsAsync(GetLyrics()));
             }
-            catch
-            {
-            }
+            catch{}
             finally
             {
                 SongChanged();
@@ -155,13 +153,11 @@ namespace CompanionDisplayWinUI.API
             try
             {
                 GetExactLyric();
-            }
-            catch { }
+            } catch { }
             try
             {
                 DiscordAPI.PushPresenceDiscord(DiscordAPI.PresenceBuilder(songElapsed, songEnd));
-            }
-            catch { }
+            } catch { }
         }
 
         private static string FormatTimeSpan(TimeSpan ts)
@@ -305,19 +301,19 @@ namespace CompanionDisplayWinUI.API
         }
         public static void SongChanged()
         {
-            CallInfoUpdate?.Invoke();
+            CallInfoUpdate.Invoke();
         }
         public static void SongTimingChanged()
         {
-            CallTimingUpdate?.Invoke();
+            CallTimingUpdate.Invoke();
         }
         public static void SongLyricChanged()
         {
-            CallLyricUpdate?.Invoke();
+            CallLyricUpdate.Invoke();
         }
         public static void SongCoverChanged()
         {
-            CallCoverUpdate?.Invoke();
+            CallCoverUpdate.Invoke();
         }
     }
 }

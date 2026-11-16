@@ -43,8 +43,7 @@ namespace CompanionDisplayWinUI.API
             try
             {
                 File.Move(file, dest, overwrite);
-            }
-            catch { }
+            } catch { }
         }
         public static void MoveDirectoryOverwrite(string dir, string dest)
         {
