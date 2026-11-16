@@ -258,24 +258,30 @@ To add Widgets simply tap the + button and choose a widget. Currently there are 
 <p align="center">
 <img width="1917" height="1046" alt="image" src="https://github.com/user-attachments/assets/e74f21f2-db82-4023-bea7-cfbdd35fd1fa" />
 </p>
+
 ## Picture-in-Picture support
 · Companion Display allows you to open Widgets in Picture-in-Picture mode, allowing you to keep the Widget pinned above other apps too like so:
 <p align="center">
 <img width="500" height="299" alt="image" src="https://github.com/user-attachments/assets/9e99bbfa-d28b-47d4-bbbf-6fa69c344b99" />
 </p>
+
 ## Widget Configuration
 · To customize Widgets, right click the widget and press Edit and the configuration page for the respective widget will pop up.
+
 ## Lyric Viewer
 · By pressing the pop-out button in the Media Player Widget, you can access a pane with the lyrics of the currently playing song with synced lyrics and autoscroll.
 <p align="center">
 <img width="786" height="444" alt="image" src="https://github.com/user-attachments/assets/f0854aa5-0792-43b5-823e-ea145d088c40" />
 </p>
+
 ## Browser
 · Companion Display has a built in browser based on WebView2. You can access it by pressing the Browser icon.
 · The Browser also includes Launchpad, a place to bookmark websites that can be edited by right-clicking an empty space while on a new tab.
 ![image](https://github.com/user-attachments/assets/9b3e8d6e-d3fe-4b98-86b0-3c824b819151)
+
 ## Music Player
 · The Music Player tab is a WebView instance of your specified music provider easily accessible (Spotify by default).
+
 ## Sleep mode
 · Companion Display offers a customizeable sleep mode, which is a minimalistic interface that displays the time, date and current song info. You can customize the text color and opacity in Settings and it features built-in burn-in prevention for OLED displays.
 ![image](https://github.com/user-attachments/assets/b2c954df-bdb3-4d2a-8827-b82b9d193eab)
@@ -287,6 +293,7 @@ To add Widgets simply tap the + button and choose a widget. Currently there are 
 <p align="center">
 <img width="1244" height="773" alt="image" src="https://github.com/user-attachments/assets/fa78d5d4-4576-47ad-90b0-c1093abe58f2" />
 </p>
+
 ## Settings Categories
 <li>
 <details>
