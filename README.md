@@ -16,6 +16,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
 
 ## Getting started with Widgets
 ### Get to know Companion Display's interactive widgets:
+To add Widgets simply tap the + button and choose a widget. Currently there are the following Widgets available:
 <details>
 <summary>Utilities</summary>
 <ul>
@@ -250,7 +251,6 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   </li>
 </ul>
 </details>
-To add Widgets simply tap the + button and choose a widget. Currently there are the following Widgets available:
 
 ## Pins
 · Pins allow you to keep selected Widgets on top while letting you scroll unpinned ones at the same time:
