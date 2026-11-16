@@ -36,7 +36,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     Allows you to keep a note as a widget. The note is saved and persists on app restarts.
     <p align="center">
-    <img align="left"width="502" height="305" alt="image" src="https://github.com/user-attachments/assets/03b9db2c-8ce4-4c77-8a8c-615c865aaa0f" />
+    <img width="502" height="305" alt="image" src="https://github.com/user-attachments/assets/03b9db2c-8ce4-4c77-8a8c-615c865aaa0f" />
     </p>
   </ul>
   </details>
