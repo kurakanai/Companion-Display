@@ -126,7 +126,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
 </ul>
 </details>
 <details>
-<summary>Photo Album</summary>
+<summary>Controls</summary>
 <ul>
   <li>
   <details>
