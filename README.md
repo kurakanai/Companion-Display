@@ -1,4 +1,4 @@
-# Companion Display
+<img width="504" height="304" alt="image" src="https://github.com/user-attachments/assets/870bedf0-d162-4e3c-9358-a41b563eb6f0" /># Companion Display
 Companion Display is an app designed to give life to a secondary monitor or old device. 
 ![image](https://github.com/user-attachments/assets/14cc8733-3a51-42da-ac87-74bcb564280b)
 
@@ -15,31 +15,196 @@ https://aka.ms/SegoeFluentIcons
 Another thing that does not work on Windows 10 builds is the Mica Backdrop.
 
 ## Getting started with Widgets
+### Get to know Companion Display's interactive widgets:
+<details>
+<summary>Utilities</summary>
+<ul>
+  <li>
+  <details>
+  <summary>Volume Mixer</summary>
+  <ul>
+    Allows you to view and control the current audio sessions across all playback devices.
+    <img width="501" height="301" alt="image" src="https://github.com/user-attachments/assets/2c811e36-8881-4383-9324-7c89ae8023cd" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Sticky Note</summary>
+  <ul>
+    Allows you to keep a note as a widget. The note is saved and persists on app restarts.
+    <img width="502" height="305" alt="image" src="https://github.com/user-attachments/assets/03b9db2c-8ce4-4c77-8a8c-615c865aaa0f" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Date/Time Widget</summary>
+  <ul>
+    Shows you the current time and date, a calendar when on the right and a customizable quick settings panel on the left.
+    <img width="504" height="303" alt="image" src="https://github.com/user-attachments/assets/19bc66d5-e6f4-4350-b811-0e4433fadbc5" />
+    <img width="501" height="300" alt="image" src="https://github.com/user-attachments/assets/105ad3e2-3366-402a-8d20-c3717e6c0829" />
+    <img width="501" height="304" alt="image" src="https://github.com/user-attachments/assets/c05e17e5-0b25-4b94-9b5c-fb33c228c505" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Browser View</summary>
+  <ul>
+    A widget containing a WebView from a specified configurable URL.
+    <img width="502" height="303" alt="image" src="https://github.com/user-attachments/assets/26e84e66-5c23-4f79-97ef-0d8e25c69151" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Widget Stack</summary>
+  <ul>
+    Allows you to stack other widgets in a single scrollable widget.
+    <img width="502" height="299" alt="image" src="https://github.com/user-attachments/assets/fdd6b18e-5fb4-4359-a1e1-f6e8e238c0df" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Launchpad</summary>
+  <ul>
+    A widget with as many shortcuts as you want
+    <img width="502" height="301" alt="image" src="https://github.com/user-attachments/assets/7bdb25d3-2130-42cc-bb67-cfe180e048a2" />
+  </ul>
+  </details>
+  </li>
+</ul>
+</details>
+<details>
+<summary>Customization</summary>
+<ul>
+  <li>
+  <details>
+  <summary>Photo Album</summary>
+  <ul>
+    A widget containing a single photo/GIF or a whole folder of them. Can auto-scroll if enabled.
+    <img width="504" height="305" alt="image" src="https://github.com/user-attachments/assets/6ed4e819-dc4e-4058-b86f-9669338f6840" />
+  </ul>
+  </details>
+  </li>
+</ul>
+</details>
+<details>
+<summary>Sensors</summary>
+<ul>
+  <li>
+  <details>
+  <summary>Hardware Overview widget</summary>
+  <ul>
+    Monitor all sensors on your PC across components.
+    <img width="504" height="304" alt="image" src="https://github.com/user-attachments/assets/6acee876-d3bc-48bc-9edd-fdae8409ce55" />
+  </ul>
+  </details>
+  </li>
+</ul>
+</details>
+<details>
+<summary>Photo Album</summary>
+<ul>
+  <li>
+  <details>
+  <summary>Brightness Control</summary>
+  <ul>
+    Allows you to control the brightness of every connected monitor that supports DDC/CI.
+    <img width="503" height="304" alt="image" src="https://github.com/user-attachments/assets/fef9791e-bfee-402e-90ac-22858df67c8a" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Virtual Numpad</summary>
+  <ul>
+    A virtual numpad widget using the SendKeys API.
+    <img width="500" height="301" alt="image" src="https://github.com/user-attachments/assets/0528adcb-631f-4b84-b84b-0ad552cddd3f" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Now Playing</summary>
+  <ul>
+    A widget containing media controls for your currently active session. Displays timed lyrics that you can also see on the right.
+    <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/b89a714e-5684-45a3-b23e-d1688a8ae655" />
+    <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/701c97ec-5276-4a3b-b4df-837f6cf17c37" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Macro Widget</summary>
+  <ul>
+    A widget containing virtual F13-F24 keys using the SendKeys API with customizable icons.
+    <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/ad94f01e-6129-47bb-b1c4-2f2b1fea6f98" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Android Device</summary>
+  <ul>
+    A widget containing the battery of a connected Android device using ADB. Allows you to shut down or restart and change the screen brightness. Useful for using an Android device as a display with apps like Spacedesk.
+    <img width="502" height="302" alt="image" src="https://github.com/user-attachments/assets/af3ee732-376a-482b-aba7-a9193c1ac078" />
+  </ul>
+  </details>
+  </li>
+</ul>
+</details>
+<details>
+<summary>Twitch Moderation Widgets</summary>
+<ul>
+  Basically WebView wrappers for Twitch's moderation widgets.
+  <img width="3025" height="605" alt="image" src="https://github.com/user-attachments/assets/880c3ea4-8379-41fd-ba70-f849dd9c8408" />
+</ul>
+</details>
+<details>
+<summary>Adobe Shortcut Widgets</summary>
+<ul>
+  Simulate shortcuts from the main Adobe apps using the SendKeys API.
+  <img width="1507" height="603" alt="image" src="https://github.com/user-attachments/assets/c8f5f765-c952-4a90-84b9-40c5c7312535" />
+</ul>
+</details>
+<details>
+<summary>OBS Integration Widgets</summary>
+<ul>
+  <li>
+  <details>
+  <summary>Scene Selector</summary>
+  <ul>
+    Allows you to select the current scene on OBS. Requires WebSocket connection.
+    <img width="504" height="299" alt="image" src="https://github.com/user-attachments/assets/92073efd-83dd-45d0-9bb9-0348b5e5339e" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>OBS Controls</summary>
+  <ul>
+    Allows you to control OBS Streams, Clips, Replay Buffer & Screenshots and has a mute button which mutes all audio sources on the selected scene.
+    <img width="496" height="294" alt="image" src="https://github.com/user-attachments/assets/6d1eeec2-722e-4078-a9a4-51822c67fe98" />
+  </ul>
+  </details>
+  </li>
+  <li>
+  <details>
+  <summary>Statistics</summary>
+  <ul>
+    Allows you to see OBS' app statistics and stream & recording telemetry.
+    <img width="496" height="295" alt="image" src="https://github.com/user-attachments/assets/131af805-8bd3-4db2-9c12-9aa3cc4834b8" />
+    <img width="499" height="293" alt="image" src="https://github.com/user-attachments/assets/e1860644-66d1-4781-ab23-80278abdc8d4" />
+    <img width="500" height="298" alt="image" src="https://github.com/user-attachments/assets/9a4afe4a-3fd9-4421-9f9a-20f05f118056" />
+  </ul>
+  </details>
+  </li>
+</ul>
+</details>
 To add Widgets simply tap the + button and choose a widget. Currently there are the following Widgets available:
-### Date & Time
-![image](https://github.com/user-attachments/assets/4383fc7a-5570-4545-a347-e13844eaaf07)
-### Media controls with Spotify & Discord integration for synced lyrics
-![image](https://github.com/user-attachments/assets/75f54a8b-3f0c-4036-912c-28a46c43ccbb)
-### Launchpad
-![image](https://github.com/yagdev/Companion-Display/assets/53407061/cb25992c-2238-4bb5-867b-ec7f8a9d9539)
-### Image Slideshow
-![image](https://github.com/yagdev/Companion-Display/assets/53407061/e14409e6-f7e5-4a1a-a336-3590dcbae7bc)
-### Hardware Monitor
-![image](https://github.com/user-attachments/assets/83a89f41-4730-481b-9755-4be5897ecfdb)
-### Monitor brightness controls
-![image](https://github.com/yagdev/Companion-Display/assets/53407061/4e160220-1a50-4a8d-a45a-dcd213a1e008)
-### Android control widget with Battery info, Brightness controls and shutdown/restart controls
-![image](https://github.com/yagdev/Companion-Display/assets/53407061/c73dcff6-49eb-4225-806d-e7b806fff960)
-### Virtual Numpad
-![image](https://github.com/yagdev/Companion-Display/assets/53407061/9e3903c3-d212-4712-881f-6bad3804e206)
-### Notepad Widget
-![image](https://github.com/user-attachments/assets/95724ebe-532a-4175-8a2e-4a2432029d7a)
-### Volume Mixer
-![image](https://github.com/user-attachments/assets/0819c656-2127-49db-9075-56bb372b3ad8)
-### Twitch Integration Widgets
-![image](https://github.com/user-attachments/assets/34715216-18c2-4209-8e32-29898a9736d9)
-### OBS Integration Widgets
-![image](https://github.com/user-attachments/assets/6617f1c9-94b6-4d22-8f61-793f8f90585b)
 
 ## Pins
 · Pins allow you to keep selected Widgets on top while letting you scroll unpinned ones at the same time:
