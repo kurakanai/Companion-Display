@@ -52,7 +52,7 @@ jobs:
     - name: Build WinUI 3 Solution
       run: |
         dotnet restore CompanionDisplayWinUI/CompanionDisplayWinUI.sln -r win-x64
-        msbuild CompanionDisplayWinUI/CompanionDisplayWinUI.sln /p:Configuration=Release /p:Platform=x64
+        msbuild CompanionDisplayWinUI/CompanionDisplayWinUI.sln /p:Configuration=Release /p:Platform=x64 /p:PublishReadyToRun=false
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4
