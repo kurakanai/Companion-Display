@@ -252,54 +252,117 @@ To add Widgets simply tap the + button and choose a widget. Currently there are 
 </ul>
 </details>
 
+# Features
 ## Pins
 · Pins allow you to keep selected Widgets on top while letting you scroll unpinned ones at the same time:
-![image](https://github.com/user-attachments/assets/58dbbb64-e248-4fa5-8be6-b6c12d034fba)
-
+<p align="center">
+<img width="1917" height="1046" alt="image" src="https://github.com/user-attachments/assets/e74f21f2-db82-4023-bea7-cfbdd35fd1fa" />
+</p>
 ## Picture-in-Picture support
 · Companion Display allows you to open Widgets in Picture-in-Picture mode, allowing you to keep the Widget pinned above other apps too like so:
-![image](https://github.com/user-attachments/assets/bdd342be-694c-48d7-9cfe-e58114d4cc91)
-
-## Widget Configuration:
-· To customize Widgets, right click the widget and press Edit and the configuration page for the respective widget will pop up. Making changes in the Media Player widget requires a restart.
-
-## App Configuration
-· To configure Companion Display, press the settings button on the bottom left corner. Here you can find the available settings separated by category. A restart is recommended after making changes but not mandatory.
-![image](https://github.com/user-attachments/assets/9dbe0c72-1fa4-4a2a-841f-44859b9d731b)
-### Theme
-· This category allows you to change the color scheme, background, accent color and font used across the interface.
-### Behavior
-· This category allows you to toggle behaviors such as disabling focus takeover, hiding the Add Widget button, disabling the ability to reorder Widgets (Lock Layout) and launching on startup.
-### Browser
-· This category allows you to change your search engine and behavior when opening a new tab.
-### Integrations
-· Here you can manage integrations with Twitch and OBS.
-### Sleep Mode
-· Here you can change the Sleep Mode text opacity and color.
-### About & Updates
-· Here you can check the current version, toggle participation in the Beta Program, manage updates and donate.
-
+<p align="center">
+<img width="500" height="299" alt="image" src="https://github.com/user-attachments/assets/9e99bbfa-d28b-47d4-bbbf-6fa69c344b99" />
+</p>
+## Widget Configuration
+· To customize Widgets, right click the widget and press Edit and the configuration page for the respective widget will pop up.
 ## Lyric Viewer
 · By pressing the pop-out button in the Media Player Widget, you can access a pane with the lyrics of the currently playing song with synced lyrics and autoscroll.
-![image](https://github.com/user-attachments/assets/125c0431-e099-4562-9079-76516e0c65c2)
-
+<p align="center">
+<img width="786" height="444" alt="image" src="https://github.com/user-attachments/assets/f0854aa5-0792-43b5-823e-ea145d088c40" />
+</p>
 ## Browser
 · Companion Display has a built in browser based on WebView2. You can access it by pressing the Browser icon.
 · The Browser also includes Launchpad, a place to bookmark websites that can be edited by right-clicking an empty space while on a new tab.
 ![image](https://github.com/user-attachments/assets/9b3e8d6e-d3fe-4b98-86b0-3c824b819151)
-
-## Spotify
-· The Spotify tab is the web version of Spotify easily accessible.
-
+## Music Player
+· The Music Player tab is a WebView instance of your specified music provider easily accessible (Spotify by default).
 ## Sleep mode
 · Companion Display offers a customizeable sleep mode, which is a minimalistic interface that displays the time, date and current song info. You can customize the text color and opacity in Settings and it features built-in burn-in prevention for OLED displays.
 ![image](https://github.com/user-attachments/assets/b2c954df-bdb3-4d2a-8827-b82b9d193eab)
-
-## Updating
+## In-App Updates
 · Whenever an update is available, it will automatically show up in the home screen. If you wanna force an update, you can do so by going to the settings, About & Update and pressing Update.
 
+# App Configuration
+· To configure Companion Display, press the settings button on the bottom left corner. Here you can find the available settings separated by category.
+<p align="center">
+<img width="1244" height="773" alt="image" src="https://github.com/user-attachments/assets/fa78d5d4-4576-47ad-90b0-c1093abe58f2" />
+</p>
+## Settings Categories
+<li>
+<details>
+<summary>Theme</summary>
+<ul>
+  This category allows you to change the color scheme, background, accent color and font used across the interface.
+</ul>
+</details>
+</li>
+<li>
+<details>
+<summary>Behavior</summary>
+<ul>
+  This category allows you to toggle behaviors such as disabling focus takeover, hiding the Add Widget button, disabling the ability to reorder Widgets (Lock Layout) and launching on startup.
+</ul>
+</details>
+</li>
+<li>
+<details>
+<summary>Browser</summary>
+<ul>
+  This category allows you to change your search engine and behavior when opening a new tab.
+</ul>
+</details>
+</li>
+<li>
+<details>
+<summary>Music Player</summary>
+<ul>
+  This category allows you to change the music player's provider's link.
+</ul>
+</details>
+</li>
+<li>
+<details>
+<summary>Integrations</summary>
+<ul>
+  Here you can manage integrations with Twitch and OBS.
+</ul>
+</details>
+</li>
+<li>
+<details>
+<summary>Theme</summary>
+<ul>
+  This category allows you to change the color scheme, background, accent color and font used across the interface.
+</ul>
+</details>
+</li>
+<li>
+<details>
+<summary>Privacy</summary>
+<ul>
+  This category allows you to erase browsing data and toggle Discord's integration.
+</ul>
+</details>
+</li>
+<li>
+<details>
+<summary>Sleep Mode</summary>
+<ul>
+  Here you can change the Sleep Mode text opacity and color.
+</ul>
+</details>
+</li>
+<li>
+<details>
+<summary>About & Updates</summary>
+<ul>
+  Here you can check the current version, toggle participation in the Beta Program, manage updates, backups and donate.
+</ul>
+</details>
+</li>
+
 ## Special note regarding the Hardware Monitor
-· To use the Hardware Monitor, you have to run the app using admin rights, however you won't be able to reorder widgets in admin mode because of a WinUI bug regarding Drag & Drop. This is intended behavior because allowing Drag & Drop operations would cause an app crash. This is a known bug by Microsoft also.
+· To access certain sensors in the Hardware Monitor, you have to run the app using admin rights, however you won't be able to reorder widgets in admin mode because of a WinUI bug regarding Drag & Drop. This is intended behavior because allowing Drag & Drop operations would cause an app crash. This bug is also known by Microsoft.
 
 ## Reporting bugs
-· To report bugs, it's really useful if you can use the source code and see what line causes a crash using Visual Studio.
+· To report bugs, it's really useful if you can use the source code and see what line causes a crash using Visual Studio. Most crashes (those that aren't low level) will prompt a recovery window that shows the detected crash. If possible attach the text included (it's selectable).
