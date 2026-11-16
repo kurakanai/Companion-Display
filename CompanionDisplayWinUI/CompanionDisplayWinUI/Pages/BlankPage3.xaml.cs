@@ -31,19 +31,6 @@ namespace CompanionDisplayWinUI
             {
                 AppIconImg.Source = new BitmapImage(new Uri("https://i.imgur.com/ng8AhkJ.jpeg"));
             }
-            if (Globals.IgnoreUpdates)
-            {
-                await MaintenanceAPI.CheckUpdate();
-            }
-            if (Globals.IsUpdateAvailable)
-            {
-                UpdateBtn.Content = AppStrings.updateUpdate;
-            }
-            else
-            {
-                UpdateBtn.Content = AppStrings.updateUpToDate;
-            }
-            UpdateBtn.IsEnabled = Globals.IsUpdateAvailable;
             ColorSchemeSelect.SelectedIndex = Globals.ColorSchemeSelect;
             AccentSelect.SelectedIndex = Globals.InjectCustomAccent;
             AccentColorPicker.Color = Color.FromArgb(255, (byte)Globals.ColorSchemeSelectAccentR, (byte)Globals.ColorSchemeSelectAccentG, (byte)Globals.ColorSchemeSelectAccentB);
@@ -92,6 +79,12 @@ namespace CompanionDisplayWinUI
             ScaleSlider.Value = Globals.scale;
             MusicPlayerSelectedCust.Text = Globals.MusicProvider.ToString();
             LoadFinish = true;
+            if (Globals.IgnoreUpdates)
+            {
+                await MaintenanceAPI.CheckUpdate();
+            }
+            UpdateBtn.IsEnabled = Globals.IsUpdateAvailable;
+            UpdateBtn.Content = Globals.IsUpdateAvailable ? AppStrings.updateUpdate : AppStrings.updateUpToDate;
         }
         private void ProcessShit(NavigationView sender, object args)
         {
@@ -233,12 +226,12 @@ namespace CompanionDisplayWinUI
             await Launcher.LaunchUriAsync(new Uri(AppStrings.devGithubUrl));
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
         {
             UpdateBtn.IsEnabled = false;
             UpdateLocalBtn.IsEnabled = false;
             UpdateBtn.Content = AppStrings.updateUpdating;
-            MaintenanceAPI.PerformUpdate(true);
+            await MaintenanceAPI.PerformUpdateAsync(true);
         }
 
         private void Button_Click_4(object sender, RoutedEventArgs e)
@@ -466,11 +459,11 @@ namespace CompanionDisplayWinUI
             ConfigAPI.Save_Settings();
         }
 
-        private void Button_Click_6(object sender, RoutedEventArgs e)
+        private async void Button_Click_6(object sender, RoutedEventArgs e)
         {
             UpdateBtn.IsEnabled = false;
             UpdateLocalBtn.IsEnabled = false;
-            MaintenanceAPI.PerformUpdate(false);
+            await MaintenanceAPI.PerformUpdateAsync(false);
             UpdateBtn.IsEnabled = Globals.IsUpdateAvailable;
             UpdateLocalBtn.IsEnabled = true;
         }

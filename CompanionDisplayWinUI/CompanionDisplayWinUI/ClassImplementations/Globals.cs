@@ -9,16 +9,23 @@ namespace CompanionDisplayWinUI.ClassImplementations
     {
         // Runtime variables
         public static bool IsAdmin = false;
-        public static string Version = "26.10";
-        public static bool isConfidential = false; // this is nothing too special, just disables update warnings for developer builds for sanity purposes :p
+        public static string Version = "26.11";
         public static ObsControls obsControls = new();
         public static SleepTimer sleepTimer = new();
         public static ServerComponent serverComponent = new();
         public static CoreWebView2 CoreWebView2 = null;
-        public static string UpdateZip = "https://www.dropbox.com/scl/fi/3pmay1a18v9wdi6y9ridh/release.zip?rlkey=9sbehxn68p4i18geb5acbe6y3&dl=1";
-        public static string UpdateString = "https://www.dropbox.com/scl/fi/eftx6ql3107c1j0gywb90/release.txt?rlkey=lylcncrgnhtw2q3w1l439uc45&dl=1";
-        public static string UpdateZipBeta = "https://www.dropbox.com/scl/fi/8h4099g1nstwe1f208so2/release.zip?rlkey=82gxpdb44ifafe26kn0pt3of4&st=neai1gxx&dl=1";
-        public static string UpdateStringBeta = "https://www.dropbox.com/scl/fi/u2kkpucxvyg49467gje7b/release.txt?rlkey=1mvr3uz4e9wmhefhkrz8x6cjy&st=s97sjllw&dl=1";
+        public static string UpdateZip = "https://github.com/kurakanai/Companion-Display/releases/latest/download/release.zip";
+        public static string UpdateZipSig = "https://github.com/kurakanai/Companion-Display/releases/latest/download/release.zip.sig";
+        public static string UpdateString = "https://github.com/kurakanai/Companion-Display/releases/latest/download/release.txt";
+        public static string UpdateZipBeta = "https://github.com/kurakanai/Companion-Display/releases/download/prerelease_latest/release.zip";
+        public static string UpdateZipSigBeta = "https://github.com/kurakanai/Companion-Display/releases/download/prerelease_latest/release.zip.sig";
+        public static string UpdateStringBeta = "https://github.com/kurakanai/Companion-Display/releases/download/prerelease_latest/release.txt";
+        public static string PublicKeyPem = """
+        -----BEGIN PUBLIC KEY-----
+        MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEVsK3QUj2Dpn6mS9YINAZ5O7S5PH4
+        Fpz0T6leOyqjxhIXWZ5SpoP7UfTti7qJLOBx5x/2Hfa0EVRP75fQ6akr3Q==
+        -----END PUBLIC KEY-----
+        """;
         public static string DiscordID = "1155340829485961277";
         public static string obsIP = "ws://127.0.0.1:4455";
         public static string obsPass = "";

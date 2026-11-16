@@ -334,7 +334,7 @@ namespace CompanionDisplayWinUI
                 try
                 {
                     await MaintenanceAPI.CheckUpdate();
-                    if (Globals.IsUpdateAvailable && !Globals.isConfidential)
+                    if (Globals.IsUpdateAvailable)
                     {
                         DispatcherQueue.TryEnqueue(() =>
                         {

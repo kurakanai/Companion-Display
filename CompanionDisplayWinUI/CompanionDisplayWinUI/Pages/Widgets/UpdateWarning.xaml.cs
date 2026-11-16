@@ -24,30 +24,37 @@ namespace CompanionDisplayWinUI
         }
         private async void UpdateUI()
         {
-            using HttpClient client = new();
-            string version, reply;
-            if (Globals.IsBetaProgram)
-            {
-                reply = await client.GetStringAsync("https://www.dropbox.com/scl/fi/hr6tiqeazmkzllsz9y53z/changelog.txt?rlkey=s40umhmz174z7tok6guelylnu&st=a68s40wb&dl=1");
-                version = await client.GetStringAsync(Globals.UpdateStringBeta);
+            try{
+                using HttpClient client = new();
+                string version, reply;
+                if (Globals.IsBetaProgram)
+                {
+                    reply = await client.GetStringAsync("https://github.com/kurakanai/Companion-Display/releases/download/prerelease_latest/changelog.txt");
+                    version = await client.GetStringAsync(Globals.UpdateStringBeta);
+                }
+                else
+                {
+                    reply = await client.GetStringAsync("https://github.com/kurakanai/Companion-Display/releases/latest/download/changelog.txt");
+                    version = await client.GetStringAsync(Globals.UpdateString);
+                }
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    VersionName.Text = AppStrings.UpdateVersion(version);
+                    ChangelogBlock.Text = reply;
+                });
             }
-            else
-            {
-                reply = await client.GetStringAsync("https://www.dropbox.com/scl/fi/f8nu0pn6leiz646o1ebce/changelog.txt?rlkey=fd6srkx7xm3wexk1eevglgs8c&st=mtnphh0r&dl=1");
-                version = await client.GetStringAsync(Globals.UpdateString);
+            catch{
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    CommonlyAccessedInstances.BasicGridView.Items.Remove(this);
+                });
             }
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                VersionName.Text = AppStrings.UpdateVersion(version);
-                ChangelogBlock.Text = reply;
-            });
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            using HttpClient client = new();
             UpdateBtn.IsEnabled = false;
             UpdateBtn.Content = AppStrings.updateUpdating;
-            MaintenanceAPI.PerformUpdate(true);
+            await MaintenanceAPI.PerformUpdateAsync(true);
         }
     }
 }

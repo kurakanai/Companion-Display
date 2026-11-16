@@ -42,7 +42,7 @@ namespace CompanionDisplayWinUI
             }
         }
 
-        private void Button_Tapped_1(object sender, TappedRoutedEventArgs e)
+        private async void Button_Tapped_1(object sender, TappedRoutedEventArgs e)
         {
              try{
                 ((Button)sender).Content = "Attempting Online Update...";
@@ -51,7 +51,7 @@ namespace CompanionDisplayWinUI
                 {
                     File.Delete(Globals.BlackBoxFile);
                 }
-                MaintenanceAPI.PerformUpdate(true);
+                await MaintenanceAPI.PerformUpdateAsync(true);
             }
             catch {
                 ((Button)sender).Content = "Online Update Failed!";
@@ -59,7 +59,7 @@ namespace CompanionDisplayWinUI
             }
         }
 
-        private void Button_Tapped_2(object sender, TappedRoutedEventArgs e)
+        private async void Button_Tapped_2(object sender, TappedRoutedEventArgs e)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace CompanionDisplayWinUI
                 {
                     File.Delete(Globals.BlackBoxFile);
                 }
-                MaintenanceAPI.PerformUpdate(false);
+                await MaintenanceAPI.PerformUpdateAsync(false);
                 MainStackPanel.IsHitTestVisible = true;
                 ((Button)sender).Content = "Attempt Local Reinstall";
             }
