@@ -374,3 +374,5 @@ To add Widgets simply tap the + button and choose a widget. Currently there are 
 
 ## Reporting bugs
 · To report bugs, it's really useful if you can use the source code and see what line causes a crash using Visual Studio. Most crashes (those that aren't low level) will prompt a recovery window that shows the detected crash. If possible attach the text included (it's selectable).
+
+This readme was last updated on **16/11/2026** and reflects version **26.10**.
