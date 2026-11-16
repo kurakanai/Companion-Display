@@ -9,7 +9,7 @@ namespace CompanionDisplayWinUI.ClassImplementations
     {
         // Runtime variables
         public static bool IsAdmin = false;
-        public static string Version = "26.11";
+        public static string Version = "26.11.1";
         public static ObsControls obsControls = new();
         public static SleepTimer sleepTimer = new();
         public static ServerComponent serverComponent = new();
