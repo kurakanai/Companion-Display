@@ -25,7 +25,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     Allows you to view and control the current audio sessions across all playback devices.
     <p align="center">
-    <img align="left" width="501" height="301" alt="image" src="https://github.com/user-attachments/assets/2c811e36-8881-4383-9324-7c89ae8023cd" />
+    <img width="501" height="301" alt="image" src="https://github.com/user-attachments/assets/2c811e36-8881-4383-9324-7c89ae8023cd" />
     </p>
   </ul>
   </details>
@@ -47,13 +47,13 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     Shows you the current time and date, a calendar when on the right and a customizable quick settings panel on the left.
     <p align="center">
-    <img align="left" width="504" height="303" alt="image" src="https://github.com/user-attachments/assets/19bc66d5-e6f4-4350-b811-0e4433fadbc5" />
+    <img width="504" height="303" alt="image" src="https://github.com/user-attachments/assets/19bc66d5-e6f4-4350-b811-0e4433fadbc5" />
     </p>
     <p align="center">
-    <img align="left" width="501" height="300" alt="image" src="https://github.com/user-attachments/assets/105ad3e2-3366-402a-8d20-c3717e6c0829" />
+    <img width="501" height="300" alt="image" src="https://github.com/user-attachments/assets/105ad3e2-3366-402a-8d20-c3717e6c0829" />
     </p>
     <p align="center">
-    <img align="left" width="501" height="304" alt="image" src="https://github.com/user-attachments/assets/c05e17e5-0b25-4b94-9b5c-fb33c228c505" />
+    <img width="501" height="304" alt="image" src="https://github.com/user-attachments/assets/c05e17e5-0b25-4b94-9b5c-fb33c228c505" />
     </p>
   </ul>
   </details>
@@ -64,7 +64,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     A widget containing a WebView from a specified configurable URL.
     <p align="center">
-    <img align="left" width="502" height="303" alt="image" src="https://github.com/user-attachments/assets/26e84e66-5c23-4f79-97ef-0d8e25c69151" />
+    <img width="502" height="303" alt="image" src="https://github.com/user-attachments/assets/26e84e66-5c23-4f79-97ef-0d8e25c69151" />
     </p>
   </ul>
   </details>
@@ -75,7 +75,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     Allows you to stack other widgets in a single scrollable widget.
     <p align="center">
-    <img align="left" width="502" height="299" alt="image" src="https://github.com/user-attachments/assets/fdd6b18e-5fb4-4359-a1e1-f6e8e238c0df" />
+    <img width="502" height="299" alt="image" src="https://github.com/user-attachments/assets/fdd6b18e-5fb4-4359-a1e1-f6e8e238c0df" />
     </p>
   </ul>
   </details>
@@ -86,7 +86,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     A widget with as many shortcuts as you want
     <p align="center">
-    <img align="left" width="502" height="301" alt="image" src="https://github.com/user-attachments/assets/7bdb25d3-2130-42cc-bb67-cfe180e048a2" />
+    <img width="502" height="301" alt="image" src="https://github.com/user-attachments/assets/7bdb25d3-2130-42cc-bb67-cfe180e048a2" />
     </p>
   </ul>
   </details>
@@ -102,7 +102,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     A widget containing a single photo/GIF or a whole folder of them. Can auto-scroll if enabled.
     <p align="center">
-    <img align="left" width="504" height="305" alt="image" src="https://github.com/user-attachments/assets/6ed4e819-dc4e-4058-b86f-9669338f6840" />
+    <img width="504" height="305" alt="image" src="https://github.com/user-attachments/assets/6ed4e819-dc4e-4058-b86f-9669338f6840" />
     </p>
   </ul>
   </details>
@@ -118,7 +118,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     Monitor all sensors on your PC across components.
     <p align="center">
-    <img align="left" width="504" height="304" alt="image" src="https://github.com/user-attachments/assets/6acee876-d3bc-48bc-9edd-fdae8409ce55" />
+    <img width="504" height="304" alt="image" src="https://github.com/user-attachments/assets/6acee876-d3bc-48bc-9edd-fdae8409ce55" />
     </p>
   </ul>
   </details>
@@ -134,7 +134,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     Allows you to control the brightness of every connected monitor that supports DDC/CI.
     <p align="center">
-    <img align="left" width="503" height="304" alt="image" src="https://github.com/user-attachments/assets/fef9791e-bfee-402e-90ac-22858df67c8a" />
+    <img width="503" height="304" alt="image" src="https://github.com/user-attachments/assets/fef9791e-bfee-402e-90ac-22858df67c8a" />
     </p>
   </ul>
   </details>
@@ -145,7 +145,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     A virtual numpad widget using the SendKeys API.
     <p align="center">
-    <img align="left" width="500" height="301" alt="image" src="https://github.com/user-attachments/assets/0528adcb-631f-4b84-b84b-0ad552cddd3f" />
+    <img width="500" height="301" alt="image" src="https://github.com/user-attachments/assets/0528adcb-631f-4b84-b84b-0ad552cddd3f" />
     </p>
   </ul>
   </details>
@@ -156,10 +156,10 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     A widget containing media controls for your currently active session. Displays timed lyrics that you can also see on the right.
     <p align="center">
-    <img align="left" width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/b89a714e-5684-45a3-b23e-d1688a8ae655" />
+    <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/b89a714e-5684-45a3-b23e-d1688a8ae655" />
     </p>
     <p align="center">
-    <img align="left" width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/701c97ec-5276-4a3b-b4df-837f6cf17c37" />
+    <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/701c97ec-5276-4a3b-b4df-837f6cf17c37" />
     </p>
   </ul>
   </details>
@@ -170,7 +170,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     A widget containing virtual F13-F24 keys using the SendKeys API with customizable icons.
     <p align="center">
-    <img align="left" width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/ad94f01e-6129-47bb-b1c4-2f2b1fea6f98" />
+    <img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/ad94f01e-6129-47bb-b1c4-2f2b1fea6f98" />
     </p>
   </ul>
   </details>
@@ -181,7 +181,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     A widget containing the battery of a connected Android device using ADB. Allows you to shut down or restart and change the screen brightness. Useful for using an Android device as a display with apps like Spacedesk.
     <p align="center">
-    <img align="left" width="502" height="302" alt="image" src="https://github.com/user-attachments/assets/af3ee732-376a-482b-aba7-a9193c1ac078" />
+    <img width="502" height="302" alt="image" src="https://github.com/user-attachments/assets/af3ee732-376a-482b-aba7-a9193c1ac078" />
     </p>
   </ul>
   </details>
@@ -193,7 +193,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
 <ul>
   Basically WebView wrappers for Twitch's moderation widgets.
   <p align="center">
-  <img align="left" width="3025" height="605" alt="image" src="https://github.com/user-attachments/assets/880c3ea4-8379-41fd-ba70-f849dd9c8408" />
+  <img width="3025" height="605" alt="image" src="https://github.com/user-attachments/assets/880c3ea4-8379-41fd-ba70-f849dd9c8408" />
   </p>
 </ul>
 </details>
@@ -202,7 +202,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
 <ul>
   Simulate shortcuts from the main Adobe apps using the SendKeys API.
   <p align="center">
-  <img align="left" width="1507" height="603" alt="image" src="https://github.com/user-attachments/assets/c8f5f765-c952-4a90-84b9-40c5c7312535" />
+  <img width="1507" height="603" alt="image" src="https://github.com/user-attachments/assets/c8f5f765-c952-4a90-84b9-40c5c7312535" />
   </p>
 </ul>
 </details>
@@ -215,7 +215,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     Allows you to select the current scene on OBS. Requires WebSocket connection.
     <p align="center">
-    <img align="left" width="504" height="299" alt="image" src="https://github.com/user-attachments/assets/92073efd-83dd-45d0-9bb9-0348b5e5339e" />
+    <img width="504" height="299" alt="image" src="https://github.com/user-attachments/assets/92073efd-83dd-45d0-9bb9-0348b5e5339e" />
     </p>
   </ul>
   </details>
@@ -226,7 +226,7 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     Allows you to control OBS Streams, Clips, Replay Buffer & Screenshots and has a mute button which mutes all audio sources on the selected scene.
     <p align="center">
-    <img align="left" width="496" height="294" alt="image" src="https://github.com/user-attachments/assets/6d1eeec2-722e-4078-a9a4-51822c67fe98" />
+    <img width="496" height="294" alt="image" src="https://github.com/user-attachments/assets/6d1eeec2-722e-4078-a9a4-51822c67fe98" />
     </p>
   </ul>
   </details>
@@ -237,13 +237,13 @@ Another thing that does not work on Windows 10 builds is the Mica Backdrop.
   <ul>
     Allows you to see OBS' app statistics and stream & recording telemetry.
     <p align="center">
-    <img align="left" width="496" height="295" alt="image" src="https://github.com/user-attachments/assets/131af805-8bd3-4db2-9c12-9aa3cc4834b8" />
+    <img width="496" height="295" alt="image" src="https://github.com/user-attachments/assets/131af805-8bd3-4db2-9c12-9aa3cc4834b8" />
     </p>
     <p align="center">
-    <img align="left" width="499" height="293" alt="image" src="https://github.com/user-attachments/assets/e1860644-66d1-4781-ab23-80278abdc8d4" />
+    <img width="499" height="293" alt="image" src="https://github.com/user-attachments/assets/e1860644-66d1-4781-ab23-80278abdc8d4" />
     </p>
     <p align="center">
-    <img align="left" width="500" height="298" alt="image" src="https://github.com/user-attachments/assets/9a4afe4a-3fd9-4421-9f9a-20f05f118056" />
+    <img width="500" height="298" alt="image" src="https://github.com/user-attachments/assets/9a4afe4a-3fd9-4421-9f9a-20f05f118056" />
     </p>
   </ul>
   </details>
